@@ -7,31 +7,27 @@
 
 <h2>Details</h2>
 
-<div class="card">
-    <div class="card-body">
-        <h4 class="card-title">Thông tin lớp</h4>
-        <div class="table-responsive">
-            <table class="product-info-table m-t-20">
-                <tbody>
-                    <tr>
-                        <td>Mã lớp:</td>
-                        <td class="text-dark font-weight-semibold">@Html.DisplayFor(model => model.MaLop)</td>
-                    </tr>
-                    <tr>
-                        <td>Tên lớp:</td>
-                        <td>@Html.DisplayFor(model => model.TenLop)</td>
-                    </tr>
-                    <!--không đụng-->
-                    <tr>
-                        <td>Status:</td>
-                        <td>
-                            <span class="badge badge-pill badge-cyan">In Stock</span>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
+<div>
+    <h4>LOP</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TenLop)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TenLop)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LopChuyen)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LopChuyen)
+        </dd>
+
+    </dl>
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.MaLop }) |

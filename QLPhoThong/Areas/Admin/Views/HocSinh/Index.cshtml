@@ -1,85 +1,92 @@
-﻿@model PagedList.IPagedList<QLPhoThong.Models.HOCSINH>
-@using PagedList.Mvc;
+﻿@model IEnumerable<QLPhoThong.Models.HOCSINH>
+
 @{
     ViewBag.Title = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
+<script>
+    $(function () {
+        $('.datepicker-input').datepicker();
+    });
+</script>
 <h2>Index</h2>
 
 <p>
-    sads
+    @Html.ActionLink("Create New", "Create")
 </p>
 <p>
-    @Html.ActionLink("Thêm mới Học Sinh", "Create", null, new { @class = "btn btn-warning btn-tone m-r-5" })
+    @Html.ActionLink("Create New", "Create")
 </p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TenHS)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NgaySinh)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DiaChi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SDT)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GioiTinh)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TrangThai)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Thumb)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LOP.TenLop)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DanToc.TenDanToc)
+        </th>
+        <th></th>
+    </tr>
 
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TenHS)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NgaySinh)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DiaChi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SDT)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GioiTinh)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TrangThai)
+            </td>
+            <td>
+                <img src="~/Areas/Admin/Images/ImagesStudent/@item.Thumb" width="80px" height="50px" />
+            </td>
 
-<div class="table-responsive">
-    <table class="table">
+            <td>
+                @Html.DisplayFor(modelItem => item.LOP.TenLop)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DanToc.TenDanToc)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.MaHS }) |
+                @Html.ActionLink("Details", "Details", new { id = item.MaHS }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.MaHS })
+            </td>
+        </tr>
+    }
 
-        <thead>
-            <tr>
-                <th scope="col">Mã Học Sinh</th>
-                <th scope="col">Tên Học Sinh</th>
-                <th scope="col">Ngày Sinh</th>
-                <th scope="col">Số điện thoại</th>
-                <th scope="col">Địa Chỉ</th>
-                <th scope="col">Lớp</th>
-                <th scope="col">#</th>
-            </tr>
-        </thead>
-        <tbody>
-            @if (Model != null)
-            {
-                foreach (var item in Model)
-                {
-                    <tr>
-                        <th scope="row">@Html.DisplayFor(modelItem => item.MaHS)</th>
-                        <td>@Html.DisplayFor(modelItem => item.TenHS)</td>
-                        <td>@Html.DisplayFor(modelItem => item.NgaySinh)</td>
-                        <td>@Html.DisplayFor(modelItem => item.SDT)</td>
-                        <td>@Html.DisplayFor(modelItem => item.DiaChi)</td>
-                        <td>@Html.DisplayFor(modelItem => item.LOP.TenLop)</td>
-
-                        <td>
-                            @Html.ActionLink("Sửa", "Edit",
-                            routeValues: new { id = item.MaHS },
-                            htmlAttributes: new { @class = "btn btn-primary btn-tone m-r-5" }) |
-
-                            @Html.ActionLink("Xem", "Details",
-                            routeValues: new { id = item.MaHS },
-                            htmlAttributes: new { @class = "btn btn-info btn-tone m-r-5" }) |
-
-                            @Html.ActionLink("Xóa", "Delete",
-                            routeValues: new { id = item.MaHS },
-                            htmlAttributes: new { @class = "btn btn-danger btn-tone m-r-5" })
-
-                        </td>
-                    </tr>
-                }
-            }
-
-
-        </tbody>
-    </table>
-</div>
-<br />
-<!-- Thêm mã phân trang -->
-<br />
-<div class="row">
-    <div class="col-md-6 col-lg-6 col-xs-6 col-sm-6">
-        @using (Html.BeginForm("Index", "HocSinh", FormMethod.Get))
-        {
-            <p>
-                Kích thước trang: @Html.DropDownList("size", (List<SelectListItem>)ViewBag.size, new { @onchange = "this.form.submit();" })
-            </p>
-        }
-    </div>
-    <div class="col-md-6 col-lg-6 col-xs-6 col-sm-6 text-right">
-        Trang: @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
-    </div>
-</div>
-
-@Html.PagedListPager(Model, page => Url.Action("Index", new { page, size = ViewBag.currentSize }))
-<!-- Kết thúc -->
+</table>

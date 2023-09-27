@@ -10,9 +10,10 @@
     <link rel="shortcut icon" href="~/Areas/Style/assets/images/logo/favicon.png">
 
     <!-- page css -->
+    <link href="~/Areas/Style/assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css" rel="stylesheet" />
+    <link href="~/Areas/Style/assets/vendors/select2/select2.css" rel="stylesheet" />
     <!-- Core css -->
     <link href="~/Areas/Style/assets/css/app.min.css" rel="stylesheet">
-
 </head>
 
 <body>
@@ -206,34 +207,13 @@
     <!-- page js -->
     <script src="~/Areas/Style/assets/vendors/chartjs/Chart.min.js"></script>
     <script src="~/Areas/Style/assets/js/pages/dashboard-default.js"></script>
+    <script src="~/Areas/Style/assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+    <script src="~/Areas/Style/assets/vendors/quill/quill.min.js"></script>
+    <script src="~/Areas/Style/assets/js/pages/form-elements.js"></script>
+    <script src="~/Areas/Style/assets/vendors/select2/select2.min.js"></script>
 
     <!-- Core JS -->
     <script src="~/Areas/Style/assets/js/app.min.js"></script>
-
-    @using (Html.BeginForm())
-    {
-        <link href="~/style/jquery.1.13.2/jquery-ui.min.css" rel="stylesheet" />
-        @section scripts
-        {
-
-            <script src="~/Scripts/jquery-ui-1.13.2.min.js"></script>
-            <script>
-                $(funtion())
-                {
-                    $("datepicker").datepicker ({
-                        dateFormat: "dd-mm-yy",
-                        changMonth: true,
-                        changeYear: true,
-                        yearRange: "2023",
-                        minDate: new Date(2023, 0, 1),
-                        showOn: "both",
-                        buttonText: "<i class='fa fa-calendar'></i>"
-                    });
-                };
-            </script>
-        }
-    }
-
 
 </body>
 

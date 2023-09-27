@@ -23,7 +23,7 @@ namespace QLPhoThong.Models
     
         public virtual DIEM DIEM { get; set; }
         public virtual HANHKIEM HANHKIEM { get; set; }
-        public virtual HOCSINH HOCSINH { get; set; }
         public virtual KHAOSATDANHGIA KHAOSATDANHGIA { get; set; }
+        public virtual HOCSINH HOCSINH { get; set; }
     }
 }

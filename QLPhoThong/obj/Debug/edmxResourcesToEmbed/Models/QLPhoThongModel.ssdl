@@ -28,6 +28,13 @@
     <Property Name="MaDMKSDG" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="TenDMKSDG" Type="nvarchar" MaxLength="1000" Nullable="false" />
   </EntityType>
+  <EntityType Name="DanToc">
+    <Key>
+      <PropertyRef Name="idDanToc" />
+    </Key>
+    <Property Name="idDanToc" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TenDanToc" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
   <EntityType Name="DIEM">
     <Key>
       <PropertyRef Name="MaBD" />
@@ -48,10 +55,15 @@
     </Key>
     <Property Name="MaGV" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="TenGV" Type="nvarchar" MaxLength="100" Nullable="false" />
-    <Property Name="NgaySinh" Type="datetime" Nullable="false" />
+    <Property Name="NgaySinh" Type="date" Nullable="false" />
     <Property Name="SDT" Type="char" MaxLength="10" Nullable="false" />
+    <Property Name="GioiTinh" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Gmail" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="Diachi" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="MaMH" Type="int" Nullable="false" />
+    <Property Name="TrangThai" Type="nvarchar" MaxLength="50" />
+    <Property Name="idDanToc" Type="int" Nullable="false" />
+    <Property Name="Thumb" Type="image" />
   </EntityType>
   <EntityType Name="HANHKIEM">
     <Key>
@@ -76,10 +88,14 @@
     </Key>
     <Property Name="MaHS" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="TenHS" Type="nvarchar" MaxLength="100" Nullable="false" />
-    <Property Name="NgaySinh" Type="datetime" Nullable="false" />
+    <Property Name="NgaySinh" Type="date" Nullable="false" />
     <Property Name="DiaChi" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="SDT" Type="char" MaxLength="12" Nullable="false" />
+    <Property Name="GioiTinh" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="MaLop" Type="int" Nullable="false" />
+    <Property Name="TrangThai" Type="nvarchar" MaxLength="50" />
+    <Property Name="idDanToc" Type="int" Nullable="false" />
+    <Property Name="Thumb" Type="nvarchar" MaxLength="200" />
   </EntityType>
   <EntityType Name="KHAOSATDANHGIA">
     <Key>
@@ -98,7 +114,9 @@
       <PropertyRef Name="MaLop" />
     </Key>
     <Property Name="MaLop" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="TenLop" Type="char" MaxLength="10" />
+    <Property Name="TenLop" Type="char" MaxLength="10" Nullable="false" />
+    <Property Name="LopChuyen" Type="bit" Nullable="false" />
+    <Property Name="TenLopChuyen" Type="nvarchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="LOPCHUNHIEM">
     <Key>
@@ -247,6 +265,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_GIAOVIEN_DanToc">
+    <End Role="DanToc" Type="Self.DanToc" Multiplicity="1" />
+    <End Role="GIAOVIEN" Type="Self.GIAOVIEN" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DanToc">
+        <PropertyRef Name="idDanToc" />
+      </Principal>
+      <Dependent Role="GIAOVIEN">
+        <PropertyRef Name="idDanToc" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_GIAOVIEN_MONHOC">
     <End Role="MONHOC" Type="Self.MONHOC" Multiplicity="1" />
     <End Role="GIAOVIEN" Type="Self.GIAOVIEN" Multiplicity="*" />
@@ -268,6 +298,18 @@
       </Principal>
       <Dependent Role="HANHKIEM">
         <PropertyRef Name="MaDMHK" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_HOCSINH_DanToc">
+    <End Role="DanToc" Type="Self.DanToc" Multiplicity="1" />
+    <End Role="HOCSINH" Type="Self.HOCSINH" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DanToc">
+        <PropertyRef Name="idDanToc" />
+      </Principal>
+      <Dependent Role="HOCSINH">
+        <PropertyRef Name="idDanToc" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -443,6 +485,7 @@
     <EntitySet Name="DANHHIEU" EntityType="Self.DANHHIEU" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="DANHMUCHANHKIEM" EntityType="Self.DANHMUCHANHKIEM" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="DANHMUCKHAOSATDANHGIA" EntityType="Self.DANHMUCKHAOSATDANHGIA" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DanToc" EntityType="Self.DanToc" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="DIEM" EntityType="Self.DIEM" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="GIAOVIEN" EntityType="Self.GIAOVIEN" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="HANHKIEM" EntityType="Self.HANHKIEM" Schema="dbo" store:Type="Tables" />
@@ -485,6 +528,10 @@
       <End Role="MONHOC" EntitySet="MONHOC" />
       <End Role="DIEM" EntitySet="DIEM" />
     </AssociationSet>
+    <AssociationSet Name="FK_GIAOVIEN_DanToc" Association="Self.FK_GIAOVIEN_DanToc">
+      <End Role="DanToc" EntitySet="DanToc" />
+      <End Role="GIAOVIEN" EntitySet="GIAOVIEN" />
+    </AssociationSet>
     <AssociationSet Name="FK_GIAOVIEN_MONHOC" Association="Self.FK_GIAOVIEN_MONHOC">
       <End Role="MONHOC" EntitySet="MONHOC" />
       <End Role="GIAOVIEN" EntitySet="GIAOVIEN" />
@@ -492,6 +539,10 @@
     <AssociationSet Name="FK_HANHKIEM_DANHMUCHANHKIEM" Association="Self.FK_HANHKIEM_DANHMUCHANHKIEM">
       <End Role="DANHMUCHANHKIEM" EntitySet="DANHMUCHANHKIEM" />
       <End Role="HANHKIEM" EntitySet="HANHKIEM" />
+    </AssociationSet>
+    <AssociationSet Name="FK_HOCSINH_DanToc" Association="Self.FK_HOCSINH_DanToc">
+      <End Role="DanToc" EntitySet="DanToc" />
+      <End Role="HOCSINH" EntitySet="HOCSINH" />
     </AssociationSet>
     <AssociationSet Name="FK_HOCSINH_LOP" Association="Self.FK_HOCSINH_LOP">
       <End Role="LOP" EntitySet="LOP" />

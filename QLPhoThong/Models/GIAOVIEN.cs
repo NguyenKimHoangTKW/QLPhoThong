@@ -29,6 +29,11 @@ namespace QLPhoThong.Models
         public string SDT { get; set; }
         public string Diachi { get; set; }
         public int MaMH { get; set; }
+        public string GioiTinh { get; set; }
+        public string Gmail { get; set; }
+        public string TrangThai { get; set; }
+        public int idDanToc { get; set; }
+        public byte[] Thumb { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<KHAOSATDANHGIA> KHAOSATDANHGIAs { get; set; }
@@ -39,5 +44,6 @@ namespace QLPhoThong.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<User> Users { get; set; }
         public virtual MONHOC MONHOC { get; set; }
+        public virtual DanToc DanToc { get; set; }
     }
 }
