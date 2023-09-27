@@ -1,0 +1,67 @@
+﻿@model QLPhoThong.Models.DIEM
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">Điểm</h4>
+        <div class="table-responsive">
+            <table class="product-info-table m-t-20">
+                <tbody>
+                    <tr>
+                        <td>Mã Giáo Viên :</td>
+                        <td class="text-dark font-weight-semibold">@Html.DisplayFor(model => model.MaBD)</td>
+                    </tr>
+                    <tr>
+                        <td>Điểm miệng:</td>
+                        <td>@Html.DisplayFor(model => model.DiemMieng)</td>
+                    </tr>
+                    <tr>
+                        <td>Điểm 15p:</td>
+                        <td>@Html.DisplayFor(model => model.Diem15p)</td>
+                    </tr>
+                    <tr>
+                        <td>Điểm 1 tiết:</td>
+                        <td>@Html.DisplayFor(model => model.Diem1Tiet)</td>
+                    </tr>
+                    <tr>
+                        <td>Điểm thi:</td>
+                        <td>@Html.DisplayFor(model => model.DiemThi)</td>
+                    </tr>
+                    <tr>
+                        <td>Mã học sinh:</td>
+                        <td>@Html.DisplayFor(model => model.HOCSINH.MaHS)</td>
+                    </tr>
+                    <tr>
+                        <td>Mã môn học:</td>
+                        <td>@Html.DisplayFor(model => model.MONHOC.MaMH)</td>
+                    </tr>
+                    <tr>
+                        <td>Mã học kỳ:</td>
+                        <td>@Html.DisplayFor(model => model.HOCKY.MaHky)</td>
+                    </tr>
+                    <tr>
+                        <td>Điểm trung bình:</td>
+                        <td>@Html.DisplayFor(model => model.DiemTB)</td>
+                    </tr>
+                    <!--không đụng-->
+                    <tr>
+                        <td>Status:</td>
+                        <td>
+                            <span class="badge badge-pill badge-cyan">In Stock</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.MaBD }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

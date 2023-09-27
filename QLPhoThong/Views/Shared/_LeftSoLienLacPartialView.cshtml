@@ -1,0 +1,174 @@
+﻿<div class="col-xs-2 leftCol soLienLacLeftCol">
+    <script type="text/javascript" src="~/Style/css/head.js"></script>
+    <div class="rightPanel">
+        <div class="panelContent">
+            <div class="sll-form-seach">
+                <div class="header_form ">Tra cứu kết quả học tập</div>
+                <div class="sll-box-search" style="overflow: hidden;">
+                    <form method="post" action="" id="form-search-solienlac">
+                        <input type="hidden" name="csrf" id="csrf" value="d63d290d43e65d740568db1ac3b4d98a" />
+                        <div class="form-group">
+                            <select class="form-control tinh input-sm" style="height: 26px;line-height: 26px;">
+                                <option value="0">--- Chọn tỉnh----</option>
+                                <option value="1">An Giang</option>
+                                <option value="2">Bà Rịa Vũng Tàu</option>
+                                <option value="3">Bắc Giang</option>
+                                <option value="4">Bắc Kạn</option>
+                                <option value="5">Bạc Liêu</option>
+                                <option value="6">Bắc Ninh</option>
+                                <option value="7">Bến Tre</option>
+                                <option value="8">Bình Dương</option>
+                                <option value="9">Bình Phước</option>
+                                <option value="10">Bình Thuận</option>
+                                <option value="11">Bình Định</option>
+                                <option value="12">Cà Mau</option>
+                                <option value="13">Cần Thơ</option>
+                                <option value="14">Cao Bằng</option>
+                                <option value="15">Đà Nẵng</option>
+                                <option value="16">Đăk Lăk</option>
+                                <option value="17">Đăk Nông</option>
+                                <option value="18">Điện Biên</option>
+                                <option value="19">Đồng Nai</option>
+                                <option value="20">Đồng Tháp</option>
+                                <option value="21">Gia Lai</option>
+                                <option value="22">Hà Giang</option>
+                                <option value="23">Hà Nam</option>
+                                <option value="24">TP. Hà Nội</option>
+                                <option value="26">Hà Tĩnh</option>
+                                <option value="27">Hải Dương</option>
+                                <option value="28">Hải Phòng</option>
+                                <option value="29">Hậu Giang</option>
+                                <option value="30">TP. Hồ Chí Minh</option>
+                                <option value="31">Hoà Bình</option>
+                                <option value="32">Hưng Yên</option>
+                                <option value="33">Khánh Hoà</option>
+                                <option value="34">Kiên Giang</option>
+                                <option value="35">Kon Tum</option>
+                                <option value="36">Lai Châu</option>
+                                <option value="37">Lâm Đồng</option>
+                                <option value="38">Lạng Sơn</option>
+                                <option value="39">Lào Cai</option>
+                                <option value="40">Long An</option>
+                                <option value="41">Nam Định</option>
+                                <option value="42">Nghệ An</option>
+                                <option value="43">Ninh Bình</option>
+                                <option value="44">Ninh Thuận</option>
+                                <option value="45">Phú Thọ</option>
+                                <option value="46">Phú Yên</option>
+                                <option value="47">Quảng Bình</option>
+                                <option value="48">Quảng Nam</option>
+                                <option value="49">Quảng Ngãi</option>
+                                <option value="50">Quảng Ninh</option>
+                                <option value="51">Quảng Trị</option>
+                                <option value="52">Sóc Trăng</option>
+                                <option value="53">Sơn La</option>
+                                <option value="54">Tây Ninh</option>
+                                <option value="55">Thái Bình</option>
+                                <option value="56">Thái Nguyên</option>
+                                <option value="57">Thanh Hóa</option>
+                                <option value="58">Thừa Thiên Huế</option>
+                                <option value="59">Tiền Giang</option>
+                                <option value="60">Trà Vinh</option>
+                                <option value="61">Tuyên Quang</option>
+                                <option value="62">Vĩnh Long</option>
+                                <option value="63">Vĩnh Phúc</option>
+                                <option value="64">Yên Bái</option>
+                                <option value="99">MyHomeWork</option>
+                            </select>
+                        </div>
+                        <div class="input-group vnedu-search">
+                            <input type="text" id="keyword" class="key" placeholder="Số điện thoại hoặc m&atilde; học sinh"><span class="input-group-btn"><input type="submit" value="Lọc" id="submit" class="btn btn-success"></span>
+                        </div>
+                        <div class="input-group vnedu-search" style="margin-top: 10px;width: 304px;" id="html_element"></div>
+                        <span id="g-recaptcha-error" style="color:#f36b22"></span>
+                    </form>
+                    <script type="text/javascript">
+                        var grecaptchaId;
+                        var onloadCallback = function () {
+                            grecaptchaId = grecaptcha.render('html_element', {
+                                'sitekey': '6LdpUDQlAAAAAPXLqchka1WLgJW6hKswpPSx8-IX',
+                            });
+                        };
+                        $('.vnedu-search .key')
+                            .keypress(function () {
+                                vneduSearchClose(this);
+                            })
+                            .focusout(function () {
+                                vneduSearchClose(this);
+                            })
+                            .blur(function () {
+                                vneduSearchClose(this);
+                            });
+
+                        function vneduSearchClose(obj) {
+                            if ($(obj).val() != '') {
+                                $('.vnedu-search .close').css('display', 'inline-block')
+                            } else {
+                                $('.vnedu-search .close').css('display', 'none');
+                            }
+                        }
+
+                        $("#keyword").focus(function () {
+                            $("#form-search-solienlac #submit").addClass('btn-info');
+                        });
+                        $("#keyword").blur(function () {
+                            $("#form-search-solienlac #submit").removeClass('btn-info');
+                        });
+                    </script>
+                    <div class="label" style="display: block; font-size: 11px; margin-top: 5px; text-align: right">
+                    </div>
+                </div>
+                <div class="result-search">
+                    <ul id="sll-list-item"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="rightPanel">
+        <div class="panelHeader">
+            <h4>HỖ TRỢ KỸ THUẬT</h4>
+        </div>
+        <div class="panelContent">
+            <ul>
+                <li>
+                    <a href="tel:0352931831">
+                        <div class="textWrap">
+                            <span class="imgWrap fa fa-lg fa-phone-square"></span>
+                            <span class="textWrap">Hotline giờ giải lao: <span class="hotline">0352931831</span> </span>
+
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="panelContent">
+            <ul>
+                <li>
+                    <a href="tel:0364584623">
+                        <div class="textWrap">
+                            <span class="imgWrap fa fa-lg fa-phone-square"></span>
+                            <span class="textWrap">Hotline giờ giải lao: <span class="hotline">0364584623</span> </span>
+
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="">
+
+        <a href="/" target="_blank">
+            <center><img src="/" style="width: 300px; height: 250px; margin-bottom: 10px;"></center>
+        </a>
+
+        <a href="/" target="_blank">
+            <center><img src="/" style="width: 300px; height: 250px; margin-bottom: 10px;"></center>
+            </span>
+        </a>
+
+        <a href="/;hl=vi" target="_blank"><img src="/" style="width: 300px; height: 250px; margin-bottom: 10px;"></a>
+
+        <a href="/" target="_blank"><img src="/" style="width: 300px; height: 250px; margin-bottom: 10px;"></a>
+    </div>
+
+</div>

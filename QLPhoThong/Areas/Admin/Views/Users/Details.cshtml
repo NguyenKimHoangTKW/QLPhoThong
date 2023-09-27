@@ -1,0 +1,55 @@
+﻿@model QLPhoThong.Models.User
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">Thông tin tài khoản</h4>
+        <div class="table-responsive">
+            <table class="product-info-table m-t-20">
+                <tbody>
+                    <tr>
+                        <td>Mã tài khoản:</td>
+                        <td class="text-dark font-weight-semibold">@Html.DisplayFor(model => model.IDUser)</td>
+                    </tr>
+                    <tr>
+                        <td>Tên tài khoản:</td>
+                        <td>@Html.DisplayFor(model => model.UserName)</td>
+                    </tr>
+                    <tr>
+                        <td>Mật khẩu:</td>
+                        <td>@Html.DisplayFor(model => model.PassWord)</td>
+                    </tr>
+                    <tr>
+                        <td>Mã phân quyền:</td>
+                        <td>@Html.DisplayFor(model => model.MaTitleUser)</td>
+                    </tr>
+                    <tr>
+                        <td>Tên giáo viên:</td>
+                        <td>@Html.DisplayFor(model => model.GIAOVIEN.TenGV)</td>
+                    </tr>
+                    <tr>
+                        <td>Ngày tạo:</td>
+                        <td>@Html.DisplayFor(model => model.NgayTao)</td>
+                    </tr>
+                    <!--không đụng-->
+                    <tr>
+                        <td>Status:</td>
+                        <td>
+                            <span class="badge badge-pill badge-cyan">In Stock</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IDUser }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,45 @@
+﻿@model QLPhoThong.Models.TITLEUSER
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">Thông tin phân quyền</h4>
+        <div class="table-responsive">
+            <table class="product-info-table m-t-20">
+                <tbody>
+                    <tr>
+                        <td>Mã phân quyền:</td>
+                        <td class="text-dark font-weight-semibold">@Html.DisplayFor(model => model.MaTitleUser)</td>
+                    </tr>
+                    <tr>
+                        <td>Tên phân quyền:</td>
+                        <td>@Html.DisplayFor(model => model.TenTitleUser)</td>
+                    </tr>
+                    <!--không đụng-->
+                    <tr>
+                        <td>Status:</td>
+                        <td>
+                            <span class="badge badge-pill badge-cyan">In Stock</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }

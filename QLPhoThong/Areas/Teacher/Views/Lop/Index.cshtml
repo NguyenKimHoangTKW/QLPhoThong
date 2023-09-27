@@ -1,0 +1,28 @@
+﻿@model List<QLPhoThong.Models.LOPCHUNHIEM>
+
+@{
+    ViewBag.Title = "Danh sách lớp";
+    Layout = "~/Areas/Teacher/Views/Shared/_TeacherLayout.cshtml";
+}
+
+<h2>Danh sách lớp</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Tên Lớp</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var lop in Model)
+        {
+            <tr>
+                <td>@lop.LOP.TenLop</td>
+                <td>@ViewBag.TotalTeacher</td>
+            </tr>
+        }
+    </tbody>
+</table>
+<p>
+    @Html.ActionLink("Quay lại danh sách", "Index")
+</p>

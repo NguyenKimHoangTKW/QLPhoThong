@@ -1,0 +1,77 @@
+﻿@model PagedList.IPagedList<QLPhoThong.Models.THUPHI>
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    sads
+</p>
+<p>
+    @Html.ActionLink("Thêm danh sách thu phí mới", "Create", null, new { @class = "btn btn-warning btn-tone m-r-5" })
+</p>
+
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Mã thu phí</th>
+                <th scope="col">Mã học kỳ</th>
+                <th scope="col">Mã học sinh</th>
+                <th scope="col">Mức phí phải thu</th>
+                <th scope="col">Trạng thái</th>
+                <th scope="col">#</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null)
+            {
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <th scope="row">@Html.DisplayFor(modelItem => item.MaThu)</th>
+                        <td>@Html.DisplayFor(modelItem => item.MaHKy)</td>
+                        <td>@Html.DisplayFor(modelItem => item.MaHS)</td>
+                        <td>@Html.DisplayFor(modelItem => item.MucPhi)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Status)</td>
+
+                        <td>
+                            @Html.ActionLink("Sửa", "Edit",
+                            routeValues: new { id = item.MaThu },
+                            htmlAttributes: new { @class = "btn btn-primary btn-tone m-r-5" }) |
+
+                            @Html.ActionLink("Xem", "Details",
+                            routeValues: new { id = item.MaThu },
+                            htmlAttributes: new { @class = "btn btn-info btn-tone m-r-5" }) |
+
+                            @Html.ActionLink("Xóa", "Delete",
+                            routeValues: new { id = item.MaThu },
+                            htmlAttributes: new { @class = "btn btn-danger btn-tone m-r-5" })
+
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+<!-- Thêm mã phân trang -->
+<br />
+<div class="row">
+    <div class="col-md-6 col-lg-6 col-xs-6 col-sm-6">
+        @using (Html.BeginForm("Index", "ThuPhi", FormMethod.Get))
+        {
+            <p>
+                Kích thước trang: @Html.DropDownList("size", (List<SelectListItem>)ViewBag.size, new { @onchange = "this.form.submit();" })
+            </p>
+        }
+    </div>
+    <div class="col-md-6 col-lg-6 col-xs-6 col-sm-6 text-right">
+        Trang: @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
+    </div>
+</div>
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page, size = ViewBag.currentSize }))
+<!-- Kết thúc -->

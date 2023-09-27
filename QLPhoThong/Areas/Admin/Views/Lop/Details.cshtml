@@ -1,0 +1,39 @@
+﻿@model QLPhoThong.Models.LOP
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">Thông tin lớp</h4>
+        <div class="table-responsive">
+            <table class="product-info-table m-t-20">
+                <tbody>
+                    <tr>
+                        <td>Mã lớp:</td>
+                        <td class="text-dark font-weight-semibold">@Html.DisplayFor(model => model.MaLop)</td>
+                    </tr>
+                    <tr>
+                        <td>Tên lớp:</td>
+                        <td>@Html.DisplayFor(model => model.TenLop)</td>
+                    </tr>
+                    <!--không đụng-->
+                    <tr>
+                        <td>Status:</td>
+                        <td>
+                            <span class="badge badge-pill badge-cyan">In Stock</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.MaLop }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

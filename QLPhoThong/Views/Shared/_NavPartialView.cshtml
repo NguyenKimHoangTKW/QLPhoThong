@@ -1,0 +1,34 @@
+﻿<!--Search School
+   <div class="container">
+    <div class="col-xs-7 navbarTopLeft">
+        <a href="http://vnedu.vn"><span class="logo"><img src="~/Style/css/vnedulogo.png" alt=""></span></a>
+        <span id="openMenu" class="glyphicon glyphicon-menu-hamburger"></span>
+        <span id="toggleSearch" class="glyphicon glyphicon-search" aria-hidden="true"></span>
+        <form class="searchBar" action="#">
+            <input type="text" placeholder="T&igrave;m kiếm trường học">
+            <button><i class="fa fa-search" aria-hidden="true"></i></button>
+        </form>
+    </div>
+    <script type="text/javascript">
+        $(".searchBar input").focus(function () {
+            $(".searchBar").addClass('selected');
+        });
+        $(".searchBar input").blur(function () {
+            $(".searchBar").removeClass('selected');
+        });
+    </script>
+   End Search Shool-->
+<div class="col-xs-4 navbarTopRight">
+    <center><a href="/"><span class="logo"><img src="~/Style/css/tracuu/vnedulogo.png" alt=""></span></a></center>
+</div>
+<div class="col-xs-5 navbarTopRight">
+    <div class="userGroup pull-right">
+        
+        <div class="loginList">
+            <a href="@Url.Action("Index" , "Login")">Đăng nhập</a>
+            <a href="@Url.Action("Index" , "Home", new { area = "Admin" })">Admin</a>
+            <a href="@Url.Action("Index" , "Home", new { area = "Teacher" })">Teacher</a>
+        </div>
+        
+    </div>
+</div>
