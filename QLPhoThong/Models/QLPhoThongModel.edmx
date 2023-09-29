@@ -91,7 +91,7 @@
           <Key>
             <PropertyRef Name="MaHS" />
           </Key>
-          <Property Name="MaHS" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MaHS" Type="int" Nullable="false" />
           <Property Name="TenHS" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="NgaySinh" Type="date" Nullable="false" />
           <Property Name="DiaChi" Type="nvarchar" MaxLength="50" Nullable="false" />
@@ -101,6 +101,7 @@
           <Property Name="TrangThai" Type="nvarchar" MaxLength="50" />
           <Property Name="idDanToc" Type="int" Nullable="false" />
           <Property Name="Thumb" Type="nvarchar" MaxLength="200" />
+          <Property Name="iDHS" Type="nchar" MaxLength="13" />
         </EntityType>
         <EntityType Name="KHAOSATDANHGIA">
           <Key>
@@ -1134,7 +1135,7 @@
             <End Role="HOCSINH" EntitySet="HOCSINHs" />
             <End Role="THUPHI" EntitySet="THUPHIs" />
           </AssociationSet>
-        </EntityContainer>
+          </EntityContainer>
         <Association Name="FK_GIAOVIEN_MONHOC">
           <End Type="diemhsModel.MONHOC" Role="MONHOC" Multiplicity="1" />
           <End Type="diemhsModel.GIAOVIEN" Role="GIAOVIEN" Multiplicity="*" />
@@ -1172,7 +1173,7 @@
           <Key>
             <PropertyRef Name="MaHS" />
           </Key>
-          <Property Name="MaHS" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MaHS" Type="Int32" Nullable="false" />
           <Property Name="TenHS" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="NgaySinh" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="DiaChi" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -1182,6 +1183,7 @@
           <Property Name="TrangThai" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="idDanToc" Type="Int32" Nullable="false" />
           <Property Name="Thumb" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="iDHS" Type="String" MaxLength="13" FixedLength="true" Unicode="true" />
           <NavigationProperty Name="DANHHIEUx" Relationship="diemhsModel.FK_DANHHIEU_HOCSINH" FromRole="HOCSINH" ToRole="DANHHIEU" />
           <NavigationProperty Name="DanToc" Relationship="diemhsModel.FK_HOCSINH_DanToc" FromRole="HOCSINH" ToRole="DanToc" />
           <NavigationProperty Name="DIEMs" Relationship="diemhsModel.FK_DIEM_HOCSINH" FromRole="HOCSINH" ToRole="DIEM" />
@@ -1261,7 +1263,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -1451,6 +1453,7 @@
           <EntitySetMapping Name="HOCSINHs">
             <EntityTypeMapping TypeName="diemhsModel.HOCSINH">
               <MappingFragment StoreEntitySet="HOCSINH">
+                <ScalarProperty Name="iDHS" ColumnName="iDHS" />
                 <ScalarProperty Name="Thumb" ColumnName="Thumb" />
                 <ScalarProperty Name="idDanToc" ColumnName="idDanToc" />
                 <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />

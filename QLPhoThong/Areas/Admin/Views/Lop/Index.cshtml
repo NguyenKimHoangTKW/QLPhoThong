@@ -1,8 +1,9 @@
-﻿@model IEnumerable<QLPhoThong.Models.LOP>
+﻿@model List<QLPhoThong.Models.LOP>
 
 @{
     ViewBag.Title = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    int i = 0;
 }
 
 <h2>Index</h2>
@@ -11,31 +12,39 @@
     @Html.ActionLink("Create New", "Create")
 </p>
 <p>
-    @Html.ActionLink("Create New", "Create")
+    <a href="/Admin/Lop/Create">Thêm</a>
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.TenLop)
+            STT
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.LopChuyen)
+            Tên Lớp
+        </th>
+        <th>
+            Lớp Chuyên
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
+@foreach (var item in Model)
+{
+    i++;
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.TenLop)
+            @i
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.LopChuyen)
+            @item.TenLop
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.MaLop }) |
-            @Html.ActionLink("Details", "Details", new { id=item.MaLop }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.MaLop })
+            @item.LopChuyen
+        </td>
+        <td>
+            <a href="/Admin/Lop/Details?id=@item.MaLop">Xem</a> |
+            <a href="/Admin/Lop/Edit?id=@item.MaLop">Sửa</a> |
+            <a href="/Admin/Lop/Delete?id=@item.MaLop">Xóa</a>
         </td>
     </tr>
 }

@@ -185,6 +185,7 @@
     <EntitySetMapping Name="HOCSINHs">
       <EntityTypeMapping TypeName="diemhsModel.HOCSINH">
         <MappingFragment StoreEntitySet="HOCSINH">
+          <ScalarProperty Name="iDHS" ColumnName="iDHS" />
           <ScalarProperty Name="Thumb" ColumnName="Thumb" />
           <ScalarProperty Name="idDanToc" ColumnName="idDanToc" />
           <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />

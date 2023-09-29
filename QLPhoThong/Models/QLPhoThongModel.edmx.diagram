@@ -41,14 +41,14 @@
         <AssociationConnector Association="diemhsModel.FK_GIAOVIEN_MONHOC" />
         <EntityTypeShape EntityType="diemhsModel.DanToc" Width="1.5" PointX="8.375" PointY="0.875" />
         <AssociationConnector Association="diemhsModel.FK_GIAOVIEN_DanToc" />
-        <EntityTypeShape EntityType="diemhsModel.HOCSINH" Width="1.5" PointX="10.625" PointY="5.125" />
+        <EntityTypeShape EntityType="diemhsModel.HOCSINH" Width="1.5" PointX="10.625" PointY="5" />
         <AssociationConnector Association="diemhsModel.FK_DANHHIEU_HOCSINH" />
         <AssociationConnector Association="diemhsModel.FK_HOCSINH_DanToc" />
         <AssociationConnector Association="diemhsModel.FK_DIEM_HOCSINH" />
         <AssociationConnector Association="diemhsModel.FK_HOCSINH_LOP" />
         <AssociationConnector Association="diemhsModel.FK_KHAOSATDANHGIA_HOCSINH" />
         <AssociationConnector Association="diemhsModel.FK_THUPHI_HOCSINH" />
-      </Diagram>
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

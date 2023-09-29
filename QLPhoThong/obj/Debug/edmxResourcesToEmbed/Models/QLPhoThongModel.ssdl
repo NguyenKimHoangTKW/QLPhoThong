@@ -86,7 +86,7 @@
     <Key>
       <PropertyRef Name="MaHS" />
     </Key>
-    <Property Name="MaHS" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MaHS" Type="int" Nullable="false" />
     <Property Name="TenHS" Type="nvarchar" MaxLength="100" Nullable="false" />
     <Property Name="NgaySinh" Type="date" Nullable="false" />
     <Property Name="DiaChi" Type="nvarchar" MaxLength="50" Nullable="false" />
@@ -96,6 +96,7 @@
     <Property Name="TrangThai" Type="nvarchar" MaxLength="50" />
     <Property Name="idDanToc" Type="int" Nullable="false" />
     <Property Name="Thumb" Type="nvarchar" MaxLength="200" />
+    <Property Name="iDHS" Type="nchar" MaxLength="13" />
   </EntityType>
   <EntityType Name="KHAOSATDANHGIA">
     <Key>

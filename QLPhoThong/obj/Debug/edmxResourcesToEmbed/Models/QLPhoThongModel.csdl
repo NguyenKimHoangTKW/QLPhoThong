@@ -562,7 +562,7 @@
     <Key>
       <PropertyRef Name="MaHS" />
     </Key>
-    <Property Name="MaHS" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MaHS" Type="Int32" Nullable="false" />
     <Property Name="TenHS" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
     <Property Name="NgaySinh" Type="DateTime" Nullable="false" Precision="0" />
     <Property Name="DiaChi" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -572,6 +572,7 @@
     <Property Name="TrangThai" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="idDanToc" Type="Int32" Nullable="false" />
     <Property Name="Thumb" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="iDHS" Type="String" MaxLength="13" FixedLength="true" Unicode="true" />
     <NavigationProperty Name="DANHHIEUx" Relationship="diemhsModel.FK_DANHHIEU_HOCSINH" FromRole="HOCSINH" ToRole="DANHHIEU" />
     <NavigationProperty Name="DanToc" Relationship="diemhsModel.FK_HOCSINH_DanToc" FromRole="HOCSINH" ToRole="DanToc" />
     <NavigationProperty Name="DIEMs" Relationship="diemhsModel.FK_DIEM_HOCSINH" FromRole="HOCSINH" ToRole="DIEM" />

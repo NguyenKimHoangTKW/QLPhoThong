@@ -11,10 +11,7 @@ namespace QLPhoThong.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Web;
-
+    
     public partial class HOCSINH
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -36,6 +33,7 @@ namespace QLPhoThong.Models
         public string TrangThai { get; set; }
         public int idDanToc { get; set; }
         public string Thumb { get; set; }
+        public string iDHS { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DANHHIEU> DANHHIEUx { get; set; }
@@ -47,7 +45,5 @@ namespace QLPhoThong.Models
         public virtual ICollection<KHAOSATDANHGIA> KHAOSATDANHGIAs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<THUPHI> THUPHIs { get; set; }
-
-
     }
 }

@@ -6,7 +6,9 @@
 }
 
 <h2>Edit</h2>
+<form action="" method="post">
 
+</form>
 
 @using (Html.BeginForm())
 {
@@ -21,7 +23,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.TenLop, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.TenLop, new { htmlAttributes = new { @class = "form-control" } })
+                <input type="text" name="TenLop" value="TenLop" class="form-control"/>
                 @Html.ValidationMessageFor(model => model.TenLop, "", new { @class = "text-danger" })
             </div>
         </div>
