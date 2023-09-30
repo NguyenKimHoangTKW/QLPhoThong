@@ -55,13 +55,24 @@ namespace QLPhoThong.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                string _FileName = Path.GetFileName(Thumb.FileName);
-                string _path = Path.Combine(Server.MapPath("~/Areas/Admin/Images/ImagesStudent"), _FileName);
-                Thumb.SaveAs(_path);
-                hOCSINH.Thumb = _FileName;
-                db.HOCSINHs.Add(hOCSINH);
+                try
+                {
+                    if(Thumb.ContentLength > 0)
+                    {
+                        string _FileName = Path.GetFileName(Thumb.FileName);
+                        string _path = Path.Combine(Server.MapPath("~/Areas/Admin/Images/ImagesStudent"), _FileName);
+                        Thumb.SaveAs(_path);
+                        hOCSINH.Thumb = _FileName;
+                    }
+                    db.HOCSINHs.Add(hOCSINH);
                     db.SaveChanges();
                     return RedirectToAction("Index");
+                }
+                catch 
+                {
+                    ViewBag.Message = "không thành công!!";
+                }
+                
             }
 
             ViewBag.MaLop = new SelectList(db.LOPs, "MaLop", "TenLop", hOCSINH.MaLop);
