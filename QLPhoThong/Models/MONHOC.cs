@@ -24,6 +24,7 @@ namespace QLPhoThong.Models
     
         public int MaMH { get; set; }
         public string TenMH { get; set; }
+        public string iDMH { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DIEM> DIEMs { get; set; }

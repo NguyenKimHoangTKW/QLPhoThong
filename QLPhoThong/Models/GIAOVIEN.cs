@@ -27,14 +27,17 @@ namespace QLPhoThong.Models
         public string TenGV { get; set; }
         public System.DateTime NgaySinh { get; set; }
         public string SDT { get; set; }
-        public string Diachi { get; set; }
-        public int MaMH { get; set; }
         public string GioiTinh { get; set; }
         public string Gmail { get; set; }
+        public string Diachi { get; set; }
+        public int MaMH { get; set; }
         public string TrangThai { get; set; }
         public int idDanToc { get; set; }
-        public byte[] Thumb { get; set; }
+        public string iDGV { get; set; }
+        public string Thumb { get; set; }
     
+        public virtual DanToc DanToc { get; set; }
+        public virtual MONHOC MONHOC { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<KHAOSATDANHGIA> KHAOSATDANHGIAs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -43,7 +46,5 @@ namespace QLPhoThong.Models
         public virtual ICollection<PHANCONG> PHANCONGs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<User> Users { get; set; }
-        public virtual MONHOC MONHOC { get; set; }
-        public virtual DanToc DanToc { get; set; }
     }
 }

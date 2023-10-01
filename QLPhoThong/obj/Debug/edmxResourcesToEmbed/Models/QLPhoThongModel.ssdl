@@ -53,7 +53,7 @@
     <Key>
       <PropertyRef Name="MaGV" />
     </Key>
-    <Property Name="MaGV" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MaGV" Type="int" Nullable="false" />
     <Property Name="TenGV" Type="nvarchar" MaxLength="100" Nullable="false" />
     <Property Name="NgaySinh" Type="date" Nullable="false" />
     <Property Name="SDT" Type="char" MaxLength="10" Nullable="false" />
@@ -63,7 +63,8 @@
     <Property Name="MaMH" Type="int" Nullable="false" />
     <Property Name="TrangThai" Type="nvarchar" MaxLength="50" />
     <Property Name="idDanToc" Type="int" Nullable="false" />
-    <Property Name="Thumb" Type="image" />
+    <Property Name="iDGV" Type="char" MaxLength="13" />
+    <Property Name="Thumb" Type="nvarchar(max)" />
   </EntityType>
   <EntityType Name="HANHKIEM">
     <Key>
@@ -86,7 +87,7 @@
     <Key>
       <PropertyRef Name="MaHS" />
     </Key>
-    <Property Name="MaHS" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MaHS" Type="int" Nullable="false" />
     <Property Name="TenHS" Type="nvarchar" MaxLength="100" Nullable="false" />
     <Property Name="NgaySinh" Type="date" Nullable="false" />
     <Property Name="DiaChi" Type="nvarchar" MaxLength="50" Nullable="false" />
@@ -96,6 +97,7 @@
     <Property Name="TrangThai" Type="nvarchar" MaxLength="50" />
     <Property Name="idDanToc" Type="int" Nullable="false" />
     <Property Name="Thumb" Type="nvarchar" MaxLength="200" />
+    <Property Name="iDHS" Type="nchar" MaxLength="13" />
   </EntityType>
   <EntityType Name="KHAOSATDANHGIA">
     <Key>
@@ -113,7 +115,7 @@
     <Key>
       <PropertyRef Name="MaLop" />
     </Key>
-    <Property Name="MaLop" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MaLop" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="TenLop" Type="char" MaxLength="10" Nullable="false" />
     <Property Name="LopChuyen" Type="bit" Nullable="false" />
     <Property Name="TenLopChuyen" Type="nvarchar" MaxLength="50" />
@@ -133,6 +135,7 @@
     </Key>
     <Property Name="MaMH" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="TenMH" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="iDMH" Type="char" MaxLength="13" />
   </EntityType>
   <EntityType Name="PHANCONG">
     <Key>
@@ -157,11 +160,12 @@
     <Key>
       <PropertyRef Name="MaThu" />
     </Key>
-    <Property Name="MaThu" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MaThu" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="MaHKy" Type="int" Nullable="false" />
     <Property Name="MaHS" Type="int" Nullable="false" />
     <Property Name="MucPhi" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="Status" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="idMaThu" Type="char" MaxLength="13" />
   </EntityType>
   <EntityType Name="TITLEUSER">
     <Key>

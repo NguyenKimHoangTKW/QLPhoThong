@@ -46,16 +46,16 @@ namespace QLPhoThong.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "MaLop,TenLop,LopChuyen")] LOP lOP)
+        public ActionResult Create( LOP model)
         {
             if (ModelState.IsValid)
             {
-                db.LOPs.Add(lOP);
+                db.LOPs.Add(model);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(lOP);
+            return View(model);
         }
 
         // GET: Admin/Lop/Edit/5

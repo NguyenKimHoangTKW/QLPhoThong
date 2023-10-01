@@ -21,7 +21,7 @@ namespace QLPhoThong.Models
         public int MaGV { get; set; }
         public System.DateTime NgayTao { get; set; }
     
-        public virtual GIAOVIEN GIAOVIEN { get; set; }
         public virtual TITLEUSER TITLEUSER { get; set; }
+        public virtual GIAOVIEN GIAOVIEN { get; set; }
     }
 }

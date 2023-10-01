@@ -31,7 +31,7 @@ namespace QLPhoThong.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DANHHIEU> DANHHIEUx { get; set; }
         public virtual DANHMUCKHAOSATDANHGIA DANHMUCKHAOSATDANHGIA { get; set; }
-        public virtual GIAOVIEN GIAOVIEN { get; set; }
         public virtual HOCSINH HOCSINH { get; set; }
+        public virtual GIAOVIEN GIAOVIEN { get; set; }
     }
 }

@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    int i = 0;
 }
 
 <script>
@@ -20,6 +21,12 @@
 </p>
 <table class="table">
     <tr>
+        <th>
+            STT
+        </th>
+        <th>
+            Mã Học Sinh
+        </th>
         <th>
             @Html.DisplayNameFor(model => model.TenHS)
         </th>
@@ -47,39 +54,49 @@
         <th>
             @Html.DisplayNameFor(model => model.DanToc.TenDanToc)
         </th>
+        <th>
+            #
+        </th>
         <th></th>
     </tr>
 
     @foreach (var item in Model)
     {
+        i++;
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.TenHS)
+                @i
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.NgaySinh)
+                @item.iDHS
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.DiaChi)
+                @item.TenHS
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.SDT)
+                @string.Format("{0:dd-MM-yyyy}", item.NgaySinh)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.GioiTinh)
+                @item.DiaChi
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.TrangThai)
+                @item.SDT
+            </td>
+            <td>
+                @item.GioiTinh
+            </td>
+            <td>
+                @item.TrangThai
             </td>
             <td>
                 <img src="~/Areas/Admin/Images/ImagesStudent/@item.Thumb" width="80px" height="50px" />
             </td>
 
             <td>
-                @Html.DisplayFor(modelItem => item.LOP.TenLop)
+                @item.LOP.TenLop
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.DanToc.TenDanToc)
+                @item.DanToc.TenDanToc
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.MaHS }) |

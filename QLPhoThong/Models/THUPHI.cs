@@ -19,6 +19,7 @@ namespace QLPhoThong.Models
         public int MaHS { get; set; }
         public string MucPhi { get; set; }
         public string Status { get; set; }
+        public string idMaThu { get; set; }
     
         public virtual HOCKY HOCKY { get; set; }
         public virtual HOCSINH HOCSINH { get; set; }

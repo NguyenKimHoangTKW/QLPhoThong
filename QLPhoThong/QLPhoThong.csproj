@@ -135,6 +135,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\DiemController.cs" />
+    <Compile Include="Areas\Admin\Controllers\GiaoVienController.cs" />
     <Compile Include="Areas\Admin\Controllers\HocKyController.cs" />
     <Compile Include="Areas\Admin\Controllers\HocSinhController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
@@ -1104,6 +1105,11 @@
     <Content Include="Areas\Style\assets\vendors\select2\release.sh" />
     <Content Include="Areas\Style\assets\vendors\select2\select2.jquery.json" />
     <Content Include="Areas\Style\assets\vendors\select2\select2_locale_en.js.template" />
+    <Content Include="Areas\Admin\Views\GiaoVien\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\GiaoVien\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\GiaoVien\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\GiaoVien\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\GiaoVien\Index.cshtml" />
     <None Include="Scripts\jquery-3.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.1.js" />
     <Content Include="Scripts\jquery-3.7.1.min.js" />
