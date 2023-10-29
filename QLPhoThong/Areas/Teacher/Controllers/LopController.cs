@@ -11,35 +11,22 @@ namespace QLPhoThong.Areas.Teacher.Controllers
     {
         private diemhsEntities db = new diemhsEntities();
         // GET: Teacher/Lop
-        public ActionResult Index()
+        public ActionResult Index(string id)
         {
-            var LogInResult = (User)Session["User"];
-            if (LogInResult != null)
-            {
-                int maGV = LogInResult.MaGV;
+            var danhSachLop = db.PHANCONGs.Where(pc => pc.MaGV == id).ToList();
+            return View(danhSachLop);
+        }
 
-                // Truy vấn lấy danh sách lớp của giáo viên có MaGV tương ứng
-                var danhSachLop = (from l in db.LOPs
-                                   from lcn in db.LOPCHUNHIEMs
-                                   from gv in db.GIAOVIENs
-                                   from hk in db.HOCKies
-                                   where lcn.MaGV == gv.MaGV
-                                   where lcn.MaLop == l.MaLop
-                                   where hk.MaHky == lcn.MaHKy
-                                   where gv.MaGV == maGV
-                                   select lcn
-                                   ).ToList();
-                ViewBag.TotalTeacher = danhSachLop.Count;
-                //select * 
-                //from Lop l, GIAOVIEN gv, LOPCHUNHIEM lcn , HOCKY hk
-                //where lcn.MaGV = gv.MaGV
-                //and lcn.MaLop = l.MaLop
-                //and hk.MaHky = lcn.MaHKy
-                // Chuyển danh sách lớp đến view để hiển thị
-                return View(danhSachLop);
-            }
-            else
-                return RedirectToAction("Login", "Account"); 
-            }
+        public ActionResult LopChuNhiem(string id)
+        {
+            var danhSachLop = db.LOPCHUNHIEMs.Where(pc => pc.MaGV == id).ToList();
+            return View(danhSachLop);
+        }
+
+        public ActionResult DanhSachHocSinh(string id)
+        {
+            var danhSachLop = db.HOCSINHs.Where(pc => pc.MaLop == id).ToList();
+            return View(danhSachLop);
         }
     }
+}

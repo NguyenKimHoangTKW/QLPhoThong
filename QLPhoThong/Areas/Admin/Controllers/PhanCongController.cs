@@ -96,6 +96,8 @@ namespace QLPhoThong.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
+                string nextid = GetNextId();
+                pHANCONG.MaPhanCong = nextid;
                 db.PHANCONGs.Add(pHANCONG);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -106,9 +108,29 @@ namespace QLPhoThong.Areas.Admin.Controllers
             ViewBag.MaMH = new SelectList(db.MONHOCs, "MaMH", "TenMH", pHANCONG.MaMH);
             return View(pHANCONG);
         }
+        private string GetNextId()
+        {
+            var allIds = db.PHANCONGs.Select(h => h.MaPhanCong).ToList();
 
+            int nextId = 1;
+
+            if (allIds.Count > 0)
+            {
+                var maxId = allIds.Max();
+
+                if (maxId.StartsWith("PC00"))
+                {
+                    int.TryParse(maxId.Substring(2), out int numericPart);
+                    nextId = numericPart + 1;
+                }
+            }
+
+            string formattedId = "PC00" + nextId.ToString();
+
+            return formattedId;
+        }
         // GET: Admin/PhanCong/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(string id)
         {
             if (id == null)
             {
@@ -145,7 +167,7 @@ namespace QLPhoThong.Areas.Admin.Controllers
         }
 
         // GET: Admin/PhanCong/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(string id)
         {
             if (id == null)
             {
@@ -162,7 +184,7 @@ namespace QLPhoThong.Areas.Admin.Controllers
         // POST: Admin/PhanCong/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(string id)
         {
             PHANCONG pHANCONG = db.PHANCONGs.Find(id);
             db.PHANCONGs.Remove(pHANCONG);

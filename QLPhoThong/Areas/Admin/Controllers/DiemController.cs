@@ -108,7 +108,7 @@ namespace QLPhoThong.Areas.Admin.Controllers
         }
 
         // GET: Admin/Diem/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(string id)
         {
             if (id == null)
             {
@@ -145,7 +145,7 @@ namespace QLPhoThong.Areas.Admin.Controllers
         }
 
         // GET: Admin/Diem/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(string id)
         {
             if (id == null)
             {
@@ -162,7 +162,7 @@ namespace QLPhoThong.Areas.Admin.Controllers
         // POST: Admin/Diem/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(string id)
         {
             DIEM dIEM = db.DIEMs.Find(id);
             db.DIEMs.Remove(dIEM);

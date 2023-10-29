@@ -4,9 +4,7 @@
 
 
             @{ var user = Session["User"] as QLPhoThong.Models.User;}
-            @{
-                if (user != null)
-                {
+           
                     <li class="nav-item dropdown">
                         <a class="dropdown-toggle" href="javascript:void(0);">
                             <span class="icon-holder">
@@ -20,7 +18,7 @@
                         <ul class="dropdown-menu">
 
                             <li>
-                                <a href="/">Default</a>
+                                <a href="@Url.Action("LopChuNhiem","Lop", new {id = user.MaGV})">Default</a>
                             </li>
 
                         </ul>
@@ -37,7 +35,7 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li>
-                                <a href="@Url.Action("Index","Lop")">Default</a>
+                                <a href="@Url.Action("Index","Lop", new {id = user.MaGV})">Default</a>
                             </li>
 
                         </ul>
@@ -60,10 +58,6 @@
 
                         </ul>
                     </li>
-                }
-            }
-
-
         </ul>
     </div>
 </div>

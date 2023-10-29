@@ -23,17 +23,16 @@ namespace QLPhoThong.Models
             this.Users = new HashSet<User>();
         }
     
-        public int MaGV { get; set; }
+        public string MaGV { get; set; }
         public string TenGV { get; set; }
         public System.DateTime NgaySinh { get; set; }
         public string SDT { get; set; }
         public string GioiTinh { get; set; }
         public string Gmail { get; set; }
         public string Diachi { get; set; }
-        public int MaMH { get; set; }
+        public string MaMH { get; set; }
         public string TrangThai { get; set; }
         public int idDanToc { get; set; }
-        public string iDGV { get; set; }
         public string Thumb { get; set; }
     
         public virtual DanToc DanToc { get; set; }

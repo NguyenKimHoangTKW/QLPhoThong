@@ -211,10 +211,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>QLPhoThongModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\QuanHuyen.cs">
+      <DependentUpon>QLPhoThongModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\sysdiagram.cs">
       <DependentUpon>QLPhoThongModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\THUPHI.cs">
+      <DependentUpon>QLPhoThongModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TinhThanhPho.cs">
       <DependentUpon>QLPhoThongModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TITLEUSER.cs">
@@ -223,9 +229,16 @@
     <Compile Include="Models\User.cs">
       <DependentUpon>QLPhoThongModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\XaPhuong.cs">
+      <DependentUpon>QLPhoThongModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\Admin\Images\ImagesStudent\thumb-1-20230930082151586.jpg" />
+    <Content Include="Areas\Admin\Images\ImagesStudent\thumb-1.jpg" />
+    <Content Include="Areas\Admin\Images\ImagesStudent\thumb-9-20230930083028930.jpg" />
+    <Content Include="Areas\Admin\Images\ImagesStudent\thumb-9.jpg" />
     <Content Include="Areas\Style\assets\css\app.min.css" />
     <Content Include="Areas\Style\assets\es6\app.js" />
     <Content Include="Areas\Style\assets\es6\constant\theme-constant.js" />
@@ -844,13 +857,6 @@
     <Content Include="Areas\Admin\Views\HocKy\Details.cshtml" />
     <Content Include="Areas\Admin\Views\HocKy\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\HocKy\Index.cshtml" />
-    <EntityDeploy Include="Models\QLPhoThongModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>QLPhoThongModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\QLPhoThongModel.edmx.diagram">
-      <DependentUpon>QLPhoThongModel.edmx</DependentUpon>
-    </Content>
     <Content Include="Areas\Admin\Views\Users\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Users\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\Users\Details.cshtml" />
@@ -1110,6 +1116,15 @@
     <Content Include="Areas\Admin\Views\GiaoVien\Details.cshtml" />
     <Content Include="Areas\Admin\Views\GiaoVien\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\GiaoVien\Index.cshtml" />
+    <EntityDeploy Include="Models\QLPhoThongModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>QLPhoThongModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\QLPhoThongModel.edmx.diagram">
+      <DependentUpon>QLPhoThongModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="Areas\Teacher\Views\Lop\LopChuNhiem.cshtml" />
+    <Content Include="Areas\Teacher\Views\Lop\DanhSachHocSinh.cshtml" />
     <None Include="Scripts\jquery-3.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.1.js" />
     <Content Include="Scripts\jquery-3.7.1.min.js" />
@@ -1162,7 +1177,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
-    <Folder Include="Areas\Admin\Images\ImagesStudent\" />
     <Folder Include="Areas\Admin\Images\ImagesTeacher\" />
     <Folder Include="Areas\Teacher\Data\" />
   </ItemGroup>

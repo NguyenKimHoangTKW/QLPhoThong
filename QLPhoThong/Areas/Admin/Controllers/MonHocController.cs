@@ -64,7 +64,7 @@ namespace QLPhoThong.Areas.Admin.Controllers
         }
 
         // GET: Admin/MonHoc/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(string id)
         {
             if (id == null)
             {
@@ -102,7 +102,7 @@ namespace QLPhoThong.Areas.Admin.Controllers
         }
 
         // GET: Admin/MonHoc/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(string id)
         {
             if (id == null)
             {
@@ -133,7 +133,7 @@ namespace QLPhoThong.Areas.Admin.Controllers
         }
 
         // GET: Admin/MonHoc/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(string id)
         {
             if (id == null)
             {
@@ -150,7 +150,7 @@ namespace QLPhoThong.Areas.Admin.Controllers
         // POST: Admin/MonHoc/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(string id)
         {
             MONHOC mONHOC = db.MONHOCs.Find(id);
             db.MONHOCs.Remove(mONHOC);

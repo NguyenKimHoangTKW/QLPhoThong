@@ -1,4 +1,4 @@
-﻿@model List<QLPhoThong.Models.LOPCHUNHIEM>
+﻿@model IEnumerable<QLPhoThong.Models.PHANCONG>
 
 @{
     ViewBag.Title = "Danh sách lớp";
@@ -18,7 +18,9 @@
         {
             <tr>
                 <td>@lop.LOP.TenLop</td>
-                <td>@ViewBag.TotalTeacher</td>
+            </tr>
+            <tr>
+                <td><a href="@Url.Action("DanhSachHocSinh","Lop", new {id = lop.MaLop})">asdasdas</a></td>
             </tr>
         }
     </tbody>

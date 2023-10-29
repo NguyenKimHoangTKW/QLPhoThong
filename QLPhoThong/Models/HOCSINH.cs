@@ -23,17 +23,16 @@ namespace QLPhoThong.Models
             this.THUPHIs = new HashSet<THUPHI>();
         }
     
-        public int MaHS { get; set; }
+        public string MaHS { get; set; }
         public string TenHS { get; set; }
         public System.DateTime NgaySinh { get; set; }
         public string DiaChi { get; set; }
         public string SDT { get; set; }
         public string GioiTinh { get; set; }
-        public int MaLop { get; set; }
+        public string MaLop { get; set; }
         public string TrangThai { get; set; }
         public int idDanToc { get; set; }
         public string Thumb { get; set; }
-        public string iDHS { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DANHHIEU> DANHHIEUx { get; set; }

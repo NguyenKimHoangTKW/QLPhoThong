@@ -20,7 +20,7 @@ namespace QLPhoThong.Models
             this.HANHKIEMs = new HashSet<HANHKIEM>();
         }
     
-        public int MaDMHK { get; set; }
+        public string MaDMHK { get; set; }
         public string TenDMHK { get; set; }
         public string DiemToiDa { get; set; }
     

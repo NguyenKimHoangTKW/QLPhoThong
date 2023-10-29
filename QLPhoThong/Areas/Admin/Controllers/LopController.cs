@@ -21,7 +21,7 @@ namespace QLPhoThong.Areas.Admin.Controllers
         }
 
         // GET: Admin/Lop/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(string id)
         {
             if (id == null)
             {
@@ -59,7 +59,7 @@ namespace QLPhoThong.Areas.Admin.Controllers
         }
 
         // GET: Admin/Lop/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(string id)
         {
             if (id == null)
             {
@@ -90,7 +90,7 @@ namespace QLPhoThong.Areas.Admin.Controllers
         }
 
         // GET: Admin/Lop/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(string id)
         {
             if (id == null)
             {
@@ -107,7 +107,7 @@ namespace QLPhoThong.Areas.Admin.Controllers
         // POST: Admin/Lop/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(string id)
         {
             LOP lOP = db.LOPs.Find(id);
             db.LOPs.Remove(lOP);

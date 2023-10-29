@@ -14,13 +14,13 @@ namespace QLPhoThong.Models
     
     public partial class LOPCHUNHIEM
     {
-        public int MaLopChuNhiem { get; set; }
-        public int MaLop { get; set; }
-        public int MaGV { get; set; }
-        public int MaHKy { get; set; }
+        public string MaLopChuNhiem { get; set; }
+        public string MaLop { get; set; }
+        public string MaGV { get; set; }
+        public string MaHKy { get; set; }
     
+        public virtual GIAOVIEN GIAOVIEN { get; set; }
         public virtual HOCKY HOCKY { get; set; }
         public virtual LOP LOP { get; set; }
-        public virtual GIAOVIEN GIAOVIEN { get; set; }
     }
 }

@@ -18,10 +18,10 @@ namespace QLPhoThong.Models
         public string UserName { get; set; }
         public string PassWord { get; set; }
         public int MaTitleUser { get; set; }
-        public int MaGV { get; set; }
+        public string MaGV { get; set; }
         public System.DateTime NgayTao { get; set; }
     
-        public virtual TITLEUSER TITLEUSER { get; set; }
         public virtual GIAOVIEN GIAOVIEN { get; set; }
+        public virtual TITLEUSER TITLEUSER { get; set; }
     }
 }

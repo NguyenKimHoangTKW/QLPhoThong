@@ -23,7 +23,7 @@ namespace QLPhoThong.Areas.Admin.Controllers
         }
 
         // GET: Admin/GiaoVien/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(string id)
         {
             if (id == null)
             {
@@ -57,15 +57,10 @@ namespace QLPhoThong.Areas.Admin.Controllers
                 try
                 {
                     
-                    int nextId = GetNextId();
-
-                    // Tạo mã id mới
+                    string nextId = GetNextId();
                     gIAOVIEN.MaGV = nextId;
-                    gIAOVIEN.iDGV = "GV" + nextId.ToString("2023PT"); ;
-                    // Kiểm tra xem có tệp ảnh được chọn không
                     if (Thumb != null && Thumb.ContentLength > 0)
                     {
-                        // Tạo một tên tệp mới dựa trên timestamp
                         string _Head = Path.GetFileNameWithoutExtension(Thumb.FileName);
                         string _Tail = Path.GetExtension(Thumb.FileName);
                         string fullLink = _Head + "-" + DateTime.Now.ToString("yyyyMMddHHmmssfff") + _Tail;
@@ -88,34 +83,42 @@ namespace QLPhoThong.Areas.Admin.Controllers
             ViewBag.idDanToc = new SelectList(db.DanTocs, "idDanToc", "TenDanToc", gIAOVIEN.idDanToc);
             return View(gIAOVIEN);
         }
-        private int GetNextId()
+        private string GetNextId()
         {
-            // Tìm giá trị id tiếp theo trong bảng
-            int? maxId = db.GIAOVIENs.Max(t => (int?)t.MaGV);
+            var allIds = db.GIAOVIENs.Select(h => h.MaGV).ToList();
 
-            if (maxId.HasValue)
+            int nextId = 1;
+
+            if (allIds.Count > 0)
             {
-                return maxId.Value + 1;
+                var maxId = allIds.Max();
+
+                if (maxId.StartsWith("GVPT0"))
+                {
+                    int.TryParse(maxId.Substring(2), out int numericPart);
+                    nextId = numericPart + 1;
+                }
             }
-            {
-                return 1;
-            }
+
+            string formattedId = "GVPT0" + nextId.ToString();
+
+            return formattedId;
         }
         // GET: Admin/GiaoVien/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(string id, GIAOVIEN gIAOVIEN)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            GIAOVIEN gIAOVIEN = db.GIAOVIENs.Find(id);
-            if (gIAOVIEN == null)
+            var gv = db.GIAOVIENs.SingleOrDefault(g => g.MaGV == id);
+            if (gv == null)
             {
                 return HttpNotFound();
             }
             ViewBag.MaMH = new SelectList(db.MONHOCs, "MaMH", "TenMH", gIAOVIEN.MaMH);
             ViewBag.idDanToc = new SelectList(db.DanTocs, "idDanToc", "TenDanToc", gIAOVIEN.idDanToc);
-            return View(gIAOVIEN);
+            return View(gv);
         }
 
         // POST: Admin/GiaoVien/Edit/5
@@ -162,7 +165,7 @@ namespace QLPhoThong.Areas.Admin.Controllers
         }
 
         // GET: Admin/GiaoVien/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(string id)
         {
             if (id == null)
             {
@@ -179,7 +182,7 @@ namespace QLPhoThong.Areas.Admin.Controllers
         // POST: Admin/GiaoVien/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(string id)
         {
             GIAOVIEN gIAOVIEN = db.GIAOVIENs.Find(id);
             db.GIAOVIENs.Remove(gIAOVIEN);

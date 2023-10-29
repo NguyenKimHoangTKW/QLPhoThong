@@ -24,7 +24,7 @@ namespace QLPhoThong.Areas.Admin.Controllers
         }
 
         // GET: Admin/HocSinh/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(string id)
         {
             if (id == null)
             {
@@ -61,14 +61,11 @@ namespace QLPhoThong.Areas.Admin.Controllers
             {
                 try
                 {
-                    int nextId = GetNextId();
+                    string nextId = GetNextId();
                     // Tạo mã id mới
                     hOCSINH.MaHS = nextId;
-                    hOCSINH.iDHS = "HS" + nextId.ToString("2023PT"); ;
-                    // Kiểm tra xem có tệp ảnh được chọn không
                     if (Thumb != null && Thumb.ContentLength > 0)
                     {
-                        // Tạo một tên tệp mới dựa trên timestamp
                         string _Head = Path.GetFileNameWithoutExtension(Thumb.FileName);
                         string _Tail = Path.GetExtension(Thumb.FileName);
                         string fullLink = _Head + "-" + DateTime.Now.ToString("yyyyMMddHHmmssfff") + _Tail;
@@ -98,22 +95,29 @@ namespace QLPhoThong.Areas.Admin.Controllers
             ViewBag.idDanToc = new SelectList(db.DanTocs, "idDanToc", "TenDanToc", hOCSINH.idDanToc);
             return View(hOCSINH);
         }
-        // Xử lý ID tăng
-        private int GetNextId()
+        private string GetNextId()
         {
-            // Tìm giá trị id tiếp theo trong bảng
-            int? maxId = db.HOCSINHs.Max(t => (int?)t.MaHS);
+            var allIds = db.HOCSINHs.Select(h => h.MaHS).ToList();
 
-            if (maxId.HasValue)
+            int nextId = 1;
+
+            if (allIds.Count > 0)
             {
-                return maxId.Value+1;
+                var maxId = allIds.Max();
+
+                if (maxId.StartsWith("HS"))
+                {
+                    int.TryParse(maxId.Substring(2), out int numericPart);
+                    nextId = numericPart + 1;
+                }
             }
-            {
-                return 1;
-            } 
+
+            string formattedId = "HS" + nextId.ToString();
+
+            return formattedId;
         }
         // GET: Admin/HocSinh/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(string id)
         {
             if (id == null)
             {
@@ -177,7 +181,7 @@ namespace QLPhoThong.Areas.Admin.Controllers
         
 
         // GET: Admin/HocSinh/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(string id)
         {
             if (id == null)
             {
@@ -194,7 +198,7 @@ namespace QLPhoThong.Areas.Admin.Controllers
         // POST: Admin/HocSinh/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(string id)
         {
             HOCSINH hOCSINH = db.HOCSINHs.Find(id);
             db.HOCSINHs.Remove(hOCSINH);

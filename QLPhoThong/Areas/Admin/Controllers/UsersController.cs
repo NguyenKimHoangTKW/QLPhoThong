@@ -66,7 +66,7 @@ namespace QLPhoThong.Areas.Admin.Controllers
         }
 
         // GET: Admin/Users/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(string id)
         {
             if (id == null)
             {
@@ -108,7 +108,7 @@ namespace QLPhoThong.Areas.Admin.Controllers
         }
 
         // GET: Admin/Users/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(string id)
         {
             if (id == null)
             {
@@ -143,7 +143,7 @@ namespace QLPhoThong.Areas.Admin.Controllers
         }
 
         // GET: Admin/Users/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(string id)
         {
             if (id == null)
             {
@@ -160,7 +160,7 @@ namespace QLPhoThong.Areas.Admin.Controllers
         // POST: Admin/Users/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(string id)
         {
             User user = db.Users.Find(id);
             db.Users.Remove(user);

@@ -67,7 +67,7 @@ namespace QLPhoThong.Areas.Admin.Controllers
         }
 
         // GET: Admin/HocKy/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(string id)
         {
             if (id == null)
             {
@@ -105,7 +105,7 @@ namespace QLPhoThong.Areas.Admin.Controllers
         }
 
         // GET: Admin/HocKy/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(string id)
         {
             if (id == null)
             {
@@ -136,7 +136,7 @@ namespace QLPhoThong.Areas.Admin.Controllers
         }
 
         // GET: Admin/HocKy/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(string id)
         {
             if (id == null)
             {
@@ -153,7 +153,7 @@ namespace QLPhoThong.Areas.Admin.Controllers
         // POST: Admin/HocKy/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(string id)
         {
             HOCKY hOCKY = db.HOCKies.Find(id);
             db.HOCKies.Remove(hOCKY);

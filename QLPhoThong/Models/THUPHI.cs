@@ -14,9 +14,9 @@ namespace QLPhoThong.Models
     
     public partial class THUPHI
     {
-        public int MaThu { get; set; }
-        public int MaHKy { get; set; }
-        public int MaHS { get; set; }
+        public string MaThu { get; set; }
+        public string MaHKy { get; set; }
+        public string MaHS { get; set; }
         public string MucPhi { get; set; }
         public string Status { get; set; }
         public string idMaThu { get; set; }

@@ -20,8 +20,8 @@ namespace QLPhoThong.Models
             this.DANHHIEUx = new HashSet<DANHHIEU>();
         }
     
-        public int MaHKiem { get; set; }
-        public int MaDMHK { get; set; }
+        public string MaHKiem { get; set; }
+        public string MaDMHK { get; set; }
         public string TenHKiem { get; set; }
         public string DiemSo { get; set; }
     

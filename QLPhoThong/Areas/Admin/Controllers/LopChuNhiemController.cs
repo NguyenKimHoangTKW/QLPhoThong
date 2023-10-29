@@ -66,7 +66,7 @@ namespace QLPhoThong.Areas.Admin.Controllers
         }
 
         // GET: Admin/LopChuNhiem/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(string id)
         {
             if (id == null)
             {
@@ -98,6 +98,8 @@ namespace QLPhoThong.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
+                string nextid = GetNextId();
+                lOPCHUNHIEM.MaLopChuNhiem = nextid;
                 db.LOPCHUNHIEMs.Add(lOPCHUNHIEM);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -108,9 +110,29 @@ namespace QLPhoThong.Areas.Admin.Controllers
             ViewBag.MaLop = new SelectList(db.LOPs, "MaLop", "TenLop", lOPCHUNHIEM.MaLop);
             return View(lOPCHUNHIEM);
         }
+        private string GetNextId()
+        {
+            var allIds = db.LOPCHUNHIEMs.Select(h => h.MaGV).ToList();
 
+            int nextId = 1;
+
+            if (allIds.Count > 0)
+            {
+                var maxId = allIds.Max();
+
+                if (maxId.StartsWith("CHUNHIEM00"))
+                {
+                    int.TryParse(maxId.Substring(2), out int numericPart);
+                    nextId = numericPart + 1;
+                }
+            }
+
+            string formattedId = "CHUNHIEM00" + nextId.ToString();
+
+            return formattedId;
+        }
         // GET: Admin/LopChuNhiem/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(string id)
         {
             if (id == null)
             {
@@ -147,7 +169,7 @@ namespace QLPhoThong.Areas.Admin.Controllers
         }
 
         // GET: Admin/LopChuNhiem/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(string id)
         {
             if (id == null)
             {
@@ -164,7 +186,7 @@ namespace QLPhoThong.Areas.Admin.Controllers
         // POST: Admin/LopChuNhiem/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(string id)
         {
             LOPCHUNHIEM lOPCHUNHIEM = db.LOPCHUNHIEMs.Find(id);
             db.LOPCHUNHIEMs.Remove(lOPCHUNHIEM);

@@ -17,21 +17,21 @@ namespace QLPhoThong.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public LOP()
         {
+            this.HOCSINHs = new HashSet<HOCSINH>();
             this.LOPCHUNHIEMs = new HashSet<LOPCHUNHIEM>();
             this.PHANCONGs = new HashSet<PHANCONG>();
-            this.HOCSINHs = new HashSet<HOCSINH>();
         }
     
-        public int MaLop { get; set; }
+        public string MaLop { get; set; }
         public string TenLop { get; set; }
         public bool LopChuyen { get; set; }
         public string TenLopChuyen { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<HOCSINH> HOCSINHs { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LOPCHUNHIEM> LOPCHUNHIEMs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PHANCONG> PHANCONGs { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<HOCSINH> HOCSINHs { get; set; }
     }
 }

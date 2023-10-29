@@ -20,10 +20,10 @@ namespace QLPhoThong.Models
             this.DANHHIEUx = new HashSet<DANHHIEU>();
         }
     
-        public int MaKSDG { get; set; }
-        public int MaDMKSDG { get; set; }
-        public int MaHS { get; set; }
-        public int MaGV { get; set; }
+        public string MaKSDG { get; set; }
+        public string MaDMKSDG { get; set; }
+        public string MaHS { get; set; }
+        public string MaGV { get; set; }
         public string ThongTinKS { get; set; }
         public string MucDoDG { get; set; }
         public string Status { get; set; }
@@ -31,7 +31,7 @@ namespace QLPhoThong.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DANHHIEU> DANHHIEUx { get; set; }
         public virtual DANHMUCKHAOSATDANHGIA DANHMUCKHAOSATDANHGIA { get; set; }
-        public virtual HOCSINH HOCSINH { get; set; }
         public virtual GIAOVIEN GIAOVIEN { get; set; }
+        public virtual HOCSINH HOCSINH { get; set; }
     }
 }

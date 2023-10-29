@@ -20,7 +20,7 @@ namespace QLPhoThong.Models
             this.KHAOSATDANHGIAs = new HashSet<KHAOSATDANHGIA>();
         }
     
-        public int MaDMKSDG { get; set; }
+        public string MaDMKSDG { get; set; }
         public string TenDMKSDG { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

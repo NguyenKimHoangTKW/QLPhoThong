@@ -22,7 +22,7 @@ namespace QLPhoThong.Models
             this.THUPHIs = new HashSet<THUPHI>();
         }
     
-        public int MaHky { get; set; }
+        public string MaHky { get; set; }
         public string TenHky { get; set; }
         public string NamHoc { get; set; }
     

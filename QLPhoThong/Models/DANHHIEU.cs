@@ -14,16 +14,16 @@ namespace QLPhoThong.Models
     
     public partial class DANHHIEU
     {
-        public int MaHKy { get; set; }
-        public int MaHS { get; set; }
-        public int MaKSDG { get; set; }
-        public int MaBD { get; set; }
+        public string MaHKy { get; set; }
+        public string MaHS { get; set; }
+        public string MaKSDG { get; set; }
+        public string MaBD { get; set; }
         public string TenDanhHieu { get; set; }
-        public int MaHKiem { get; set; }
+        public string MaHKiem { get; set; }
     
         public virtual DIEM DIEM { get; set; }
         public virtual HANHKIEM HANHKIEM { get; set; }
-        public virtual KHAOSATDANHGIA KHAOSATDANHGIA { get; set; }
         public virtual HOCSINH HOCSINH { get; set; }
+        public virtual KHAOSATDANHGIA KHAOSATDANHGIA { get; set; }
     }
 }
