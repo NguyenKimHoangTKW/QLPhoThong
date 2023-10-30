@@ -46,14 +46,23 @@ namespace QLPhoThong.Areas.Admin.Controllers
             ViewBag.idDanToc = new SelectList(db.DanTocs, "idDanToc", "TenDanToc");
             return View();
         }
-
+        public List<MONHOC> LayMonHoc()
+        {
+            List<MONHOC> lstMonHoc =db.MONHOCs.ToList();
+            return lstMonHoc;
+        }
+        public List<HOCKY> LayHocKy()
+        {
+            List<HOCKY> lstHocKy =db.HOCKies.ToList();
+            return lstHocKy;
+        }
         // POST: Admin/HocSinh/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ValidateInput(false)]
-        public ActionResult Create([Bind(Include = "MaHS,TenHS,NgaySinh,DiaChi,SDT,MaLop,GioiTinh,TrangThai,idDanToc,Thumb")] HOCSINH hOCSINH, HttpPostedFileBase Thumb)
+        public ActionResult Create(HOCSINH hOCSINH, HttpPostedFileBase Thumb)
         {
 
 
@@ -61,8 +70,9 @@ namespace QLPhoThong.Areas.Admin.Controllers
             {
                 try
                 {
+                    List<MONHOC> lstMonHoc = LayMonHoc();
+                    List<HOCKY> lstHocKy = LayHocKy();
                     string nextId = GetNextId();
-                    // Tạo mã id mới
                     hOCSINH.MaHS = nextId;
                     if (Thumb != null && Thumb.ContentLength > 0)
                     {
@@ -73,8 +83,21 @@ namespace QLPhoThong.Areas.Admin.Controllers
 
                         Thumb.SaveAs(_path);
                         hOCSINH.Thumb = fullLink;
-
                         db.HOCSINHs.Add(hOCSINH);
+                        db.SaveChanges();
+                        foreach (var item in lstMonHoc)
+                        {
+                            foreach(var item2 in lstHocKy)
+                            {
+                                DIEM diem = new DIEM();
+                                diem.MaHS = hOCSINH.MaHS;
+                                diem.MaMH = item.MaMH;
+                                diem.MaHK = item2.MaHky;
+                                diem.MaNH = "NH23|24";
+                                db.DIEMs.Add(diem);
+                            }
+                            
+                        }
                         db.SaveChanges();
                         return RedirectToAction("Index");
                     }
@@ -187,7 +210,7 @@ namespace QLPhoThong.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            HOCSINH hOCSINH = db.HOCSINHs.Find(id);
+            HOCSINH hOCSINH = db.HOCSINHs.SingleOrDefault(hs => hs.MaHS == id);
             if (hOCSINH == null)
             {
                 return HttpNotFound();
@@ -201,10 +224,31 @@ namespace QLPhoThong.Areas.Admin.Controllers
         public ActionResult DeleteConfirmed(string id)
         {
             HOCSINH hOCSINH = db.HOCSINHs.Find(id);
-            db.HOCSINHs.Remove(hOCSINH);
-            db.SaveChanges();
+
+            if (hOCSINH != null)
+            {
+                var diemList = db.DIEMs.Where(d => d.MaHS == hOCSINH.MaHS).ToList();
+                foreach (var diem in diemList)
+                {
+                    db.DIEMs.Remove(diem);
+                }
+
+                if (!string.IsNullOrEmpty(hOCSINH.Thumb))
+                {
+                    string imagePath = Path.Combine(Server.MapPath("~/Areas/Admin/Images/ImagesStudent"), hOCSINH.Thumb);
+                    if (System.IO.File.Exists(imagePath))
+                    {
+                        System.IO.File.Delete(imagePath);
+                    }
+                }
+
+                db.HOCSINHs.Remove(hOCSINH);
+                db.SaveChanges();
+            }
+
             return RedirectToAction("Index");
         }
+
 
         protected override void Dispose(bool disposing)
         {

@@ -1,0 +1,64 @@
+﻿@model QLPhoThong.Models.HOCSINH
+@{
+    ViewBag.Title = "ThongTinHocSinh";
+    Layout = "~/Areas/Teacher/Views/Shared/_TeacherLayout.cshtml";
+}
+
+
+<div _ngcontent-upe-c155="" class="col-md-10 px-1" style="margin-top:75px;">
+
+    <div _ngcontent-upe-c155="" class="card shadow-lg">
+        <div _ngcontent-upe-c155="" class="card-header text-primary font-weight-bold"> Thông tin học sinh </div>
+        <div _ngcontent-upe-c155="" class="card-body py-1">
+            <div _ngcontent-mxb-c162="" class="col-md-2 mb-2 px-0">
+                <div _ngcontent-mxb-c162="" class="profile-img text-center" style=" position: absolute; left: 500%;">
+                    <img src="~/Areas/Admin/Images/ImagesStudent/@Model.Thumb" style="width:150px">
+                </div>
+            </div>
+            <div _ngcontent-upe-c155="" class="container-fluid p-0">
+
+                <div _ngcontent-upe-c155="" class="row my-1 ng-star-inserted">
+                    <div _ngcontent-upe-c155="" class="col-4 col-lg-4 text-nowrap pr-1">Mã HS</div>
+                    <div _ngcontent-upe-c155="" class="col-8 col-lg-8 px-1">@Model.MaHS</div>
+                </div><!---->
+                <div _ngcontent-upe-c155="" class="row my-1 ng-star-inserted">
+                    <div _ngcontent-upe-c155="" class="col-4 col-lg-4 text-nowrap pr-1">Họ và tên</div>
+                    <div _ngcontent-upe-c155="" class="col-8 col-lg-8 px-1">@Model.TenHS</div>
+                </div><!---->
+                <div _ngcontent-upe-c155="" class="row my-1 ng-star-inserted">
+                    <div _ngcontent-upe-c155="" class="col-4 col-lg-4 text-nowrap pr-1">Ngày sinh</div>
+                    <div _ngcontent-upe-c155="" class="col-8 col-lg-8 px-1">@string.Format("{0:dd/MM/yyyy}", Model.NgaySinh)</div>
+                </div><!---->
+                <div _ngcontent-upe-c155="" class="row my-1 ng-star-inserted">
+                    <div _ngcontent-upe-c155="" class="col-4 col-lg-4 text-nowrap pr-1">Giới tính</div>
+                    <div _ngcontent-upe-c155="" class="col-8 col-lg-8 px-1">@Model.GioiTinh</div>
+                </div><!---->
+                <div _ngcontent-upe-c155="" class="row my-1 ng-star-inserted">
+                    <div _ngcontent-upe-c155="" class="col-4 col-lg-4 text-nowrap pr-1">Điện thoại</div>
+                    <div _ngcontent-upe-c155="" class="col-8 col-lg-8 px-1">@Model.SDT</div>
+                </div><!----><!---->
+                <div _ngcontent-upe-c155="" class="row my-1">
+                    <div _ngcontent-upe-c155="" class="col-4 col-lg-4 text-nowrap pr-1">Địa chỉ</div>
+                    <div _ngcontent-upe-c155="" class="col-8 col-lg-8 px-1">@Model.DiaChi</div>
+                </div><!---->
+                <div _ngcontent-upe-c155="" class="row my-1">
+                    <div _ngcontent-upe-c155="" class="col-4 col-lg-4 text-nowrap pr-1">Dân tộc</div>
+                    <div _ngcontent-upe-c155="" class="col-8 col-lg-8 px-1">@Model.DanToc.TenDanToc</div>
+                </div>
+                <div _ngcontent-upe-c155="" class="row my-1 ng-star-inserted">
+                    <div _ngcontent-upe-c155="" class="col-4 col-lg-4 text-nowrap pr-1">Hiện diện</div>
+                    <div _ngcontent-upe-c155="" class="col-8 col-lg-8 px-1">@Model.TrangThai</div>
+                </div><!---->
+                <div _ngcontent-upe-c155="" class="row my-1 ng-star-inserted">
+                    <div _ngcontent-upe-c155="" class="col-4 col-lg-4 text-nowrap pr-1">Lớp</div>
+                    <div _ngcontent-upe-c155="" class="col-8 col-lg-8 px-1">@Model.LOP.TenLop</div>
+                </div><!---->
+            </div>
+        </div>
+    </div>
+    <div _ngcontent-upe-c155="" class="card shadow-lg my-3 ng-star-inserted">
+        <div _ngcontent-upe-c155="" class="card-header text-primary font-weight-bold">Giáo viên chủ nhiệm</div>
+        @Html.Action("ThongTinGiaoVienPartial", "ThongTin", new {id = Model.MaLop})
+    </div>
+    <!----><!---->
+</div>

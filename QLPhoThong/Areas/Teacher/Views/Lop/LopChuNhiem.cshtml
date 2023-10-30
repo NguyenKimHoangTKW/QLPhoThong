@@ -7,7 +7,7 @@
 
 <h2>Danh sách lớp</h2>
 
-<table class="table">
+<table class="table" style="margin-top:75px">
     <thead>
         <tr>
             <th>Tên Lớp</th>
@@ -18,10 +18,8 @@
         {
             <tr>
                 <td>@lop.LOP.TenLop</td>
+                <td><a href="@Url.Action("DanhSachHocSinh","Lop", new {id = lop.MaLop})">Xem danh sách học sinh</a></td>
             </tr>
         }
     </tbody>
 </table>
-<p>
-    @Html.ActionLink("Quay lại danh sách", "Index")
-</p>

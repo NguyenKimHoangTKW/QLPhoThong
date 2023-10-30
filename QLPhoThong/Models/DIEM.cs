@@ -20,20 +20,22 @@ namespace QLPhoThong.Models
             this.DANHHIEUx = new HashSet<DANHHIEU>();
         }
     
-        public string MaBD { get; set; }
-        public string DiemMieng { get; set; }
-        public string Diem15p { get; set; }
-        public string Diem1Tiet { get; set; }
-        public string DiemThi { get; set; }
+        public int MaBD { get; set; }
+        public Nullable<double> DiemMieng { get; set; }
+        public Nullable<double> Diem15p { get; set; }
+        public Nullable<double> Diem1Tiet { get; set; }
+        public Nullable<double> DiemThi { get; set; }
         public string MaHS { get; set; }
-        public string MaMH { get; set; }
+        public int MaMH { get; set; }
         public string MaHK { get; set; }
-        public string DiemTB { get; set; }
+        public Nullable<double> DiemTB { get; set; }
+        public string MaNH { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DANHHIEU> DANHHIEUx { get; set; }
         public virtual HOCKY HOCKY { get; set; }
         public virtual HOCSINH HOCSINH { get; set; }
         public virtual MONHOC MONHOC { get; set; }
+        public virtual NAMHOC NAMHOC { get; set; }
     }
 }

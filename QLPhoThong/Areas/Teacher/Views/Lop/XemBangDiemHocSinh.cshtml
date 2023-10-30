@@ -1,0 +1,20 @@
+﻿@model QLPhoThong.Models.DIEM
+@{
+    ViewBag.Title = "Bảng điểm học sinh";
+    Layout = "~/Areas/Teacher/Views/Shared/_TeacherLayout.cshtml";
+}
+
+<div class="card" style=" margin-top:75px">
+    <div style="text-align:center">
+        <h4>Bảng điểm của học sinh : <b>@Model.HOCSINH.TenHS</b></h4>
+        <h4>Niên khóa : <b>@Model.NAMHOC.TenNH</b></h4>
+    </div>
+    @Html.Action("BangdiemHK1Partial", "ThongTin", new { id = Model.MaHS })
+    @Html.Action("BangdiemHK2Partial", "ThongTin", new { id = Model.MaHS })
+
+    <a href="@Url.Action("DanhSachHocSinh","Lop", new {id = Model.HOCSINH.MaLop})">Quay lại danh sách học sinh</a>
+</div>
+
+
+
+

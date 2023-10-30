@@ -17,7 +17,6 @@ namespace QLPhoThong.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public GIAOVIEN()
         {
-            this.KHAOSATDANHGIAs = new HashSet<KHAOSATDANHGIA>();
             this.LOPCHUNHIEMs = new HashSet<LOPCHUNHIEM>();
             this.PHANCONGs = new HashSet<PHANCONG>();
             this.Users = new HashSet<User>();
@@ -30,15 +29,11 @@ namespace QLPhoThong.Models
         public string GioiTinh { get; set; }
         public string Gmail { get; set; }
         public string Diachi { get; set; }
-        public string MaMH { get; set; }
         public string TrangThai { get; set; }
         public int idDanToc { get; set; }
         public string Thumb { get; set; }
     
         public virtual DanToc DanToc { get; set; }
-        public virtual MONHOC MONHOC { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<KHAOSATDANHGIA> KHAOSATDANHGIAs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LOPCHUNHIEM> LOPCHUNHIEMs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

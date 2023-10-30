@@ -134,7 +134,6 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
-    <Compile Include="Areas\Admin\Controllers\DiemController.cs" />
     <Compile Include="Areas\Admin\Controllers\GiaoVienController.cs" />
     <Compile Include="Areas\Admin\Controllers\HocKyController.cs" />
     <Compile Include="Areas\Admin\Controllers\HocSinhController.cs" />
@@ -148,6 +147,8 @@
     <Compile Include="Areas\Admin\Controllers\UsersController.cs" />
     <Compile Include="Areas\Teacher\Controllers\HomeController.cs" />
     <Compile Include="Areas\Teacher\Controllers\LopController.cs" />
+    <Compile Include="Areas\Teacher\Controllers\QuanLyDiemController.cs" />
+    <Compile Include="Areas\Teacher\Controllers\ThongTinController.cs" />
     <Compile Include="Areas\Teacher\TeacherAreaRegistration.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -158,9 +159,6 @@
       <DependentUpon>QLPhoThongModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DANHMUCHANHKIEM.cs">
-      <DependentUpon>QLPhoThongModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\DANHMUCKHAOSATDANHGIA.cs">
       <DependentUpon>QLPhoThongModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DanToc.cs">
@@ -181,9 +179,6 @@
     <Compile Include="Models\HOCSINH.cs">
       <DependentUpon>QLPhoThongModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\KHAOSATDANHGIA.cs">
-      <DependentUpon>QLPhoThongModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\LOP.cs">
       <DependentUpon>QLPhoThongModel.tt</DependentUpon>
     </Compile>
@@ -191,6 +186,9 @@
       <DependentUpon>QLPhoThongModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\MONHOC.cs">
+      <DependentUpon>QLPhoThongModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NAMHOC.cs">
       <DependentUpon>QLPhoThongModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PHANCONG.cs">
@@ -235,10 +233,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Admin\Images\ImagesStudent\thumb-1-20230930082151586.jpg" />
-    <Content Include="Areas\Admin\Images\ImagesStudent\thumb-1.jpg" />
-    <Content Include="Areas\Admin\Images\ImagesStudent\thumb-9-20230930083028930.jpg" />
-    <Content Include="Areas\Admin\Images\ImagesStudent\thumb-9.jpg" />
     <Content Include="Areas\Style\assets\css\app.min.css" />
     <Content Include="Areas\Style\assets\es6\app.js" />
     <Content Include="Areas\Style\assets\es6\constant\theme-constant.js" />
@@ -842,11 +836,6 @@
     <Content Include="Areas\Admin\Views\PhanCong\Details.cshtml" />
     <Content Include="Areas\Admin\Views\PhanCong\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\PhanCong\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Diem\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\Diem\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\Diem\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\Diem\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\Diem\Index.cshtml" />
     <Content Include="Areas\Admin\Views\LopChuNhiem\Create.cshtml" />
     <Content Include="Areas\Admin\Views\LopChuNhiem\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\LopChuNhiem\Details.cshtml" />
@@ -1125,6 +1114,14 @@
     </Content>
     <Content Include="Areas\Teacher\Views\Lop\LopChuNhiem.cshtml" />
     <Content Include="Areas\Teacher\Views\Lop\DanhSachHocSinh.cshtml" />
+    <Content Include="Areas\Teacher\Views\Lop\XemBangDiemHocSinh.cshtml" />
+    <Content Include="Areas\Teacher\Views\ThongTin\ThongTin.cshtml" />
+    <Content Include="Areas\Teacher\Views\ThongTin\ThongTinGiaoVienPartial.cshtml" />
+    <Content Include="Areas\Teacher\Views\Lop\DanhSachHocSinhPhuTrachDay.cshtml" />
+    <Content Include="Areas\Teacher\Views\ThongTin\BangdiemHK1Partial.cshtml" />
+    <Content Include="Areas\Teacher\Views\ThongTin\BangdiemHK2Partial.cshtml" />
+    <Content Include="Areas\Teacher\Views\QuanLyDiem\XemDiemHocSinhPhuTrachDay.cshtml" />
+    <Content Include="Areas\Teacher\Views\QuanLyDiem\XemDiemHocSinhPhuTrachDayHK1Partial.cshtml" />
     <None Include="Scripts\jquery-3.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.1.js" />
     <Content Include="Scripts\jquery-3.7.1.min.js" />
@@ -1177,6 +1174,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
+    <Folder Include="Areas\Admin\Images\ImagesStudent\" />
     <Folder Include="Areas\Admin\Images\ImagesTeacher\" />
     <Folder Include="Areas\Teacher\Data\" />
   </ItemGroup>

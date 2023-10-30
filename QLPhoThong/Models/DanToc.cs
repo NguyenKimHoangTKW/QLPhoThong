@@ -17,16 +17,16 @@ namespace QLPhoThong.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public DanToc()
         {
-            this.GIAOVIENs = new HashSet<GIAOVIEN>();
             this.HOCSINHs = new HashSet<HOCSINH>();
+            this.GIAOVIENs = new HashSet<GIAOVIEN>();
         }
     
         public int idDanToc { get; set; }
         public string TenDanToc { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<GIAOVIEN> GIAOVIENs { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HOCSINH> HOCSINHs { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<GIAOVIEN> GIAOVIENs { get; set; }
     }
 }

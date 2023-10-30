@@ -15,12 +15,12 @@ namespace QLPhoThong.Models
     public partial class PHANCONG
     {
         public string MaPhanCong { get; set; }
-        public string MaMH { get; set; }
+        public int MaMH { get; set; }
         public string MaGV { get; set; }
         public string MaLop { get; set; }
     
-        public virtual GIAOVIEN GIAOVIEN { get; set; }
         public virtual LOP LOP { get; set; }
         public virtual MONHOC MONHOC { get; set; }
+        public virtual GIAOVIEN GIAOVIEN { get; set; }
     }
 }

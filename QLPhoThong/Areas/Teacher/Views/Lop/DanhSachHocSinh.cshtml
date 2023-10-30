@@ -1,88 +1,35 @@
-﻿@model QLPhoThong.Models.HOCSINH
-
+﻿@model IEnumerable<QLPhoThong.Models.HOCSINH>
 @{
-    ViewBag.Title = "DanhSachHocSinh";
+    ViewBag.Title = "Danh sách học sinh của lớp";
     Layout = "~/Areas/Teacher/Views/Shared/_TeacherLayout.cshtml";
+    int i = 0;
 }
+@{ var user = Session["User"] as QLPhoThong.Models.User;}
+<h2>Danh sách học sinh</h2>
 
-<h2>DanhSachHocSinh</h2>
+<table class="table" style="margin-top:75px">
+    <thead>
+        <tr>
+            <th>STT</th>
+            <th>Tên Học sinh</th>
 
-<div>
-    <h4>HOCSINH</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.TenHS)
-        </dt>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            i++;
 
-        <dd>
-            @Html.DisplayFor(model => model.TenHS)
-        </dd>
+            <tr>
+                <td>#@i</td>
+                <td>@item.TenHS</td>
+                <td><a href="@Url.Action("XemBangDiemHocSinh","Lop", new {id = item.MaHS})">Xem điểm</a></td>
+                <td><a href="@Url.Action("ThongTin","ThongTin", new {id = item.MaHS})">Xem thông tin học sinh</a></td>
+            </tr>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.NgaySinh)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.NgaySinh)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DiaChi)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DiaChi)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.SDT)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.SDT)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.GioiTinh)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.GioiTinh)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TrangThai)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TrangThai)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Thumb)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Thumb)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DanToc.TenDanToc)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DanToc.TenDanToc)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.LOP.TenLop)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.LOP.TenLop)
-        </dd>
-
-    </dl>
-</div>
-
+        }
+    </tbody>
+</table>
+<p>
+    <a href="@Url.Action("LopChuNhiem","Lop", new {id = user.MaGV})">Quay lại danh sách học sinh</a>
+</p>

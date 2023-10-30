@@ -19,8 +19,8 @@ namespace QLPhoThong.Models
         public string MaGV { get; set; }
         public string MaHKy { get; set; }
     
-        public virtual GIAOVIEN GIAOVIEN { get; set; }
-        public virtual HOCKY HOCKY { get; set; }
         public virtual LOP LOP { get; set; }
+        public virtual HOCKY HOCKY { get; set; }
+        public virtual GIAOVIEN GIAOVIEN { get; set; }
     }
 }

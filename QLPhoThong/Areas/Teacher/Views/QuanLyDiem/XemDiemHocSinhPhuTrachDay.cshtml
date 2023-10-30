@@ -1,0 +1,19 @@
+﻿@model QLPhoThong.Models.DIEM
+@{
+    ViewBag.Title = "Bảng điểm học sinh phụ trách dạy";
+    Layout = "~/Areas/Teacher/Views/Shared/_TeacherLayout.cshtml";
+}
+@{ var user = Session["User"] as QLPhoThong.Models.User;}
+<div class="card" style=" margin-top:75px">
+    <div style="text-align:center">
+        <h4>Bảng điểm của học sinh : <b>@Model.HOCSINH.TenHS</b></h4>
+        <h4>Môn Học : <b>@Model.MONHOC.TenMH</b></h4>
+        <h4>Học kỳ : <b>@Model.HOCKY.TenHky</b></h4>
+        <h4>Niên khóa : <b>@Model.NAMHOC.TenNH</b></h4>
+    </div>
+    @Html.Action("XemDiemHocSinhPhuTrachDayHK1Partial", "QuanLyDiem", new {id = Model.MaBD })
+</div>
+
+
+
+

@@ -17,10 +17,9 @@ namespace QLPhoThong.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public HOCSINH()
         {
+            this.THUPHIs = new HashSet<THUPHI>();
             this.DANHHIEUx = new HashSet<DANHHIEU>();
             this.DIEMs = new HashSet<DIEM>();
-            this.KHAOSATDANHGIAs = new HashSet<KHAOSATDANHGIA>();
-            this.THUPHIs = new HashSet<THUPHI>();
         }
     
         public string MaHS { get; set; }
@@ -34,15 +33,13 @@ namespace QLPhoThong.Models
         public int idDanToc { get; set; }
         public string Thumb { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DANHHIEU> DANHHIEUx { get; set; }
         public virtual DanToc DanToc { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DIEM> DIEMs { get; set; }
         public virtual LOP LOP { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<KHAOSATDANHGIA> KHAOSATDANHGIAs { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<THUPHI> THUPHIs { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DANHHIEU> DANHHIEUx { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DIEM> DIEMs { get; set; }
     }
 }

@@ -21,7 +21,7 @@ namespace QLPhoThong.Models
         public string Status { get; set; }
         public string idMaThu { get; set; }
     
-        public virtual HOCKY HOCKY { get; set; }
         public virtual HOCSINH HOCSINH { get; set; }
+        public virtual HOCKY HOCKY { get; set; }
     }
 }

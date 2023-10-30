@@ -25,8 +25,8 @@ namespace QLPhoThong.Models
         public string TenHKiem { get; set; }
         public string DiemSo { get; set; }
     
+        public virtual DANHMUCHANHKIEM DANHMUCHANHKIEM { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DANHHIEU> DANHHIEUx { get; set; }
-        public virtual DANHMUCHANHKIEM DANHMUCHANHKIEM { get; set; }
     }
 }

@@ -18,7 +18,7 @@ namespace QLPhoThong.Areas.Admin.Controllers
         // GET: Admin/GiaoVien
         public ActionResult Index()
         {
-            var gIAOVIENs = db.GIAOVIENs.Include(g => g.MONHOC).Include(g => g.DanToc);
+            var gIAOVIENs = db.GIAOVIENs.Include(g => g.DanToc);
             return View(gIAOVIENs.ToList());
         }
 
@@ -79,7 +79,6 @@ namespace QLPhoThong.Areas.Admin.Controllers
                 }
             }
 
-            ViewBag.MaMH = new SelectList(db.MONHOCs, "MaMH", "TenMH", gIAOVIEN.MaMH);
             ViewBag.idDanToc = new SelectList(db.DanTocs, "idDanToc", "TenDanToc", gIAOVIEN.idDanToc);
             return View(gIAOVIEN);
         }
@@ -116,7 +115,6 @@ namespace QLPhoThong.Areas.Admin.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.MaMH = new SelectList(db.MONHOCs, "MaMH", "TenMH", gIAOVIEN.MaMH);
             ViewBag.idDanToc = new SelectList(db.DanTocs, "idDanToc", "TenDanToc", gIAOVIEN.idDanToc);
             return View(gv);
         }
@@ -159,7 +157,6 @@ namespace QLPhoThong.Areas.Admin.Controllers
                 }
                 return RedirectToAction("Index");
             }
-            ViewBag.MaMH = new SelectList(db.MONHOCs, "MaMH", "TenMH", gIAOVIEN.MaMH);
             ViewBag.idDanToc = new SelectList(db.DanTocs, "idDanToc", "TenDanToc", gIAOVIEN.idDanToc);
             return View(gIAOVIEN);
         }

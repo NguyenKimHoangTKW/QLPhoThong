@@ -9,7 +9,7 @@
     <Property Name="MaHKy" Type="nvarchar" MaxLength="20" Nullable="false" />
     <Property Name="MaHS" Type="nvarchar" MaxLength="20" Nullable="false" />
     <Property Name="MaKSDG" Type="nvarchar" MaxLength="20" Nullable="false" />
-    <Property Name="MaBD" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="MaBD" Type="int" Nullable="false" />
     <Property Name="TenDanhHieu" Type="nvarchar" MaxLength="100" Nullable="false" />
     <Property Name="MaHKiem" Type="nvarchar" MaxLength="20" Nullable="false" />
   </EntityType>
@@ -39,15 +39,16 @@
     <Key>
       <PropertyRef Name="MaBD" />
     </Key>
-    <Property Name="MaBD" Type="nvarchar" MaxLength="20" Nullable="false" />
-    <Property Name="DiemMieng" Type="char" MaxLength="10" Nullable="false" />
-    <Property Name="Diem15p" Type="char" MaxLength="10" Nullable="false" />
-    <Property Name="Diem1Tiet" Type="char" MaxLength="10" Nullable="false" />
-    <Property Name="DiemThi" Type="char" MaxLength="10" Nullable="false" />
+    <Property Name="MaBD" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DiemMieng" Type="float" />
+    <Property Name="Diem15p" Type="float" />
+    <Property Name="Diem1Tiet" Type="float" />
+    <Property Name="DiemThi" Type="float" />
     <Property Name="MaHS" Type="nvarchar" MaxLength="20" Nullable="false" />
-    <Property Name="MaMH" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="MaMH" Type="int" Nullable="false" />
     <Property Name="MaHK" Type="nvarchar" MaxLength="20" Nullable="false" />
-    <Property Name="DiemTB" Type="char" MaxLength="10" Nullable="false" />
+    <Property Name="DiemTB" Type="float" />
+    <Property Name="MaNH" Type="nvarchar" MaxLength="20" Nullable="false" />
   </EntityType>
   <EntityType Name="GIAOVIEN">
     <Key>
@@ -60,7 +61,6 @@
     <Property Name="GioiTinh" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="Gmail" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="Diachi" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="MaMH" Type="nvarchar" MaxLength="20" Nullable="false" />
     <Property Name="TrangThai" Type="nvarchar" MaxLength="50" />
     <Property Name="idDanToc" Type="int" Nullable="false" />
     <Property Name="Thumb" Type="nvarchar(max)" />
@@ -80,7 +80,6 @@
     </Key>
     <Property Name="MaHky" Type="nvarchar" MaxLength="20" Nullable="false" />
     <Property Name="TenHky" Type="nvarchar" MaxLength="100" Nullable="false" />
-    <Property Name="NamHoc" Type="nvarchar" MaxLength="100" Nullable="false" />
   </EntityType>
   <EntityType Name="HOCSINH">
     <Key>
@@ -131,15 +130,22 @@
     <Key>
       <PropertyRef Name="MaMH" />
     </Key>
-    <Property Name="MaMH" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="MaMH" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="TenMH" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="NAMHOC">
+    <Key>
+      <PropertyRef Name="MaNH" />
+    </Key>
+    <Property Name="MaNH" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="TenNH" Type="nvarchar" MaxLength="50" Nullable="false" />
   </EntityType>
   <EntityType Name="PHANCONG">
     <Key>
       <PropertyRef Name="MaPhanCong" />
     </Key>
     <Property Name="MaPhanCong" Type="nvarchar" MaxLength="20" Nullable="false" />
-    <Property Name="MaMH" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="MaMH" Type="int" Nullable="false" />
     <Property Name="MaGV" Type="nvarchar" MaxLength="20" Nullable="false" />
     <Property Name="MaLop" Type="nvarchar" MaxLength="20" Nullable="false" />
   </EntityType>
@@ -289,6 +295,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_DIEM_NAMHOC">
+    <End Role="NAMHOC" Type="Self.NAMHOC" Multiplicity="1" />
+    <End Role="DIEM" Type="Self.DIEM" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NAMHOC">
+        <PropertyRef Name="MaNH" />
+      </Principal>
+      <Dependent Role="DIEM">
+        <PropertyRef Name="MaNH" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_GIAOVIEN_DanToc">
     <End Role="DanToc" Type="Self.DanToc" Multiplicity="1" />
     <End Role="GIAOVIEN" Type="Self.GIAOVIEN" Multiplicity="*" />
@@ -298,18 +316,6 @@
       </Principal>
       <Dependent Role="GIAOVIEN">
         <PropertyRef Name="idDanToc" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_GIAOVIEN_MONHOC">
-    <End Role="MONHOC" Type="Self.MONHOC" Multiplicity="1" />
-    <End Role="GIAOVIEN" Type="Self.GIAOVIEN" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="MONHOC">
-        <PropertyRef Name="MaMH" />
-      </Principal>
-      <Dependent Role="GIAOVIEN">
-        <PropertyRef Name="MaMH" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -543,6 +549,7 @@
     <EntitySet Name="LOP" EntityType="Self.LOP" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="LOPCHUNHIEM" EntityType="Self.LOPCHUNHIEM" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MONHOC" EntityType="Self.MONHOC" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="NAMHOC" EntityType="Self.NAMHOC" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PHANCONG" EntityType="Self.PHANCONG" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="QuanHuyen" EntityType="Self.QuanHuyen" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
@@ -579,12 +586,12 @@
       <End Role="MONHOC" EntitySet="MONHOC" />
       <End Role="DIEM" EntitySet="DIEM" />
     </AssociationSet>
+    <AssociationSet Name="FK_DIEM_NAMHOC" Association="Self.FK_DIEM_NAMHOC">
+      <End Role="NAMHOC" EntitySet="NAMHOC" />
+      <End Role="DIEM" EntitySet="DIEM" />
+    </AssociationSet>
     <AssociationSet Name="FK_GIAOVIEN_DanToc" Association="Self.FK_GIAOVIEN_DanToc">
       <End Role="DanToc" EntitySet="DanToc" />
-      <End Role="GIAOVIEN" EntitySet="GIAOVIEN" />
-    </AssociationSet>
-    <AssociationSet Name="FK_GIAOVIEN_MONHOC" Association="Self.FK_GIAOVIEN_MONHOC">
-      <End Role="MONHOC" EntitySet="MONHOC" />
       <End Role="GIAOVIEN" EntitySet="GIAOVIEN" />
     </AssociationSet>
     <AssociationSet Name="FK_HANHKIEM_DANHMUCHANHKIEM" Association="Self.FK_HANHKIEM_DANHMUCHANHKIEM">

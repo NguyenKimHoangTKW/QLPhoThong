@@ -28,5 +28,17 @@ namespace QLPhoThong.Areas.Teacher.Controllers
             var danhSachLop = db.HOCSINHs.Where(pc => pc.MaLop == id).ToList();
             return View(danhSachLop);
         }
+        public ActionResult DanhSachHocSinhPhuTrachDay(string id)
+        {
+            var danhSachLop = db.HOCSINHs.Where(pc => pc.MaLop == id).ToList();
+            return View(danhSachLop);
+        }
+        public ActionResult XemBangDiemHocSinh(string id)
+        {
+            var danhSachLop = db.DIEMs.FirstOrDefault(pc => pc.MaHS == id);
+            return View(danhSachLop);
+        }
+        
+        
     }
 }
