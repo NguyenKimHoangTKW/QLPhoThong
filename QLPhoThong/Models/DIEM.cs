@@ -31,11 +31,11 @@ namespace QLPhoThong.Models
         public Nullable<double> DiemTB { get; set; }
         public string MaNH { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DANHHIEU> DANHHIEUx { get; set; }
         public virtual HOCKY HOCKY { get; set; }
         public virtual HOCSINH HOCSINH { get; set; }
         public virtual MONHOC MONHOC { get; set; }
         public virtual NAMHOC NAMHOC { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DANHHIEU> DANHHIEUx { get; set; }
     }
 }

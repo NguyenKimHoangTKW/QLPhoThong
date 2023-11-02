@@ -38,12 +38,12 @@ namespace QLPhoThong.Models
         public virtual DbSet<TITLEUSER> TITLEUSERs { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<XaPhuong> XaPhuongs { get; set; }
-        public virtual DbSet<DANHHIEU> DANHHIEUx { get; set; }
         public virtual DbSet<HOCKY> HOCKies { get; set; }
         public virtual DbSet<NAMHOC> NAMHOCs { get; set; }
         public virtual DbSet<MONHOC> MONHOCs { get; set; }
         public virtual DbSet<PHANCONG> PHANCONGs { get; set; }
         public virtual DbSet<DIEM> DIEMs { get; set; }
         public virtual DbSet<GIAOVIEN> GIAOVIENs { get; set; }
+        public virtual DbSet<DANHHIEU> DANHHIEUx { get; set; }
     }
 }

@@ -16,13 +16,12 @@ namespace QLPhoThong.Models
     {
         public string MaHKy { get; set; }
         public string MaHS { get; set; }
-        public string MaKSDG { get; set; }
         public int MaBD { get; set; }
         public string TenDanhHieu { get; set; }
         public string MaHKiem { get; set; }
     
+        public virtual DIEM DIEM { get; set; }
         public virtual HANHKIEM HANHKIEM { get; set; }
         public virtual HOCSINH HOCSINH { get; set; }
-        public virtual DIEM DIEM { get; set; }
     }
 }

@@ -18,8 +18,8 @@ namespace QLPhoThong.Models
         public HOCSINH()
         {
             this.THUPHIs = new HashSet<THUPHI>();
-            this.DANHHIEUx = new HashSet<DANHHIEU>();
             this.DIEMs = new HashSet<DIEM>();
+            this.DANHHIEUx = new HashSet<DANHHIEU>();
         }
     
         public string MaHS { get; set; }
@@ -38,8 +38,8 @@ namespace QLPhoThong.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<THUPHI> THUPHIs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DANHHIEU> DANHHIEUx { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DIEM> DIEMs { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DANHHIEU> DANHHIEUx { get; set; }
     }
 }

@@ -10,14 +10,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="DANHMUCKHAOSATDANHGIAs">
-      <EntityTypeMapping TypeName="diemhsModel.DANHMUCKHAOSATDANHGIA">
-        <MappingFragment StoreEntitySet="DANHMUCKHAOSATDANHGIA">
-          <ScalarProperty Name="MaDMKSDG" ColumnName="MaDMKSDG" />
-          <ScalarProperty Name="TenDMKSDG" ColumnName="TenDMKSDG" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="DanTocs">
       <EntityTypeMapping TypeName="diemhsModel.DanToc">
         <MappingFragment StoreEntitySet="DanToc">
@@ -49,19 +41,6 @@
           <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
           <ScalarProperty Name="idDanToc" ColumnName="idDanToc" />
           <ScalarProperty Name="Thumb" ColumnName="Thumb" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="KHAOSATDANHGIAs">
-      <EntityTypeMapping TypeName="diemhsModel.KHAOSATDANHGIA">
-        <MappingFragment StoreEntitySet="KHAOSATDANHGIA">
-          <ScalarProperty Name="MaKSDG" ColumnName="MaKSDG" />
-          <ScalarProperty Name="MaDMKSDG" ColumnName="MaDMKSDG" />
-          <ScalarProperty Name="MaHS" ColumnName="MaHS" />
-          <ScalarProperty Name="MaGV" ColumnName="MaGV" />
-          <ScalarProperty Name="ThongTinKS" ColumnName="ThongTinKS" />
-          <ScalarProperty Name="MucDoDG" ColumnName="MucDoDG" />
-          <ScalarProperty Name="Status" ColumnName="Status" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -154,18 +133,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="DANHHIEUx">
-      <EntityTypeMapping TypeName="diemhsModel.DANHHIEU">
-        <MappingFragment StoreEntitySet="DANHHIEU">
-          <ScalarProperty Name="MaHKiem" ColumnName="MaHKiem" />
-          <ScalarProperty Name="TenDanhHieu" ColumnName="TenDanhHieu" />
-          <ScalarProperty Name="MaBD" ColumnName="MaBD" />
-          <ScalarProperty Name="MaKSDG" ColumnName="MaKSDG" />
-          <ScalarProperty Name="MaHS" ColumnName="MaHS" />
-          <ScalarProperty Name="MaHKy" ColumnName="MaHKy" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="HOCKies">
       <EntityTypeMapping TypeName="diemhsModel.HOCKY">
         <MappingFragment StoreEntitySet="HOCKY">
@@ -229,6 +196,17 @@
           <ScalarProperty Name="NgaySinh" ColumnName="NgaySinh" />
           <ScalarProperty Name="TenGV" ColumnName="TenGV" />
           <ScalarProperty Name="MaGV" ColumnName="MaGV" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DANHHIEUx">
+      <EntityTypeMapping TypeName="diemhsModel.DANHHIEU">
+        <MappingFragment StoreEntitySet="DANHHIEU">
+          <ScalarProperty Name="MaHKiem" ColumnName="MaHKiem" />
+          <ScalarProperty Name="TenDanhHieu" ColumnName="TenDanhHieu" />
+          <ScalarProperty Name="MaBD" ColumnName="MaBD" />
+          <ScalarProperty Name="MaHS" ColumnName="MaHS" />
+          <ScalarProperty Name="MaHKy" ColumnName="MaHKy" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

@@ -26,9 +26,6 @@
         <AssociationConnector Association="diemhsModel.FK_QuanHuyen_TinhThanhPho" ManuallyRouted="false" />
         <AssociationConnector Association="diemhsModel.FK_XaPhuong_QuanHuyen" ManuallyRouted="false" />
         <AssociationConnector Association="diemhsModel.FK_User_TITLEUSER" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="diemhsModel.DANHHIEU" Width="1.5" PointX="13.5" PointY="10.25" />
-        <AssociationConnector Association="diemhsModel.FK_DANHHIEU_HANHKIEM" />
-        <AssociationConnector Association="diemhsModel.FK_DANHHIEU_HOCSINH" />
         <EntityTypeShape EntityType="diemhsModel.HOCKY" Width="1.5" PointX="6" PointY="7.5" />
         <EntityTypeShape EntityType="diemhsModel.NAMHOC" Width="1.5" PointX="6" PointY="19.375" />
         <AssociationConnector Association="diemhsModel.FK_LOPCHUNHIEM_HOCKY" />
@@ -38,7 +35,6 @@
         <AssociationConnector Association="diemhsModel.FK_PHANCONG_LOP" />
         <AssociationConnector Association="diemhsModel.FK_PHANCONG_MONHOC" />
         <EntityTypeShape EntityType="diemhsModel.DIEM" Width="1.5" PointX="8.25" PointY="12.25" />
-        <AssociationConnector Association="diemhsModel.FK_DANHHIEU_DIEM" />
         <AssociationConnector Association="diemhsModel.FK_DIEM_HOCKY" />
         <AssociationConnector Association="diemhsModel.FK_DIEM_HOCSINH" />
         <AssociationConnector Association="diemhsModel.FK_DIEM_MONHOC" />
@@ -48,6 +44,10 @@
         <AssociationConnector Association="diemhsModel.FK_LOPCHUNHIEM_GIAOVIEN" />
         <AssociationConnector Association="diemhsModel.FK_PHANCONG_GIAOVIEN" />
         <AssociationConnector Association="diemhsModel.FK_User_GIAOVIEN" />
+        <EntityTypeShape EntityType="diemhsModel.DANHHIEU" Width="1.5" PointX="13.5" PointY="10.375" />
+        <AssociationConnector Association="diemhsModel.FK_DANHHIEU_DIEM" />
+        <AssociationConnector Association="diemhsModel.FK_DANHHIEU_HANHKIEM" />
+        <AssociationConnector Association="diemhsModel.FK_DANHHIEU_HOCSINH" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
