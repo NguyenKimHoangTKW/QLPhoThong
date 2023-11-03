@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -14,7 +15,7 @@ namespace QLPhoThong.Areas.Teacher.Controllers
         // GET: Teacher/QuanLyDiem
         public ActionResult XemDiemHocSinhPhuTrachDay(string id, string idgv, string idlop)
         {
-            var xemdiem = from d in db.DIEMs
+            var xemdiem = (from d in db.DIEMs
                           from p in db.PHANCONGs
                           from m in db.MONHOCs
                           from l in db.LOPs
@@ -22,23 +23,31 @@ namespace QLPhoThong.Areas.Teacher.Controllers
                           where m.MaMH == d.MaMH
                           where l.MaLop == idlop
                           where l.MaLop == p.MaLop
+                          where d.MaNH == "NH23|24"
                           where d.MaHS == id
                           where p.MaGV == idgv
-                          select d;
+                          select d).ToList();
             return View(xemdiem);
         }
+        
         [HttpGet]
-        public ActionResult XemDiemHocSinhPhuTrachDayHK1Partial(int id)
+        public ActionResult NhapDiem(int id)
         {
-            var xemdiem = db.DIEMs.Where(d => d.MaBD == id && d.MaNH == "NH23|24" && d.MaHK == "1");
-                          
-            return PartialView(xemdiem);
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            DIEM diem = db.DIEMs.Find(id);
+            if (diem == null)
+            {
+                return HttpNotFound();
+            }
+            return PartialView(diem);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult XemDiemHocSinhPhuTrachDayHK1Partial(DIEM diem)
+        public JsonResult NhapDiem(DIEM diem)
         {
-
             if (ModelState.IsValid)
             {
                 if (diem.DiemMieng != null && diem.Diem15p != null && diem.Diem1Tiet != null && diem.DiemThi != null)
@@ -55,40 +64,13 @@ namespace QLPhoThong.Areas.Teacher.Controllers
                     db.Entry(diem).State = EntityState.Modified;
                     db.SaveChanges();
                 }
-
+                return Json(new { code = 200, message = "Nhập điểm thành công" });
             }
-            return PartialView(diem);
+            return Json(new { code = 400, message = "Lỗi khi nhập điểm" });
         }
-        [HttpGet]
-        public ActionResult XemDiemHocSinhPhuTrachDayHK2Partial(string id)
-        {
-            var xemdiem = db.DIEMs.SingleOrDefault(d => d.MaHS == id && d.MaHK == "2");
 
-            return PartialView(xemdiem);
-        }
-        [HttpPost]
-        public ActionResult XemDiemHocSinhPhuTrachDayHK2Partial(DIEM diem)
-        {
 
-            if (ModelState.IsValid)
-            {
-                if (diem.DiemMieng != null && diem.Diem15p != null && diem.Diem1Tiet != null && diem.DiemThi != null)
-                {
-                    float diemtbm = (float)((diem.DiemMieng + diem.Diem15p) + (diem.Diem1Tiet * 2) + (diem.DiemThi * 3)) / 7;
-                    string diemtbmFormatted = diemtbm.ToString("N1");
-                    float diemtbmRounded = float.Parse(diemtbmFormatted);
-                    diem.DiemTB = diemtbmRounded;
-                    db.Entry(diem).State = EntityState.Modified;
-                    db.SaveChanges();
-                }
-                else
-                {
-                    db.Entry(diem).State = EntityState.Modified;
-                    db.SaveChanges();
-                }
 
-            }
-            return PartialView(diem);
-        }
+
     }
 }

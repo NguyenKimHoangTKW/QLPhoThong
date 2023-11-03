@@ -1,27 +1,68 @@
-﻿@model QLPhoThong.Models.DIEM
+﻿@model IEnumerable<QLPhoThong.Models.DIEM>
 @{
     ViewBag.Title = "Bảng điểm học sinh phụ trách dạy";
     Layout = "~/Areas/Teacher/Views/Shared/_TeacherLayout.cshtml";
 }
-@{ var user = Session["User"] as QLPhoThong.Models.User;}
 
-<div class="card" style=" margin-top:75px">
-    <div style="text-align:center">
-        <h4>Bảng điểm của học sinh : <b>@Model.HOCSINH.TenHS</b></h4>
-        <h4>Môn Học : <b>@Model.MONHOC.TenMH</b></h4>
-        <h4>Học kỳ : <b>@Model.HOCKY.TenHky</b></h4>
-        <h4>Niên khóa : <b>@Model.NAMHOC.TenNH</b></h4>
-    </div>
+<div class="card" style="margin-top: 75px;">
+    @if (Model.Any())
+    {
+        <div style="text-align: center;">
+            <h4>Bảng điểm của học sinh : <b>@Model.FirstOrDefault().HOCSINH.TenHS</b></h4>
+            <h4>Môn Học : <b>@Model.FirstOrDefault().MONHOC.TenMH</b></h4>
+            <h4>Niên khóa : <b>@Model.FirstOrDefault().NAMHOC.TenNH</b></h4>
+        </div>
+        <div class="card-body">
+            @foreach (var item in Model)
+            {
+                <h4>Bảng điểm @item.HOCKY.TenHky</h4>
+                <div class="m-t-25">
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Điểm miệng</th>
+                                    <th scope="col">Điểm 15 phút</th>
+                                    <th scope="col">Điểm 1 tiết</th>
+                                    <th scope="col">Điểm Thi</th>
+                                    <th scope="col">Điểm TBM</th>
+                                    <th scope="col" rowspan="1">Nhập điểm</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th>@item.DiemMieng</th>
+                                    <th>@item.Diem15p</th>
+                                    <th>@item.Diem1Tiet</th>
+                                    <th>@item.DiemThi</th>
+                                    <th>@String.Format("{0:N1}", item.DiemTB)</th>
+                                    <th>
+                                        <button class="load-diem" data-id="@item.MaBD">Nhập Điểm</button>
+                                    </th>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    @section scripts {
+        <script>
+        $(document).ready(function () {
+            $(".load-diem").click(function () {
+                var diemId = $(this).data("id");
 
-
-   
-
-
-
-</div>
-
-
-
-
-
-
+                $.ajax({
+                    url: '@Url.Action("NhapDiem", "QuanLyDiem")/' + diemId,
+                    type: 'GET',
+                    success: function (result) {
+                        // Hiển thị form nhập điểm trong cửa sổ modal
+                        $("#modal-body").html(result);
+                        $("#diemModal").modal("show"); // Hiển thị cửa sổ modal
+                    }
+                });
+            });
+        });
+        </script>
+    }
