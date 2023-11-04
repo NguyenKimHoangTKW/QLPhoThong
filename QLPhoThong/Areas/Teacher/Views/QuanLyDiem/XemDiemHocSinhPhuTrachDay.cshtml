@@ -46,21 +46,33 @@
                 </div>
             }
         </div>
+
+        <div class="modal fade" id="diemModal" tabindex="-1" role="dialog" aria-labelledby="diemModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="diemModalLabel">Nhập Điểm</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" id="modal-body">
+                        @Html.Action("NhapDiem", "QuanLyDiem", new { id = Model.FirstOrDefault().MaBD})
+                    </div>
+                </div>
+            </div>
+        </div>
     }
+
+
+
     @section scripts {
         <script>
         $(document).ready(function () {
             $(".load-diem").click(function () {
                 var diemId = $(this).data("id");
-
-                $.ajax({
-                    url: '@Url.Action("NhapDiem", "QuanLyDiem")/' + diemId,
-                    type: 'GET',
-                    success: function (result) {
-                        // Hiển thị form nhập điểm trong cửa sổ modal
-                        $("#modal-body").html(result);
-                        $("#diemModal").modal("show"); // Hiển thị cửa sổ modal
-                    }
+                $("#modal-body").load('@Url.Action("NhapDiem", "QuanLyDiem")/' + diemId, function () {
+                    $("#diemModal").modal("show"); 
                 });
             });
         });

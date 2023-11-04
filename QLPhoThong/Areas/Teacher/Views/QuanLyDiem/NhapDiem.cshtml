@@ -27,3 +27,11 @@
     </div>
     <button type="submit" class="btn btn-primary" id="btnLuu">Lưu</button>
 }
+@if (ViewBag.Success != null && ViewBag.Success)
+{
+    <script>
+        $(document).ready(function () {
+            alert("Thành công!");
+        });
+    </script>
+}

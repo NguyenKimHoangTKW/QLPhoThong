@@ -1,0 +1,29 @@
+﻿@model QLPhoThong.Models.DIEM
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.MaBD)
+    @Html.HiddenFor(model => model.MaHS)
+    @Html.HiddenFor(model => model.MaMH)
+    @Html.HiddenFor(model => model.MaHK)
+    @Html.HiddenFor(model => model.MaNH)
+    <div class="form-group">
+        <strong>Điểm miệng</strong>
+        <input type="text" name="DiemMieng" value="@Model.DiemMieng" min="0" max="10" />
+    </div>
+    <div class="form-group">
+
+        <strong>Điểm 15 phút</strong>
+        <input type="text" name="Diem15p" value="@Model.Diem15p" min="0" max="10" />
+    </div>
+    <div class="form-group">
+        <strong>Điểm 1 tiết</strong>
+        <input type="text" name="Diem1Tiet" value="@Model.Diem1Tiet" min="0" max="10" />
+    </div>
+    <div class="form-group">
+        <strong>Điểm Thi</strong>
+        <input type="text" name="DiemThi" value="@Model.DiemThi" min="0" max="10" />
+    </div>
+    <button type="submit" class="btn btn-primary" id="btnLuu">Lưu</button>
+}

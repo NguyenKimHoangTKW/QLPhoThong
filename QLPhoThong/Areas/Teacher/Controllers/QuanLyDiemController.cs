@@ -29,7 +29,32 @@ namespace QLPhoThong.Areas.Teacher.Controllers
                           select d).ToList();
             return View(xemdiem);
         }
-        
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult NhapDiem(DIEM diem)
+        {
+            if (ModelState.IsValid)
+            {
+                if (diem.DiemMieng != null && diem.Diem15p != null && diem.Diem1Tiet != null && diem.DiemThi != null)
+                {
+                    float diemtbm = (float)((diem.DiemMieng + diem.Diem15p) + (diem.Diem1Tiet * 2) + (diem.DiemThi * 3)) / 7;
+                    string diemtbmFormatted = diemtbm.ToString("N1");
+                    float diemtbmRounded = float.Parse(diemtbmFormatted);
+                    diem.DiemTB = diemtbmRounded;
+                    db.Entry(diem).State = EntityState.Modified;
+                    db.SaveChanges();
+                    ViewBag.Success = true;
+                }
+                else
+                {
+                    db.Entry(diem).State = EntityState.Modified;
+                    db.SaveChanges();
+                    ViewBag.Success = true;
+                }
+
+            }
+            return PartialView("NhapDiem", diem);
+        }
         [HttpGet]
         public ActionResult NhapDiem(int id)
         {
@@ -44,33 +69,5 @@ namespace QLPhoThong.Areas.Teacher.Controllers
             }
             return PartialView(diem);
         }
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public JsonResult NhapDiem(DIEM diem)
-        {
-            if (ModelState.IsValid)
-            {
-                if (diem.DiemMieng != null && diem.Diem15p != null && diem.Diem1Tiet != null && diem.DiemThi != null)
-                {
-                    float diemtbm = (float)((diem.DiemMieng + diem.Diem15p) + (diem.Diem1Tiet * 2) + (diem.DiemThi * 3)) / 7;
-                    string diemtbmFormatted = diemtbm.ToString("N1");
-                    float diemtbmRounded = float.Parse(diemtbmFormatted);
-                    diem.DiemTB = diemtbmRounded;
-                    db.Entry(diem).State = EntityState.Modified;
-                    db.SaveChanges();
-                }
-                else
-                {
-                    db.Entry(diem).State = EntityState.Modified;
-                    db.SaveChanges();
-                }
-                return Json(new { code = 200, message = "Nhập điểm thành công" });
-            }
-            return Json(new { code = 400, message = "Lỗi khi nhập điểm" });
-        }
-
-
-
-
     }
 }
