@@ -17,16 +17,16 @@ namespace QLPhoThong.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public HANHKIEM()
         {
-            this.DANHHIEUx = new HashSet<DANHHIEU>();
+            this.DANHGIAHANHKIEMs = new HashSet<DANHGIAHANHKIEM>();
         }
     
         public string MaHKiem { get; set; }
-        public string MaDMHK { get; set; }
+        public int MaDMHK { get; set; }
         public string TenHKiem { get; set; }
-        public string DiemSo { get; set; }
+        public int DiemToiDa { get; set; }
     
         public virtual DANHMUCHANHKIEM DANHMUCHANHKIEM { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DANHHIEU> DANHHIEUx { get; set; }
+        public virtual ICollection<DANHGIAHANHKIEM> DANHGIAHANHKIEMs { get; set; }
     }
 }

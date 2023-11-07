@@ -18,6 +18,7 @@ namespace QLPhoThong.Models
         public NAMHOC()
         {
             this.DIEMs = new HashSet<DIEM>();
+            this.DANHGIAHANHKIEMs = new HashSet<DANHGIAHANHKIEM>();
         }
     
         public string MaNH { get; set; }
@@ -25,5 +26,7 @@ namespace QLPhoThong.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DIEM> DIEMs { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DANHGIAHANHKIEM> DANHGIAHANHKIEMs { get; set; }
     }
 }

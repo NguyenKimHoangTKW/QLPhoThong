@@ -73,3 +73,16 @@
 
 
 
+<script>
+    @if (TempData["SweetAlertMessage"] != null)
+    {
+        <text>
+        Swal.fire({
+            title: '@TempData["SweetAlertMessage"]',
+            icon: '@TempData["SweetAlertType"]',
+            showConfirmButton: false,
+            timer: 4000
+        });
+        </text>
+    }
+</script>

@@ -51,6 +51,11 @@ namespace QLPhoThong.Areas.Admin.Controllers
             List<MONHOC> lstMonHoc =db.MONHOCs.ToList();
             return lstMonHoc;
         }
+        public List<HANHKIEM> LayHanhKiem()
+        {
+            List<HANHKIEM> lstHanhKiem = db.HANHKIEMs.ToList();
+            return lstHanhKiem;
+        }
         public List<HOCKY> LayHocKy()
         {
             List<HOCKY> lstHocKy =db.HOCKies.ToList();
@@ -72,8 +77,11 @@ namespace QLPhoThong.Areas.Admin.Controllers
                 {
                     List<MONHOC> lstMonHoc = LayMonHoc();
                     List<HOCKY> lstHocKy = LayHocKy();
+                    List<HANHKIEM> lstHanhKiem = LayHanhKiem();
                     string nextId = GetNextId();
                     hOCSINH.MaHS = nextId;
+
+                    
                     if (Thumb != null && Thumb.ContentLength > 0)
                     {
                         string _Head = Path.GetFileNameWithoutExtension(Thumb.FileName);
@@ -97,6 +105,15 @@ namespace QLPhoThong.Areas.Admin.Controllers
                                 db.DIEMs.Add(diem);
                             }
                             
+                        }
+                        db.SaveChanges();
+                        foreach (var item in lstHanhKiem)
+                        {
+                            DANHGIAHANHKIEM dghk = new DANHGIAHANHKIEM();
+                            dghk.MaHS = hOCSINH.MaHS;
+                            dghk.MaHKiem = item.MaHKiem;
+                            dghk.MaNH = "NH23|24";
+                            db.DANHGIAHANHKIEMs.Add(dghk);
                         }
                         db.SaveChanges();
                         return RedirectToAction("Index");
@@ -228,11 +245,15 @@ namespace QLPhoThong.Areas.Admin.Controllers
             if (hOCSINH != null)
             {
                 var diemList = db.DIEMs.Where(d => d.MaHS == hOCSINH.MaHS).ToList();
+                var dghkList = db.DANHGIAHANHKIEMs.Where(d=> d.MaHS == hOCSINH.MaHS).ToList() ;
                 foreach (var diem in diemList)
                 {
                     db.DIEMs.Remove(diem);
                 }
-
+                foreach (var dghk in dghkList)
+                {
+                    db.DANHGIAHANHKIEMs.Remove(dghk);
+                }
                 if (!string.IsNullOrEmpty(hOCSINH.Thumb))
                 {
                     string imagePath = Path.Combine(Server.MapPath("~/Areas/Admin/Images/ImagesStudent"), hOCSINH.Thumb);

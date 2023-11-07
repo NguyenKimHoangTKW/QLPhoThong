@@ -15,6 +15,9 @@ namespace QLPhoThong.Areas.Teacher.Controllers
         // GET: Teacher/QuanLyDiem
         public ActionResult XemDiemHocSinhPhuTrachDay(string id, string idgv, string idlop)
         {
+            ViewBag.Id = id;
+            ViewBag.IdGV = idgv;
+            ViewBag.IdLop = idlop;
             var xemdiem = (from d in db.DIEMs
                           from p in db.PHANCONGs
                           from m in db.MONHOCs
@@ -27,12 +30,15 @@ namespace QLPhoThong.Areas.Teacher.Controllers
                           where d.MaHS == id
                           where p.MaGV == idgv
                           select d).ToList();
+        
             return View(xemdiem);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult NhapDiem(DIEM diem)
         {
+            HOCSINH hocsinh = db.HOCSINHs.Where(hs => hs.MaHS == diem.MaHS).FirstOrDefault();
+            var user = Session["User"] as QLPhoThong.Models.User;
             if (ModelState.IsValid)
             {
                 if (diem.DiemMieng != null && diem.Diem15p != null && diem.Diem1Tiet != null && diem.DiemThi != null)
@@ -41,33 +47,28 @@ namespace QLPhoThong.Areas.Teacher.Controllers
                     string diemtbmFormatted = diemtbm.ToString("N1");
                     float diemtbmRounded = float.Parse(diemtbmFormatted);
                     diem.DiemTB = diemtbmRounded;
+                    TempData["SweetAlertMessage"] = "Nhập điểm cho học sinh" +" "+ hocsinh.TenHS +" "+ "thành công";
+                    TempData["SweetAlertType"] = "success";
                     db.Entry(diem).State = EntityState.Modified;
                     db.SaveChanges();
-                    ViewBag.Success = true;
                 }
                 else
                 {
+                    TempData["SweetAlertMessage"] = "Nhập điểm cho học sinh" + " " + hocsinh.TenHS + " " + "thành công";
+                    TempData["SweetAlertType"] = "success";
                     db.Entry(diem).State = EntityState.Modified;
                     db.SaveChanges();
-                    ViewBag.Success = true;
-                }
 
+                }
             }
-            return PartialView("NhapDiem", diem);
+            string url = Url.Action("XemDiemHocSinhPhuTrachDay", "QuanLyDiem", new { id = diem.MaHS, idgv = user.MaGV, idlop = hocsinh.MaLop});
+            return Redirect(url);
         }
         [HttpGet]
         public ActionResult NhapDiem(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            DIEM diem = db.DIEMs.Find(id);
-            if (diem == null)
-            {
-                return HttpNotFound();
-            }
-            return PartialView(diem);
+            DIEM diem = db.DIEMs.Where(d => d.MaBD == id).FirstOrDefault();
+            return PartialView("NhapDiem", diem);
         }
     }
 }

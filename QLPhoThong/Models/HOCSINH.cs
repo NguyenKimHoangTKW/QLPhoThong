@@ -17,9 +17,8 @@ namespace QLPhoThong.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public HOCSINH()
         {
-            this.THUPHIs = new HashSet<THUPHI>();
             this.DIEMs = new HashSet<DIEM>();
-            this.DANHHIEUx = new HashSet<DANHHIEU>();
+            this.DANHGIAHANHKIEMs = new HashSet<DANHGIAHANHKIEM>();
         }
     
         public string MaHS { get; set; }
@@ -36,10 +35,8 @@ namespace QLPhoThong.Models
         public virtual DanToc DanToc { get; set; }
         public virtual LOP LOP { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<THUPHI> THUPHIs { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DIEM> DIEMs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DANHHIEU> DANHHIEUx { get; set; }
+        public virtual ICollection<DANHGIAHANHKIEM> DANHGIAHANHKIEMs { get; set; }
     }
 }

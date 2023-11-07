@@ -20,9 +20,9 @@ namespace QLPhoThong.Models
             this.HANHKIEMs = new HashSet<HANHKIEM>();
         }
     
-        public string MaDMHK { get; set; }
+        public int MaDMHK { get; set; }
         public string TenDMHK { get; set; }
-        public string DiemToiDa { get; set; }
+        public int DiemToiDa { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HANHKIEM> HANHKIEMs { get; set; }

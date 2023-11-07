@@ -1,0 +1,55 @@
+﻿@model IEnumerable<QLPhoThong.Models.HANHKIEM>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.MaHKiem)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TenHKiem)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DiemToiDa)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DANHMUCHANHKIEM.TenDMHK)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.MaHKiem)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TenHKiem)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DiemToiDa)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DANHMUCHANHKIEM.TenDMHK)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.MaHKiem }) |
+            @Html.ActionLink("Details", "Details", new { id = item.MaHKiem }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.MaHKiem })
+        </td>
+    </tr>
+}
+
+</table>

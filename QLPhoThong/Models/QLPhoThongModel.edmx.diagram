@@ -5,31 +5,20 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="867059d80c8a4dc6a793b5daa7ccc585" Name="Diagram1">
-        <EntityTypeShape EntityType="diemhsModel.DANHMUCHANHKIEM" Width="1.5" PointX="3.75" PointY="3.5" IsExpanded="true" />
         <EntityTypeShape EntityType="diemhsModel.DanToc" Width="1.5" PointX="1.5" PointY="2.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="diemhsModel.HANHKIEM" Width="1.5" PointX="6" PointY="3.25" IsExpanded="true" />
         <EntityTypeShape EntityType="diemhsModel.HOCSINH" Width="1.5" PointX="3" PointY="10.5" IsExpanded="true" />
         <EntityTypeShape EntityType="diemhsModel.LOP" Width="1.5" PointX="0.75" PointY="11.375" IsExpanded="true" />
         <EntityTypeShape EntityType="diemhsModel.LOPCHUNHIEM" Width="1.5" PointX="6" PointY="11.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="diemhsModel.QuanHuyen" Width="1.5" PointX="13" PointY="7.25" IsExpanded="true" />
         <EntityTypeShape EntityType="diemhsModel.sysdiagram" Width="1.5" PointX="10.75" PointY="10.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="diemhsModel.THUPHI" Width="1.5" PointX="8.25" PointY="7.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="diemhsModel.TinhThanhPho" Width="1.5" PointX="10.75" PointY="7.5" IsExpanded="true" />
         <EntityTypeShape EntityType="diemhsModel.TITLEUSER" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="diemhsModel.User" Width="1.5" PointX="9" PointY="3.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="diemhsModel.XaPhuong" Width="1.5" PointX="15.25" PointY="7.375" IsExpanded="true" />
-        <AssociationConnector Association="diemhsModel.FK_HANHKIEM_DANHMUCHANHKIEM" ManuallyRouted="false" />
         <AssociationConnector Association="diemhsModel.FK_HOCSINH_DanToc" ManuallyRouted="false" />
         <AssociationConnector Association="diemhsModel.FK_HOCSINH_LOP" ManuallyRouted="false" />
-        <AssociationConnector Association="diemhsModel.FK_THUPHI_HOCSINH" ManuallyRouted="false" />
         <AssociationConnector Association="diemhsModel.FK_LOPCHUNHIEM_LOP" ManuallyRouted="false" />
-        <AssociationConnector Association="diemhsModel.FK_QuanHuyen_TinhThanhPho" ManuallyRouted="false" />
-        <AssociationConnector Association="diemhsModel.FK_XaPhuong_QuanHuyen" ManuallyRouted="false" />
         <AssociationConnector Association="diemhsModel.FK_User_TITLEUSER" ManuallyRouted="false" />
         <EntityTypeShape EntityType="diemhsModel.HOCKY" Width="1.5" PointX="6" PointY="7.5" />
         <EntityTypeShape EntityType="diemhsModel.NAMHOC" Width="1.5" PointX="6" PointY="19.375" />
         <AssociationConnector Association="diemhsModel.FK_LOPCHUNHIEM_HOCKY" />
-        <AssociationConnector Association="diemhsModel.FK_THUPHI_HOCKY" />
         <EntityTypeShape EntityType="diemhsModel.MONHOC" Width="1.5" PointX="0.75" PointY="9.75" />
         <EntityTypeShape EntityType="diemhsModel.PHANCONG" Width="1.5" PointX="9" PointY="2.5" />
         <AssociationConnector Association="diemhsModel.FK_PHANCONG_LOP" />
@@ -39,15 +28,18 @@
         <AssociationConnector Association="diemhsModel.FK_DIEM_HOCSINH" />
         <AssociationConnector Association="diemhsModel.FK_DIEM_MONHOC" />
         <AssociationConnector Association="diemhsModel.FK_DIEM_NAMHOC" />
-        <EntityTypeShape EntityType="diemhsModel.GIAOVIEN" Width="1.5" PointX="3.75" PointY="0.75" />
+        <EntityTypeShape EntityType="diemhsModel.GIAOVIEN" Width="1.5" PointX="4.625" PointY="1.625" />
         <AssociationConnector Association="diemhsModel.FK_GIAOVIEN_DanToc" />
         <AssociationConnector Association="diemhsModel.FK_LOPCHUNHIEM_GIAOVIEN" />
         <AssociationConnector Association="diemhsModel.FK_PHANCONG_GIAOVIEN" />
         <AssociationConnector Association="diemhsModel.FK_User_GIAOVIEN" />
-        <EntityTypeShape EntityType="diemhsModel.DANHHIEU" Width="1.5" PointX="13.5" PointY="10.375" />
-        <AssociationConnector Association="diemhsModel.FK_DANHHIEU_DIEM" />
-        <AssociationConnector Association="diemhsModel.FK_DANHHIEU_HANHKIEM" />
-        <AssociationConnector Association="diemhsModel.FK_DANHHIEU_HOCSINH" />
+        <EntityTypeShape EntityType="diemhsModel.DANHMUCHANHKIEM" Width="1.5" PointX="0.75" PointY="5.875" />
+        <EntityTypeShape EntityType="diemhsModel.HANHKIEM" Width="1.5" PointX="3" PointY="6.625" />
+        <AssociationConnector Association="diemhsModel.FK_HANHKIEM_DANHMUCHANHKIEM" />
+        <EntityTypeShape EntityType="diemhsModel.DANHGIAHANHKIEM" Width="1.5" PointX="11.25" PointY="13.625" />
+        <AssociationConnector Association="diemhsModel.FK_DANHGIAHANHKIEM_HANHKIEM" />
+        <AssociationConnector Association="diemhsModel.FK_DANHGIAHANHKIEM_HOCSINH" />
+        <AssociationConnector Association="diemhsModel.FK_DANHGIAHANHKIEM_NAMHOC" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

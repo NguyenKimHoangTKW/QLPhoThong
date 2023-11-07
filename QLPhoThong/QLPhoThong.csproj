@@ -134,7 +134,9 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\DanhMucHanhKiemController.cs" />
     <Compile Include="Areas\Admin\Controllers\GiaoVienController.cs" />
+    <Compile Include="Areas\Admin\Controllers\HanhKiemController.cs" />
     <Compile Include="Areas\Admin\Controllers\HocKyController.cs" />
     <Compile Include="Areas\Admin\Controllers\HocSinhController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
@@ -142,12 +144,12 @@
     <Compile Include="Areas\Admin\Controllers\LopController.cs" />
     <Compile Include="Areas\Admin\Controllers\MonHocController.cs" />
     <Compile Include="Areas\Admin\Controllers\PhanCongController.cs" />
-    <Compile Include="Areas\Admin\Controllers\ThuPhiController.cs" />
     <Compile Include="Areas\Admin\Controllers\TitleUsersController.cs" />
     <Compile Include="Areas\Admin\Controllers\UsersController.cs" />
     <Compile Include="Areas\Teacher\Controllers\HomeController.cs" />
     <Compile Include="Areas\Teacher\Controllers\LopController.cs" />
     <Compile Include="Areas\Teacher\Controllers\QuanLyDiemController.cs" />
+    <Compile Include="Areas\Teacher\Controllers\QuanLyHanhKiemController.cs" />
     <Compile Include="Areas\Teacher\Controllers\ThongTinController.cs" />
     <Compile Include="Areas\Teacher\TeacherAreaRegistration.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -155,7 +157,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\DANHHIEU.cs">
+    <Compile Include="Models\DANHGIAHANHKIEM.cs">
       <DependentUpon>QLPhoThongModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DANHMUCHANHKIEM.cs">
@@ -209,25 +211,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>QLPhoThongModel.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\QuanHuyen.cs">
-      <DependentUpon>QLPhoThongModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\sysdiagram.cs">
-      <DependentUpon>QLPhoThongModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\THUPHI.cs">
-      <DependentUpon>QLPhoThongModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\TinhThanhPho.cs">
       <DependentUpon>QLPhoThongModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TITLEUSER.cs">
       <DependentUpon>QLPhoThongModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\User.cs">
-      <DependentUpon>QLPhoThongModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\XaPhuong.cs">
       <DependentUpon>QLPhoThongModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -818,11 +808,6 @@
     <Content Include="Areas\Admin\Views\MonHoc\Details.cshtml" />
     <Content Include="Areas\Admin\Views\MonHoc\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\MonHoc\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\ThuPhi\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\ThuPhi\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\ThuPhi\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\ThuPhi\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\ThuPhi\Index.cshtml" />
     <Content Include="Areas\Teacher\Views\web.config" />
     <Content Include="Areas\Teacher\Views\Shared\_TeacherLayout.cshtml" />
     <Content Include="Areas\Teacher\Views\Shared\Error.cshtml" />
@@ -1121,10 +1106,17 @@
     <Content Include="Areas\Teacher\Views\ThongTin\BangdiemHK1Partial.cshtml" />
     <Content Include="Areas\Teacher\Views\ThongTin\BangdiemHK2Partial.cshtml" />
     <Content Include="Areas\Teacher\Views\QuanLyDiem\XemDiemHocSinhPhuTrachDay.cshtml" />
-    <Content Include="Areas\Teacher\Views\QuanLyDiem\XemDiemHocSinhPhuTrachDayHK1Partial.cshtml" />
-    <Content Include="Areas\Teacher\Views\QuanLyDiem\XemDiemHocSinhPhuTrachDayHK2Partial.cshtml" />
-    <Content Include="Areas\Teacher\Views\QuanLyDiem\GetbyID.cshtml" />
     <Content Include="Areas\Teacher\Views\QuanLyDiem\NhapDiem.cshtml" />
+    <Content Include="Areas\Admin\Views\DanhMucHanhKiem\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\DanhMucHanhKiem\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\DanhMucHanhKiem\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\DanhMucHanhKiem\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\DanhMucHanhKiem\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\HanhKiem\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\HanhKiem\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\HanhKiem\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\HanhKiem\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\HanhKiem\Index.cshtml" />
     <None Include="Scripts\jquery-3.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.1.js" />
     <Content Include="Scripts\jquery-3.7.1.min.js" />
@@ -1172,7 +1164,7 @@
     <Content Include="Views\Shared\_LeftSoLienLacPartialView.cshtml" />
     <Content Include="Views\Shared\_NavPartialView.cshtml" />
     <Content Include="Views\Shared\_FooterPartiaView.cshtml" />
-    <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\Login\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1180,6 +1172,7 @@
     <Folder Include="Areas\Admin\Images\ImagesStudent\" />
     <Folder Include="Areas\Admin\Images\ImagesTeacher\" />
     <Folder Include="Areas\Teacher\Data\" />
+    <Folder Include="Areas\Teacher\Views\QuanLyHanhKiem\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />

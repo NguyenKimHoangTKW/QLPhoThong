@@ -3,7 +3,7 @@
     ViewBag.Title = "Bảng điểm học sinh phụ trách dạy";
     Layout = "~/Areas/Teacher/Views/Shared/_TeacherLayout.cshtml";
 }
-
+   
 <div class="card" style="margin-top: 75px;">
     @if (Model.Any())
     {
@@ -37,7 +37,8 @@
                                     <th>@item.DiemThi</th>
                                     <th>@String.Format("{0:N1}", item.DiemTB)</th>
                                     <th>
-                                        <button class="load-diem" data-id="@item.MaBD">Nhập Điểm</button>
+                                        <button class="btn btn-warning" data-toggle="modal" data-target="@("#EditDiem-"+item.MaBD)" data-url="@Url.Action("NhapDiem","QuanLyDiem", new {id = item.MaBD})">Nhập Điểm</button>
+                                        @Html.Partial("NhapDiem", item)
                                     </th>
                                 </tr>
                             </tbody>
@@ -46,35 +47,20 @@
                 </div>
             }
         </div>
+        
 
-        <div class="modal fade" id="diemModal" tabindex="-1" role="dialog" aria-labelledby="diemModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="diemModalLabel">Nhập Điểm</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body" id="modal-body">
-                        @Html.Action("NhapDiem", "QuanLyDiem", new { id = Model.FirstOrDefault().MaBD})
-                    </div>
-                </div>
-            </div>
-        </div>
     }
 
-
-
-    @section scripts {
-        <script>
-        $(document).ready(function () {
-            $(".load-diem").click(function () {
-                var diemId = $(this).data("id");
-                $("#modal-body").load('@Url.Action("NhapDiem", "QuanLyDiem")/' + diemId, function () {
-                    $("#diemModal").modal("show"); 
-                });
-            });
+<script>
+    @if (TempData["SweetAlertMessage"] != null)
+    {
+        <text>
+        Swal.fire({
+            title: '@TempData["SweetAlertMessage"]',
+            icon: '@TempData["SweetAlertType"]',
+            showConfirmButton: false,
+            timer: 2000 
         });
-        </script>
+        </text>
     }
+</script>   

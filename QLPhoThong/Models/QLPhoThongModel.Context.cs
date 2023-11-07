@@ -25,25 +25,21 @@ namespace QLPhoThong.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<DANHMUCHANHKIEM> DANHMUCHANHKIEMs { get; set; }
         public virtual DbSet<DanToc> DanTocs { get; set; }
-        public virtual DbSet<HANHKIEM> HANHKIEMs { get; set; }
         public virtual DbSet<HOCSINH> HOCSINHs { get; set; }
         public virtual DbSet<LOP> LOPs { get; set; }
         public virtual DbSet<LOPCHUNHIEM> LOPCHUNHIEMs { get; set; }
-        public virtual DbSet<QuanHuyen> QuanHuyens { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
-        public virtual DbSet<THUPHI> THUPHIs { get; set; }
-        public virtual DbSet<TinhThanhPho> TinhThanhPhoes { get; set; }
         public virtual DbSet<TITLEUSER> TITLEUSERs { get; set; }
         public virtual DbSet<User> Users { get; set; }
-        public virtual DbSet<XaPhuong> XaPhuongs { get; set; }
         public virtual DbSet<HOCKY> HOCKies { get; set; }
         public virtual DbSet<NAMHOC> NAMHOCs { get; set; }
         public virtual DbSet<MONHOC> MONHOCs { get; set; }
         public virtual DbSet<PHANCONG> PHANCONGs { get; set; }
         public virtual DbSet<DIEM> DIEMs { get; set; }
         public virtual DbSet<GIAOVIEN> GIAOVIENs { get; set; }
-        public virtual DbSet<DANHHIEU> DANHHIEUx { get; set; }
+        public virtual DbSet<DANHMUCHANHKIEM> DANHMUCHANHKIEMs { get; set; }
+        public virtual DbSet<HANHKIEM> HANHKIEMs { get; set; }
+        public virtual DbSet<DANHGIAHANHKIEM> DANHGIAHANHKIEMs { get; set; }
     }
 }

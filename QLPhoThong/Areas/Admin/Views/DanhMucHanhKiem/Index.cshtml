@@ -1,0 +1,40 @@
+﻿@model IEnumerable<QLPhoThong.Models.DANHMUCHANHKIEM>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p style="margin-top:75px;">
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TenDMHK)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DiemToiDa)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.TenDMHK)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DiemToiDa)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.MaDMHK }) |
+            @Html.ActionLink("Details", "Details", new { id=item.MaDMHK }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.MaDMHK })
+        </td>
+    </tr>
+}
+
+</table>

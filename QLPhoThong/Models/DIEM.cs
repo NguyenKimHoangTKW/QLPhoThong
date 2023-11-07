@@ -14,12 +14,6 @@ namespace QLPhoThong.Models
     
     public partial class DIEM
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public DIEM()
-        {
-            this.DANHHIEUx = new HashSet<DANHHIEU>();
-        }
-    
         public int MaBD { get; set; }
         public Nullable<double> DiemMieng { get; set; }
         public Nullable<double> Diem15p { get; set; }
@@ -35,7 +29,5 @@ namespace QLPhoThong.Models
         public virtual HOCSINH HOCSINH { get; set; }
         public virtual MONHOC MONHOC { get; set; }
         public virtual NAMHOC NAMHOC { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DANHHIEU> DANHHIEUx { get; set; }
     }
 }

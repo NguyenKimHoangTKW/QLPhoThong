@@ -1,25 +1,24 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="diemhsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-  <EntityType Name="DANHHIEU">
+  <EntityType Name="DANHGIAHANHKIEM">
     <Key>
-      <PropertyRef Name="MaHKy" />
       <PropertyRef Name="MaHS" />
-      <PropertyRef Name="MaBD" />
       <PropertyRef Name="MaHKiem" />
+      <PropertyRef Name="MaNH" />
     </Key>
-    <Property Name="MaHKy" Type="nvarchar" MaxLength="20" Nullable="false" />
     <Property Name="MaHS" Type="nvarchar" MaxLength="20" Nullable="false" />
-    <Property Name="MaBD" Type="int" Nullable="false" />
-    <Property Name="TenDanhHieu" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="GiaoVienDanhGia" Type="nvarchar" MaxLength="20" />
     <Property Name="MaHKiem" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="MaNH" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="DiemSo" Type="int" />
   </EntityType>
   <EntityType Name="DANHMUCHANHKIEM">
     <Key>
       <PropertyRef Name="MaDMHK" />
     </Key>
-    <Property Name="MaDMHK" Type="nvarchar" MaxLength="20" Nullable="false" />
-    <Property Name="TenDMHK" Type="nvarchar" MaxLength="100" Nullable="false" />
-    <Property Name="DiemToiDa" Type="char" MaxLength="10" Nullable="false" />
+    <Property Name="MaDMHK" Type="int" Nullable="false" />
+    <Property Name="TenDMHK" Type="ntext" Nullable="false" />
+    <Property Name="DiemToiDa" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="DanToc">
     <Key>
@@ -63,9 +62,9 @@
       <PropertyRef Name="MaHKiem" />
     </Key>
     <Property Name="MaHKiem" Type="nvarchar" MaxLength="20" Nullable="false" />
-    <Property Name="MaDMHK" Type="nvarchar" MaxLength="20" Nullable="false" />
-    <Property Name="TenHKiem" Type="nvarchar" MaxLength="100" Nullable="false" />
-    <Property Name="DiemSo" Type="char" MaxLength="10" Nullable="false" />
+    <Property Name="MaDMHK" Type="int" Nullable="false" />
+    <Property Name="TenHKiem" Type="ntext" Nullable="false" />
+    <Property Name="DiemToiDa" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="HOCKY">
     <Key>
@@ -130,14 +129,6 @@
     <Property Name="MaGV" Type="nvarchar" MaxLength="20" Nullable="false" />
     <Property Name="MaLop" Type="nvarchar" MaxLength="20" Nullable="false" />
   </EntityType>
-  <EntityType Name="QuanHuyen">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="tenQuanHuyen" Type="nvarchar" MaxLength="200" Nullable="false" />
-    <Property Name="tinhThanhPhoId" Type="bigint" Nullable="false" />
-  </EntityType>
   <EntityType Name="sysdiagrams">
     <Key>
       <PropertyRef Name="diagram_id" />
@@ -147,24 +138,6 @@
     <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="version" Type="int" />
     <Property Name="definition" Type="varbinary(max)" />
-  </EntityType>
-  <EntityType Name="THUPHI">
-    <Key>
-      <PropertyRef Name="MaThu" />
-    </Key>
-    <Property Name="MaThu" Type="nvarchar" MaxLength="20" Nullable="false" />
-    <Property Name="MaHKy" Type="nvarchar" MaxLength="20" Nullable="false" />
-    <Property Name="MaHS" Type="nvarchar" MaxLength="20" Nullable="false" />
-    <Property Name="MucPhi" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="Status" Type="nvarchar" MaxLength="100" Nullable="false" />
-    <Property Name="idMaThu" Type="char" MaxLength="13" />
-  </EntityType>
-  <EntityType Name="TinhThanhPho">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="tenTinhThanhPho" Type="nvarchar" MaxLength="200" Nullable="false" />
   </EntityType>
   <EntityType Name="TITLEUSER">
     <Key>
@@ -184,47 +157,39 @@
     <Property Name="MaGV" Type="nvarchar" MaxLength="20" Nullable="false" />
     <Property Name="NgayTao" Type="datetime" Nullable="false" />
   </EntityType>
-  <EntityType Name="XaPhuong">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="tenXaPhuong" Type="nvarchar" MaxLength="200" Nullable="false" />
-    <Property Name="quanHuyenId" Type="bigint" Nullable="false" />
-  </EntityType>
-  <Association Name="FK_DANHHIEU_DIEM">
-    <End Role="DIEM" Type="Self.DIEM" Multiplicity="1" />
-    <End Role="DANHHIEU" Type="Self.DANHHIEU" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="DIEM">
-        <PropertyRef Name="MaBD" />
-      </Principal>
-      <Dependent Role="DANHHIEU">
-        <PropertyRef Name="MaBD" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_DANHHIEU_HANHKIEM">
+  <Association Name="FK_DANHGIAHANHKIEM_HANHKIEM">
     <End Role="HANHKIEM" Type="Self.HANHKIEM" Multiplicity="1" />
-    <End Role="DANHHIEU" Type="Self.DANHHIEU" Multiplicity="*" />
+    <End Role="DANHGIAHANHKIEM" Type="Self.DANHGIAHANHKIEM" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="HANHKIEM">
         <PropertyRef Name="MaHKiem" />
       </Principal>
-      <Dependent Role="DANHHIEU">
+      <Dependent Role="DANHGIAHANHKIEM">
         <PropertyRef Name="MaHKiem" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_DANHHIEU_HOCSINH">
+  <Association Name="FK_DANHGIAHANHKIEM_HOCSINH">
     <End Role="HOCSINH" Type="Self.HOCSINH" Multiplicity="1" />
-    <End Role="DANHHIEU" Type="Self.DANHHIEU" Multiplicity="*" />
+    <End Role="DANHGIAHANHKIEM" Type="Self.DANHGIAHANHKIEM" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="HOCSINH">
         <PropertyRef Name="MaHS" />
       </Principal>
-      <Dependent Role="DANHHIEU">
+      <Dependent Role="DANHGIAHANHKIEM">
         <PropertyRef Name="MaHS" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DANHGIAHANHKIEM_NAMHOC">
+    <End Role="NAMHOC" Type="Self.NAMHOC" Multiplicity="1" />
+    <End Role="DANHGIAHANHKIEM" Type="Self.DANHGIAHANHKIEM" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NAMHOC">
+        <PropertyRef Name="MaNH" />
+      </Principal>
+      <Dependent Role="DANHGIAHANHKIEM">
+        <PropertyRef Name="MaNH" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -396,42 +361,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_QuanHuyen_TinhThanhPho">
-    <End Role="TinhThanhPho" Type="Self.TinhThanhPho" Multiplicity="1" />
-    <End Role="QuanHuyen" Type="Self.QuanHuyen" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="TinhThanhPho">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="QuanHuyen">
-        <PropertyRef Name="tinhThanhPhoId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_THUPHI_HOCKY">
-    <End Role="HOCKY" Type="Self.HOCKY" Multiplicity="1" />
-    <End Role="THUPHI" Type="Self.THUPHI" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="HOCKY">
-        <PropertyRef Name="MaHky" />
-      </Principal>
-      <Dependent Role="THUPHI">
-        <PropertyRef Name="MaHKy" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_THUPHI_HOCSINH">
-    <End Role="HOCSINH" Type="Self.HOCSINH" Multiplicity="1" />
-    <End Role="THUPHI" Type="Self.THUPHI" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="HOCSINH">
-        <PropertyRef Name="MaHS" />
-      </Principal>
-      <Dependent Role="THUPHI">
-        <PropertyRef Name="MaHS" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_User_GIAOVIEN">
     <End Role="GIAOVIEN" Type="Self.GIAOVIEN" Multiplicity="1" />
     <End Role="User" Type="Self.User" Multiplicity="*" />
@@ -456,20 +385,8 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_XaPhuong_QuanHuyen">
-    <End Role="QuanHuyen" Type="Self.QuanHuyen" Multiplicity="1" />
-    <End Role="XaPhuong" Type="Self.XaPhuong" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="QuanHuyen">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="XaPhuong">
-        <PropertyRef Name="quanHuyenId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <EntityContainer Name="diemhsModelStoreContainer">
-    <EntitySet Name="DANHHIEU" EntityType="Self.DANHHIEU" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DANHGIAHANHKIEM" EntityType="Self.DANHGIAHANHKIEM" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="DANHMUCHANHKIEM" EntityType="Self.DANHMUCHANHKIEM" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="DanToc" EntityType="Self.DanToc" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="DIEM" EntityType="Self.DIEM" Schema="dbo" store:Type="Tables" />
@@ -482,24 +399,20 @@
     <EntitySet Name="MONHOC" EntityType="Self.MONHOC" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="NAMHOC" EntityType="Self.NAMHOC" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PHANCONG" EntityType="Self.PHANCONG" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="QuanHuyen" EntityType="Self.QuanHuyen" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="THUPHI" EntityType="Self.THUPHI" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="TinhThanhPho" EntityType="Self.TinhThanhPho" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TITLEUSER" EntityType="Self.TITLEUSER" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="XaPhuong" EntityType="Self.XaPhuong" Schema="dbo" store:Type="Tables" />
-    <AssociationSet Name="FK_DANHHIEU_DIEM" Association="Self.FK_DANHHIEU_DIEM">
-      <End Role="DIEM" EntitySet="DIEM" />
-      <End Role="DANHHIEU" EntitySet="DANHHIEU" />
-    </AssociationSet>
-    <AssociationSet Name="FK_DANHHIEU_HANHKIEM" Association="Self.FK_DANHHIEU_HANHKIEM">
+    <AssociationSet Name="FK_DANHGIAHANHKIEM_HANHKIEM" Association="Self.FK_DANHGIAHANHKIEM_HANHKIEM">
       <End Role="HANHKIEM" EntitySet="HANHKIEM" />
-      <End Role="DANHHIEU" EntitySet="DANHHIEU" />
+      <End Role="DANHGIAHANHKIEM" EntitySet="DANHGIAHANHKIEM" />
     </AssociationSet>
-    <AssociationSet Name="FK_DANHHIEU_HOCSINH" Association="Self.FK_DANHHIEU_HOCSINH">
+    <AssociationSet Name="FK_DANHGIAHANHKIEM_HOCSINH" Association="Self.FK_DANHGIAHANHKIEM_HOCSINH">
       <End Role="HOCSINH" EntitySet="HOCSINH" />
-      <End Role="DANHHIEU" EntitySet="DANHHIEU" />
+      <End Role="DANHGIAHANHKIEM" EntitySet="DANHGIAHANHKIEM" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DANHGIAHANHKIEM_NAMHOC" Association="Self.FK_DANHGIAHANHKIEM_NAMHOC">
+      <End Role="NAMHOC" EntitySet="NAMHOC" />
+      <End Role="DANHGIAHANHKIEM" EntitySet="DANHGIAHANHKIEM" />
     </AssociationSet>
     <AssociationSet Name="FK_DIEM_HOCKY" Association="Self.FK_DIEM_HOCKY">
       <End Role="HOCKY" EntitySet="HOCKY" />
@@ -557,18 +470,6 @@
       <End Role="MONHOC" EntitySet="MONHOC" />
       <End Role="PHANCONG" EntitySet="PHANCONG" />
     </AssociationSet>
-    <AssociationSet Name="FK_QuanHuyen_TinhThanhPho" Association="Self.FK_QuanHuyen_TinhThanhPho">
-      <End Role="TinhThanhPho" EntitySet="TinhThanhPho" />
-      <End Role="QuanHuyen" EntitySet="QuanHuyen" />
-    </AssociationSet>
-    <AssociationSet Name="FK_THUPHI_HOCKY" Association="Self.FK_THUPHI_HOCKY">
-      <End Role="HOCKY" EntitySet="HOCKY" />
-      <End Role="THUPHI" EntitySet="THUPHI" />
-    </AssociationSet>
-    <AssociationSet Name="FK_THUPHI_HOCSINH" Association="Self.FK_THUPHI_HOCSINH">
-      <End Role="HOCSINH" EntitySet="HOCSINH" />
-      <End Role="THUPHI" EntitySet="THUPHI" />
-    </AssociationSet>
     <AssociationSet Name="FK_User_GIAOVIEN" Association="Self.FK_User_GIAOVIEN">
       <End Role="GIAOVIEN" EntitySet="GIAOVIEN" />
       <End Role="User" EntitySet="User" />
@@ -576,10 +477,6 @@
     <AssociationSet Name="FK_User_TITLEUSER" Association="Self.FK_User_TITLEUSER">
       <End Role="TITLEUSER" EntitySet="TITLEUSER" />
       <End Role="User" EntitySet="User" />
-    </AssociationSet>
-    <AssociationSet Name="FK_XaPhuong_QuanHuyen" Association="Self.FK_XaPhuong_QuanHuyen">
-      <End Role="QuanHuyen" EntitySet="QuanHuyen" />
-      <End Role="XaPhuong" EntitySet="XaPhuong" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

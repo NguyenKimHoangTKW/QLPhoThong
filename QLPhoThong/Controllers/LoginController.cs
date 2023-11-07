@@ -11,42 +11,38 @@ namespace QLPhoThong.Controllers
     {
         private diemhsEntities db = new diemhsEntities();
         // GET: Login
-        public ActionResult Index()
+        [HttpGet]
+        public ActionResult Login()
         {
             return View();
         }
         // GET: Post//Login
         [HttpPost]
-        public ActionResult Index(User user)
+        public ActionResult Login(User user)
         {
-            var username = user.UserName;
-            var password = user.PassWord;
-            var isCheckLogin = user.MaTitleUser;
-            var isLogin = db.Users.SingleOrDefault(x => x.UserName.Equals(username) && x.PassWord.Equals(password));
-            var isLoginAdmin = db.Users.SingleOrDefault(x => x.UserName.Equals(username) && x.PassWord.Equals(password) && x.MaTitleUser == 1);
-            var isLoginTeacher = db.Users.SingleOrDefault(x => x.UserName.Equals(username) && x.PassWord.Equals(password) && x.MaTitleUser == 2);
-            if (isLogin != null)
+            var Gv = db.Users.SingleOrDefault(d=> d.UserName == user.UserName && d.PassWord == user.PassWord && d.MaTitleUser == 2);
+            var AD = db.Users.SingleOrDefault(d => d.UserName == user.UserName && d.PassWord == user.PassWord && d.MaTitleUser == 1);
+          
+            if (Gv != null)
             {
-                Session["User"] = isLogin;
-                if (isLoginAdmin != null)
-                {
-                    return RedirectToAction("Index", "Home", new { area = "Admin" });
-                }
-                else if (isLoginTeacher != null)
-                {
-                    return RedirectToAction("Index", "Home", new { area = "Teacher" });
-
-                }
-                else
-                {
-                    return View("Index");
-                }
-                
+                Session["User"] = Gv;
+                TempData["SweetAlertMessage"] = "Chào mừng " + Gv.GIAOVIEN.TenGV + ", chào mừng bạn đến với Sổ liên lạc điện tử";
+                TempData["SweetAlertType"] = "success";
+                return RedirectToAction("Index", "Home", new { area = "Teacher" });
+            }
+            else if (AD != null)
+            {
+                Session["UserAdmin"] = AD;
+                TempData["SweetAlertMessage"] = "Chào mừng " + AD.GIAOVIEN.TenGV + ", chào mừng bạn đến với Sổ liên lạc điện tử";
+                TempData["SweetAlertType"] = "success";
+                return RedirectToAction("Index", "Home", new { area = "Admin" });
             }
             else
             {
-                return View("Index");
+                TempData["SweetAlertMessage"] = "Tên đăng nhập hoặc mật khẩu không chính xác";
+                TempData["SweetAlertType"] = "error";
             }
+            return View();
         }
         public ActionResult Logout()
         {

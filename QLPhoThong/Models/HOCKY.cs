@@ -18,7 +18,6 @@ namespace QLPhoThong.Models
         public HOCKY()
         {
             this.LOPCHUNHIEMs = new HashSet<LOPCHUNHIEM>();
-            this.THUPHIs = new HashSet<THUPHI>();
             this.DIEMs = new HashSet<DIEM>();
         }
     
@@ -27,8 +26,6 @@ namespace QLPhoThong.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LOPCHUNHIEM> LOPCHUNHIEMs { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<THUPHI> THUPHIs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DIEM> DIEMs { get; set; }
     }
