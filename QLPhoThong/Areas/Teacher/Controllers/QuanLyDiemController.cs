@@ -34,36 +34,37 @@ namespace QLPhoThong.Areas.Teacher.Controllers
             return View(xemdiem);
         }
         [HttpPost]
+        [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public ActionResult NhapDiem(DIEM diem)
-        {
-            HOCSINH hocsinh = db.HOCSINHs.Where(hs => hs.MaHS == diem.MaHS).FirstOrDefault();
-            var user = Session["User"] as QLPhoThong.Models.User;
-            if (ModelState.IsValid)
             {
-                if (diem.DiemMieng != null && diem.Diem15p != null && diem.Diem1Tiet != null && diem.DiemThi != null)
+                HOCSINH hocsinh = db.HOCSINHs.Where(hs => hs.MaHS == diem.MaHS).FirstOrDefault();
+                var user = Session["User"] as QLPhoThong.Models.User;
+                if (ModelState.IsValid)
                 {
-                    float diemtbm = (float)((diem.DiemMieng + diem.Diem15p) + (diem.Diem1Tiet * 2) + (diem.DiemThi * 3)) / 7;
-                    string diemtbmFormatted = diemtbm.ToString("N1");
-                    float diemtbmRounded = float.Parse(diemtbmFormatted);
-                    diem.DiemTB = diemtbmRounded;
-                    TempData["SweetAlertMessage"] = "Nhập điểm cho học sinh" +" "+ hocsinh.TenHS +" "+ "thành công";
-                    TempData["SweetAlertType"] = "success";
-                    db.Entry(diem).State = EntityState.Modified;
-                    db.SaveChanges();
-                }
-                else
-                {
-                    TempData["SweetAlertMessage"] = "Nhập điểm cho học sinh" + " " + hocsinh.TenHS + " " + "thành công";
-                    TempData["SweetAlertType"] = "success";
-                    db.Entry(diem).State = EntityState.Modified;
-                    db.SaveChanges();
+                    if (diem.DiemMieng != null && diem.Diem15p != null && diem.Diem1Tiet != null && diem.DiemThi != null)
+                    {
+                        float diemtbm = (float)((diem.DiemMieng + diem.Diem15p) + (diem.Diem1Tiet * 2) + (diem.DiemThi * 3)) / 7;
+                        string diemtbmFormatted = diemtbm.ToString("N1");
+                        float diemtbmRounded = float.Parse(diemtbmFormatted);
+                        diem.DiemTB = diemtbmRounded;
+                        TempData["SweetAlertMessage"] = "Nhập điểm cho học sinh" ;
+                        TempData["SweetAlertType"] = "success";
+                        db.Entry(diem).State = EntityState.Modified;
+                        db.SaveChanges();
+                    }
+                    else
+                    {
+                        TempData["SweetAlertMessage"] = "Nhập điểm cho học sinh";
+                        TempData["SweetAlertType"] = "success";
+                        db.Entry(diem).State = EntityState.Modified;
+                        db.SaveChanges();
 
+                    }
                 }
+                string url = Url.Action("DanhSachHocSinhPhuTrachDay", "Lop", new { idgv = user.MaGV, idlop = hocsinh.MaLop});
+                return Redirect(url);
             }
-            string url = Url.Action("XemDiemHocSinhPhuTrachDay", "QuanLyDiem", new { id = diem.MaHS, idgv = user.MaGV, idlop = hocsinh.MaLop});
-            return Redirect(url);
-        }
         [HttpGet]
         public ActionResult NhapDiem(int id)
         {

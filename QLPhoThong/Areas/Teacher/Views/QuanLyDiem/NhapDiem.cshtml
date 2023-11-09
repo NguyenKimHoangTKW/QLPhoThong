@@ -1,52 +1,37 @@
 ﻿@model QLPhoThong.Models.DIEM
 
 
-<div class="modal fade" id="EditDiem-@Model.MaBD" tabindex="-1" role="dialog" aria-labelledby="EditDiemLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="diemModalLabel">Nhập Điểm</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body" id="modal-body">
-                @using (Html.BeginForm("NhapDiem", "QuanLyDiem", FormMethod.Post, new { id = "diem-form" }))
-                {
-                    @Html.AntiForgeryToken()
-                    @Html.HiddenFor(model => model.MaBD)
-                    @Html.HiddenFor(model => model.MaHS)
-                    @Html.HiddenFor(model => model.MaMH)
-                    @Html.HiddenFor(model => model.MaHK)
-                    @Html.HiddenFor(model => model.MaNH)
-                    <div class="form-group">
-                        <strong>Điểm miệng</strong>
-                        <input type="text" name="DiemMieng" value="@Model.DiemMieng" oninput="validateInput(this)" />
-                    </div>
-                    <div class="form-group">
+@using (Html.BeginForm("NhapDiem", "QuanLyDiem", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.MaBD)
+    @Html.HiddenFor(model => model.MaHS)
+    @Html.HiddenFor(model => model.MaMH)
+    @Html.HiddenFor(model => model.MaHK)
+    @Html.HiddenFor(model => model.MaNH)
+    <td><input type="text" name="DiemMieng" value="@Model.DiemMieng" oninput="validateInput(this)" /></td>
+    <td><input type="text" name="Diem15p" value="@Model.Diem15p" oninput="validateInput(this)" /></td>
+    <td><input type="text" name="Diem1Tiet" value="@Model.Diem1Tiet" oninput="validateInput(this)" /></td>
+    <td><input type="text" name="DiemThi" value="@Model.DiemThi" oninput="validateInput(this)" /></td>
+    <td>@String.Format("{0:N1}", Model.DiemTB)</td>
+    <button type="submit" class="btn btn-primary" id="btnLuu" style="display: none;">Lưu</button>
 
-                        <strong>Điểm 15 phút</strong>
-                        <input type="text" name="Diem15p" value="@Model.Diem15p" oninput="validateInput(this)" />
-                    </div>
-                    <div class="form-group">
-                        <strong>Điểm 1 tiết</strong>
-                        <input type="text" name="Diem1Tiet" value="@Model.Diem1Tiet" oninput="validateInput(this)" />
-                    </div>
-                    <div class="form-group">
-                        <strong>Điểm Thi</strong>
-                        <input type="text" name="DiemThi" value="@Model.DiemThi" oninput="validateInput(this)" />
-                    </div>
-                    <button type="submit" class="btn btn-primary" id="btnLuu">Lưu</button>
-                }
-                @if (!string.IsNullOrEmpty(ViewBag.SuccessMessage))
-                {
-                    <div class="alert alert-success">@ViewBag.SuccessMessage</div>
-                }
-            </div>
-        </div>
-    </div>
-</div>
+}
+@if (!string.IsNullOrEmpty(ViewBag.SuccessMessage))
+{
+    <div class="alert alert-success">@ViewBag.SuccessMessage</div>
+}
+
 <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        document.getElementById('diemForm').addEventListener('keyup', function (e) {
+            if (e.key === 'Enter') {
+                e.preventDefault(); 
+                document.getElementById('btnLuu').click();
+            }
+        });
+    });
+
     function validateInput(input) {
         var value = input.value;
 

@@ -80,15 +80,12 @@ namespace QLPhoThong.Areas.Admin.Controllers
                     List<HANHKIEM> lstHanhKiem = LayHanhKiem();
                     string nextId = GetNextId();
                     hOCSINH.MaHS = nextId;
-
-                    
                     if (Thumb != null && Thumb.ContentLength > 0)
                     {
                         string _Head = Path.GetFileNameWithoutExtension(Thumb.FileName);
                         string _Tail = Path.GetExtension(Thumb.FileName);
                         string fullLink = _Head + "-" + DateTime.Now.ToString("yyyyMMddHHmmssfff") + _Tail;
                         string _path = Path.Combine(Server.MapPath("~/Areas/Admin/Images/ImagesStudent"), fullLink);
-
                         Thumb.SaveAs(_path);
                         hOCSINH.Thumb = fullLink;
                         db.HOCSINHs.Add(hOCSINH);

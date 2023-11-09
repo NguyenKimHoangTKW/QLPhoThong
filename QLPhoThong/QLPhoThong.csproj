@@ -1117,6 +1117,7 @@
     <Content Include="Areas\Admin\Views\HanhKiem\Details.cshtml" />
     <Content Include="Areas\Admin\Views\HanhKiem\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\HanhKiem\Index.cshtml" />
+    <Content Include="Areas\Teacher\Views\QuanLyHanhKiem\DanhGiaHanhKiem.cshtml" />
     <None Include="Scripts\jquery-3.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.1.js" />
     <Content Include="Scripts\jquery-3.7.1.min.js" />
@@ -1172,7 +1173,6 @@
     <Folder Include="Areas\Admin\Images\ImagesStudent\" />
     <Folder Include="Areas\Admin\Images\ImagesTeacher\" />
     <Folder Include="Areas\Teacher\Data\" />
-    <Folder Include="Areas\Teacher\Views\QuanLyHanhKiem\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />

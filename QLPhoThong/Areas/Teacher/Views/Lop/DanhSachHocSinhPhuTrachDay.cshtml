@@ -1,34 +1,97 @@
-﻿@model IEnumerable<QLPhoThong.Models.HOCSINH>
+﻿@model IEnumerable<QLPhoThong.Models.DIEM>
 @{
     ViewBag.Title = "Danh sách học sinh phụ trách dạy";
     Layout = "~/Areas/Teacher/Views/Shared/_TeacherLayout.cshtml";
     int i = 0;
 }
-@{ var user = Session["User"] as QLPhoThong.Models.User;}
-<h2>Danh sách học sinh</h2>
 
-<table class="table" style="margin-top:75px">
-    <thead>
-        <tr>
-            <th>STT</th>
-            <th>Tên Học sinh</th>
+@{ var user = Session["User"] as QLPhoThong.Models.User;
+}
+@if (Model.Any())
+{
+    <div class="card" style="margin-top: 75px;">
+        <div class="card-body">
+            <div style="text-align: center;">
+                <h4>Danh sách học sinh lớp : <b>@Model.FirstOrDefault().HOCSINH.LOP.TenLop</b></h4>
+                <h4>Môn học : <b>@Model.FirstOrDefault().MONHOC.TenMH</b></h4>
+            </div>
+            <h4>Lớp này có tổng : <b>@ViewBag.TongHocSinh</b> học sinh</h4>
+            <div class="m-t-25">
+                @using (Html.BeginForm("DanhSachHocSinhPhuTrachDay", "Lop", FormMethod.Get, new { @class = "form-inline", id = "selectForm" }))
+                {
+                    <div class="form-group">
+                        <label>Chủ đề:</label>
+                        @Html.DropDownList("idhk", ViewBag.idhk as SelectList, htmlAttributes: new { @class = "form-control", onchange = "submitForm()" })
+                        <input type="submit" class="btn btn-danger" value="Tìm sách">
+                    </div>
+                    <hr />
+                }
 
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            i++;
 
-            <tr>
-                <td>#@i</td>
-                <td>@item.TenHS</td>
-                <td><a href="@Url.Action("XemDiemHocSinhPhuTrachDay","QuanLyDiem", new {id = item.MaHS, idgv = user.MaGV , idlop = item.MaLop})">Xem điểm</a></td>
-            </tr>
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Tên học sinh</th>
+                                <th scope="col">Điểm miệng</th>
+                                <th scope="col">Điểm 15 phút</th>
+                                <th scope="col">Điểm 1 tiết</th>
+                                <th scope="col">Điểm thi</th>
+                                <th scope="col">Điểm TBM</th>
+                            </tr>
+                        </thead>
 
-        }
-    </tbody>
-</table>
-<p>
-    <a href="@Url.Action("Index","Lop", new {id = user.MaGV})">Quay lại danh sách học sinh</a>
-</p>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                i++;
+                                <tr>
+                                    <th scope="row">@i</th>
+                                    <td>@item.HOCSINH.TenHS</td>
+                                    @Html.Action("NhapDiem", "QuanLyDiem", new { id = item.MaBD })
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <a href="@Url.Action("Index","Lop", new {id = user.MaGV})">Xem danh sách học sinh</a>
+            </div>
+        </div>
+    </div>
+
+    if (!string.IsNullOrEmpty(ViewBag.SuccessMessage))
+    {
+        <div class="alert alert-success">@ViewBag.SuccessMessage</div>
+    }
+}
+else
+{
+    <div class="card" style="margin-top: 75px;">
+        <div class="card-body">
+            <div style="text-align: center;">
+            </div>
+            <div class="m-t-25">
+
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th scope="col">LỚP NÀY HIỆN TẠI CHƯA CÓ HỌC SINH</th>
+                              
+                            </tr>
+                        </thead>
+
+                        
+                    </table>
+                </div>
+                <a href="@Url.Action("Index","Lop", new {id = user.MaGV})">Quay lại danh sách học sinh</a>
+            </div>
+        </div>
+    </div>
+}
+<script>
+    function submitForm() {
+        document.getElementById('selectForm').submit();
+    }
+</script>

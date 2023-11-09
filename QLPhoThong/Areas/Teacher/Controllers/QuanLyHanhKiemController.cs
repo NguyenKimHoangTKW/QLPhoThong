@@ -1,4 +1,5 @@
-﻿using System;
+﻿using QLPhoThong.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,10 +9,12 @@ namespace QLPhoThong.Areas.Teacher.Controllers
 {
     public class QuanLyHanhKiemController : Controller
     {
+        private diemhsEntities db = new diemhsEntities();
         // GET: Teacher/QuanLyHanhKiem
-        public ActionResult Index()
+        public ActionResult DanhGiaHanhKiem(string id)
         {
-            return View();
+            var danhgia = db.DANHGIAHANHKIEMs.Where(dghk => dghk.MaHS == id);
+            return View(danhgia.Single());
         }
     }
 }

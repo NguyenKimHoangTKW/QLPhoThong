@@ -3,26 +3,31 @@
 @{
     ViewBag.Title = "Danh sách lớp";
     Layout = "~/Areas/Teacher/Views/Shared/_TeacherLayout.cshtml";
+    int i = 0;
 }
-
+@{ var user = Session["User"] as QLPhoThong.Models.User;}
 <h2>Danh sách lớp</h2>
 
 <table class="table">
     <thead>
         <tr>
+            <th>STT</th>
             <th>Tên Lớp</th>
-
+            <th>Tên môn học</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var lop in Model)
         {
+            i++;
             <tr>
+                <td>#@i</td>
                 <td>@lop.LOP.TenLop</td>
-                <td><a href="@Url.Action("DanhSachHocSinhPhuTrachDay","Lop", new {id = lop.MaLop})">Xem danh sách học sinh</a></td>
+                <td>@lop.MONHOC.TenMH</td>
+                <td><a href="@Url.Action("DanhSachHocSinhPhuTrachDay","Lop", new { idlop = lop.MaLop, idmh = lop.MaMH })">Xem danh sách học sinh</a></td>
 
             </tr>
-            
+
         }
     </tbody>
 </table>
