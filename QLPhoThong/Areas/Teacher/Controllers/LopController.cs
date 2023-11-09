@@ -28,22 +28,18 @@ namespace QLPhoThong.Areas.Teacher.Controllers
             var danhSachLop = db.HOCSINHs.Where(pc => pc.MaLop == id).ToList();
             return View(danhSachLop);
         }
-        public ActionResult DanhSachHocSinhPhuTrachDay(string idlop, int idmh)
+        public ActionResult DanhSachHocSinhPhuTrachDay(string idlop, int idmh, string hocky = "1")
         {
-            string idhk = "1";
             var danhSachLop = (from hs in db.HOCSINHs
                                from d in db.DIEMs
                                where d.MaHS == hs.MaHS
                                where hs.MaLop == idlop
-                               where d.MaHK == idhk
+                               where d.MaHK == hocky
                                where d.MaMH == idmh
                                select d).ToList();
-            if (Request.IsAjaxRequest())
-            {
-                return PartialView("NhapDiem", danhSachLop);
-            }
-            ViewBag.idhk = new SelectList(db.HOCKies, "MaHky", "TenHky",idhk);
+          
             ViewBag.TongHocSinh = danhSachLop.Count;
+            ViewBag.hocky = new SelectList(db.HOCKies, "MaHky", "TenHky");
             return View(danhSachLop);
         }
        

@@ -1,8 +1,9 @@
 ﻿@model QLPhoThong.Models.DIEM
 
 
-@using (Html.BeginForm("NhapDiem", "QuanLyDiem", FormMethod.Post))
+@using (Html.BeginForm("NhapDiem", "QuanLyDiem", FormMethod.Post, new { id = "diemForm" }))
 {
+
     @Html.AntiForgeryToken()
     @Html.HiddenFor(model => model.MaBD)
     @Html.HiddenFor(model => model.MaHS)
@@ -26,7 +27,7 @@
     document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('diemForm').addEventListener('keyup', function (e) {
             if (e.key === 'Enter') {
-                e.preventDefault(); 
+                e.preventDefault();
                 document.getElementById('btnLuu').click();
             }
         });

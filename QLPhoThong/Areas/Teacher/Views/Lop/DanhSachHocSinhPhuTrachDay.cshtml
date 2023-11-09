@@ -9,6 +9,7 @@
 }
 @if (Model.Any())
 {
+
     <div class="card" style="margin-top: 75px;">
         <div class="card-body">
             <div style="text-align: center;">
@@ -17,17 +18,22 @@
             </div>
             <h4>Lớp này có tổng : <b>@ViewBag.TongHocSinh</b> học sinh</h4>
             <div class="m-t-25">
-                @using (Html.BeginForm("DanhSachHocSinhPhuTrachDay", "Lop", FormMethod.Get, new { @class = "form-inline", id = "selectForm" }))
+
+                @using (Html.BeginForm("DanhSachHocSinhPhuTrachDay", "Lop", FormMethod.Get, new { id = "myForm" }))
                 {
-                    <div class="form-group">
-                        <label>Chủ đề:</label>
-                        @Html.DropDownList("idhk", ViewBag.idhk as SelectList, htmlAttributes: new { @class = "form-control", onchange = "submitForm()" })
-                        <input type="submit" class="btn btn-danger" value="Tìm sách">
-                    </div>
-                    <hr />
+                    @Html.Hidden("returnUrl", Request.Url.PathAndQuery)
+                    <label>Học kỳ:</label>
+                    @Html.DropDownList("hocky", ViewBag.hocky as SelectList, new { onchange = "this.form.submit();" })
+                    if (!string.IsNullOrEmpty(Request.QueryString["idlop"]))
+                    {
+                        <input type="hidden" name="idlop" value="@Request.QueryString["idlop"]" />
+                    }
+
+                    if (!string.IsNullOrEmpty(Request.QueryString["idmh"]))
+                    {
+                        <input type="hidden" name="idmh" value="@Request.QueryString["idmh"]" />
+                    }
                 }
-
-
                 <div class="table-responsive">
                     <table class="table table-bordered">
                         <thead>
@@ -78,11 +84,11 @@ else
                         <thead>
                             <tr>
                                 <th scope="col">LỚP NÀY HIỆN TẠI CHƯA CÓ HỌC SINH</th>
-                              
+
                             </tr>
                         </thead>
 
-                        
+
                     </table>
                 </div>
                 <a href="@Url.Action("Index","Lop", new {id = user.MaGV})">Quay lại danh sách học sinh</a>
@@ -91,7 +97,30 @@ else
     </div>
 }
 <script>
-    function submitForm() {
-        document.getElementById('selectForm').submit();
-    }
+    $(document).ready(function () {
+        // Lưu địa chỉ URL khi giá trị của dropdown list thay đổi
+        $('#hocky').change(function () {
+            var selectedValue = $(this).val();
+            var returnUrl = $('#returnUrl').val();
+
+            // Thêm hoặc cập nhật tham số hocky vào địa chỉ URL
+            var newUrl = updateQueryStringParameter(returnUrl, 'hocky', selectedValue);
+
+            // Chuyển hướng đến địa chỉ URL mới
+            window.location.href = newUrl;
+        });
+
+        // Hàm cập nhật tham số trong địa chỉ URL
+        function updateQueryStringParameter(uri, key, value) {
+            var re = new RegExp("([?&])" + key + "=.*?(&|$)", "i");
+            var separator = uri.indexOf('?') !== -1 ? "&" : "?";
+            if (uri.match(re)) {
+                return uri.replace(re, '$1' + key + "=" + value + '$2');
+            }
+            else {
+                return uri + separator + key + "=" + value;
+            }
+        }
+    });
 </script>
+    
