@@ -93,6 +93,18 @@
           <Property Name="idDanToc" Type="int" Nullable="false" />
           <Property Name="Thumb" Type="nvarchar" MaxLength="200" />
         </EntityType>
+        <EntityType Name="KETQUAHOCKY">
+          <Key>
+            <PropertyRef Name="MaHS" />
+            <PropertyRef Name="MaHK" />
+            <PropertyRef Name="MaNH" />
+          </Key>
+          <Property Name="MaHS" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="TBMHK" Type="float" />
+          <Property Name="MaHK" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="MaNH" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Xeploai" Type="nvarchar" MaxLength="20" />
+        </EntityType>
         <EntityType Name="LOP">
           <Key>
             <PropertyRef Name="MaLop" />
@@ -294,6 +306,42 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_KETQUAHOCKY_HOCKY">
+          <End Role="HOCKY" Type="Self.HOCKY" Multiplicity="1" />
+          <End Role="KETQUAHOCKY" Type="Self.KETQUAHOCKY" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HOCKY">
+              <PropertyRef Name="MaHky" />
+            </Principal>
+            <Dependent Role="KETQUAHOCKY">
+              <PropertyRef Name="MaHK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_KETQUAHOCKY_HOCSINH">
+          <End Role="HOCSINH" Type="Self.HOCSINH" Multiplicity="1" />
+          <End Role="KETQUAHOCKY" Type="Self.KETQUAHOCKY" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HOCSINH">
+              <PropertyRef Name="MaHS" />
+            </Principal>
+            <Dependent Role="KETQUAHOCKY">
+              <PropertyRef Name="MaHS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_KETQUAHOCKY_NAMHOC">
+          <End Role="NAMHOC" Type="Self.NAMHOC" Multiplicity="1" />
+          <End Role="KETQUAHOCKY" Type="Self.KETQUAHOCKY" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NAMHOC">
+              <PropertyRef Name="MaNH" />
+            </Principal>
+            <Dependent Role="KETQUAHOCKY">
+              <PropertyRef Name="MaNH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_LOPCHUNHIEM_GIAOVIEN">
           <End Role="GIAOVIEN" Type="Self.GIAOVIEN" Multiplicity="1" />
           <End Role="LOPCHUNHIEM" Type="Self.LOPCHUNHIEM" Multiplicity="*" />
@@ -399,6 +447,7 @@
           <EntitySet Name="HANHKIEM" EntityType="Self.HANHKIEM" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HOCKY" EntityType="Self.HOCKY" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HOCSINH" EntityType="Self.HOCSINH" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="KETQUAHOCKY" EntityType="Self.KETQUAHOCKY" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LOP" EntityType="Self.LOP" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LOPCHUNHIEM" EntityType="Self.LOPCHUNHIEM" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MONHOC" EntityType="Self.MONHOC" Schema="dbo" store:Type="Tables" />
@@ -450,6 +499,18 @@
           <AssociationSet Name="FK_HOCSINH_LOP" Association="Self.FK_HOCSINH_LOP">
             <End Role="LOP" EntitySet="LOP" />
             <End Role="HOCSINH" EntitySet="HOCSINH" />
+          </AssociationSet>
+          <AssociationSet Name="FK_KETQUAHOCKY_HOCKY" Association="Self.FK_KETQUAHOCKY_HOCKY">
+            <End Role="HOCKY" EntitySet="HOCKY" />
+            <End Role="KETQUAHOCKY" EntitySet="KETQUAHOCKY" />
+          </AssociationSet>
+          <AssociationSet Name="FK_KETQUAHOCKY_HOCSINH" Association="Self.FK_KETQUAHOCKY_HOCSINH">
+            <End Role="HOCSINH" EntitySet="HOCSINH" />
+            <End Role="KETQUAHOCKY" EntitySet="KETQUAHOCKY" />
+          </AssociationSet>
+          <AssociationSet Name="FK_KETQUAHOCKY_NAMHOC" Association="Self.FK_KETQUAHOCKY_NAMHOC">
+            <End Role="NAMHOC" EntitySet="NAMHOC" />
+            <End Role="KETQUAHOCKY" EntitySet="KETQUAHOCKY" />
           </AssociationSet>
           <AssociationSet Name="FK_LOPCHUNHIEM_GIAOVIEN" Association="Self.FK_LOPCHUNHIEM_GIAOVIEN">
             <End Role="GIAOVIEN" EntitySet="GIAOVIEN" />
@@ -515,6 +576,7 @@
           <NavigationProperty Name="LOP" Relationship="Self.FK_HOCSINH_LOP" FromRole="HOCSINH" ToRole="LOP" />
           <NavigationProperty Name="DIEMs" Relationship="diemhsModel.FK_DIEM_HOCSINH" FromRole="HOCSINH" ToRole="DIEM" />
           <NavigationProperty Name="DANHGIAHANHKIEMs" Relationship="diemhsModel.FK_DANHGIAHANHKIEM_HOCSINH" FromRole="HOCSINH" ToRole="DANHGIAHANHKIEM" />
+          <NavigationProperty Name="KETQUAHOCKies" Relationship="diemhsModel.FK_KETQUAHOCKY_HOCSINH" FromRole="HOCSINH" ToRole="KETQUAHOCKY" />
         </EntityType>
         <EntityType Name="LOP">
           <Key>
@@ -712,6 +774,19 @@
             <End Role="NAMHOC" EntitySet="NAMHOCs" />
             <End Role="DANHGIAHANHKIEM" EntitySet="DANHGIAHANHKIEMs" />
           </AssociationSet>
+          <EntitySet Name="KETQUAHOCKies" EntityType="diemhsModel.KETQUAHOCKY" />
+          <AssociationSet Name="FK_KETQUAHOCKY_HOCKY" Association="diemhsModel.FK_KETQUAHOCKY_HOCKY">
+            <End Role="HOCKY" EntitySet="HOCKies" />
+            <End Role="KETQUAHOCKY" EntitySet="KETQUAHOCKies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_KETQUAHOCKY_HOCSINH" Association="diemhsModel.FK_KETQUAHOCKY_HOCSINH">
+            <End Role="HOCSINH" EntitySet="HOCSINHs" />
+            <End Role="KETQUAHOCKY" EntitySet="KETQUAHOCKies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_KETQUAHOCKY_NAMHOC" Association="diemhsModel.FK_KETQUAHOCKY_NAMHOC">
+            <End Role="NAMHOC" EntitySet="NAMHOCs" />
+            <End Role="KETQUAHOCKY" EntitySet="KETQUAHOCKies" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="HOCKY">
           <Key>
@@ -721,6 +796,7 @@
           <Property Name="TenHky" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="LOPCHUNHIEMs" Relationship="diemhsModel.FK_LOPCHUNHIEM_HOCKY" FromRole="HOCKY" ToRole="LOPCHUNHIEM" />
           <NavigationProperty Name="DIEMs" Relationship="diemhsModel.FK_DIEM_HOCKY" FromRole="HOCKY" ToRole="DIEM" />
+          <NavigationProperty Name="KETQUAHOCKies" Relationship="diemhsModel.FK_KETQUAHOCKY_HOCKY" FromRole="HOCKY" ToRole="KETQUAHOCKY" />
         </EntityType>
         <EntityType Name="NAMHOC">
           <Key>
@@ -730,6 +806,7 @@
           <Property Name="TenNH" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="DIEMs" Relationship="diemhsModel.FK_DIEM_NAMHOC" FromRole="NAMHOC" ToRole="DIEM" />
           <NavigationProperty Name="DANHGIAHANHKIEMs" Relationship="diemhsModel.FK_DANHGIAHANHKIEM_NAMHOC" FromRole="NAMHOC" ToRole="DANHGIAHANHKIEM" />
+          <NavigationProperty Name="KETQUAHOCKies" Relationship="diemhsModel.FK_KETQUAHOCKY_NAMHOC" FromRole="NAMHOC" ToRole="KETQUAHOCKY" />
         </EntityType>
         <Association Name="FK_LOPCHUNHIEM_HOCKY">
           <End Type="diemhsModel.HOCKY" Role="HOCKY" Multiplicity="1" />
@@ -1005,6 +1082,57 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="KETQUAHOCKY">
+          <Key>
+            <PropertyRef Name="MaHS" />
+            <PropertyRef Name="MaHK" />
+            <PropertyRef Name="MaNH" />
+          </Key>
+          <Property Name="MaHS" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="TBMHK" Type="Double" />
+          <Property Name="MaHK" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="MaNH" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="HOCKY" Relationship="diemhsModel.FK_KETQUAHOCKY_HOCKY" FromRole="KETQUAHOCKY" ToRole="HOCKY" />
+          <NavigationProperty Name="HOCSINH" Relationship="diemhsModel.FK_KETQUAHOCKY_HOCSINH" FromRole="KETQUAHOCKY" ToRole="HOCSINH" />
+          <NavigationProperty Name="NAMHOC" Relationship="diemhsModel.FK_KETQUAHOCKY_NAMHOC" FromRole="KETQUAHOCKY" ToRole="NAMHOC" />
+          <Property Name="Xeploai" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK_KETQUAHOCKY_HOCKY">
+          <End Type="diemhsModel.HOCKY" Role="HOCKY" Multiplicity="1" />
+          <End Type="diemhsModel.KETQUAHOCKY" Role="KETQUAHOCKY" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HOCKY">
+              <PropertyRef Name="MaHky" />
+            </Principal>
+            <Dependent Role="KETQUAHOCKY">
+              <PropertyRef Name="MaHK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_KETQUAHOCKY_HOCSINH">
+          <End Type="diemhsModel.HOCSINH" Role="HOCSINH" Multiplicity="1" />
+          <End Type="diemhsModel.KETQUAHOCKY" Role="KETQUAHOCKY" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HOCSINH">
+              <PropertyRef Name="MaHS" />
+            </Principal>
+            <Dependent Role="KETQUAHOCKY">
+              <PropertyRef Name="MaHS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_KETQUAHOCKY_NAMHOC">
+          <End Type="diemhsModel.NAMHOC" Role="NAMHOC" Multiplicity="1" />
+          <End Type="diemhsModel.KETQUAHOCKY" Role="KETQUAHOCKY" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NAMHOC">
+              <PropertyRef Name="MaNH" />
+            </Principal>
+            <Dependent Role="KETQUAHOCKY">
+              <PropertyRef Name="MaNH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1178,6 +1306,17 @@
                 <ScalarProperty Name="MaNH" ColumnName="MaNH" />
                 <ScalarProperty Name="MaHKiem" ColumnName="MaHKiem" />
                 <ScalarProperty Name="GiaoVienDanhGia" ColumnName="GiaoVienDanhGia" />
+                <ScalarProperty Name="MaHS" ColumnName="MaHS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="KETQUAHOCKies">
+            <EntityTypeMapping TypeName="diemhsModel.KETQUAHOCKY">
+              <MappingFragment StoreEntitySet="KETQUAHOCKY">
+                <ScalarProperty Name="Xeploai" ColumnName="Xeploai" />
+                <ScalarProperty Name="MaNH" ColumnName="MaNH" />
+                <ScalarProperty Name="MaHK" ColumnName="MaHK" />
+                <ScalarProperty Name="TBMHK" ColumnName="TBMHK" />
                 <ScalarProperty Name="MaHS" ColumnName="MaHS" />
               </MappingFragment>
             </EntityTypeMapping>

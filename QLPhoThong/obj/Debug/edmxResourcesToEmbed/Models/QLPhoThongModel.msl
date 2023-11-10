@@ -172,5 +172,16 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="KETQUAHOCKies">
+      <EntityTypeMapping TypeName="diemhsModel.KETQUAHOCKY">
+        <MappingFragment StoreEntitySet="KETQUAHOCKY">
+          <ScalarProperty Name="Xeploai" ColumnName="Xeploai" />
+          <ScalarProperty Name="MaNH" ColumnName="MaNH" />
+          <ScalarProperty Name="MaHK" ColumnName="MaHK" />
+          <ScalarProperty Name="TBMHK" ColumnName="TBMHK" />
+          <ScalarProperty Name="MaHS" ColumnName="MaHS" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

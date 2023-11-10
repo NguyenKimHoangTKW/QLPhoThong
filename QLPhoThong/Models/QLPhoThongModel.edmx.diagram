@@ -40,6 +40,10 @@
         <AssociationConnector Association="diemhsModel.FK_DANHGIAHANHKIEM_HANHKIEM" />
         <AssociationConnector Association="diemhsModel.FK_DANHGIAHANHKIEM_HOCSINH" />
         <AssociationConnector Association="diemhsModel.FK_DANHGIAHANHKIEM_NAMHOC" />
+        <EntityTypeShape EntityType="diemhsModel.KETQUAHOCKY" Width="1.5" PointX="8.25" PointY="17.25" />
+        <AssociationConnector Association="diemhsModel.FK_KETQUAHOCKY_HOCKY" />
+        <AssociationConnector Association="diemhsModel.FK_KETQUAHOCKY_HOCSINH" />
+        <AssociationConnector Association="diemhsModel.FK_KETQUAHOCKY_NAMHOC" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -100,10 +100,21 @@ namespace QLPhoThong.Areas.Admin.Controllers
                                 diem.MaHK = item2.MaHky;
                                 diem.MaNH = "NH23|24";
                                 db.DIEMs.Add(diem);
-                            }
-                            
+                              
+                            }  
                         }
                         db.SaveChanges();
+                        foreach (var item2 in lstHocKy)
+                        {
+                            KETQUAHOCKY kqhk = new KETQUAHOCKY();
+                            kqhk.MaHS = hOCSINH.MaHS;
+                            kqhk.MaHK = item2.MaHky;
+                            kqhk.MaNH = "NH23|24";
+                            kqhk.Xeploai = "Chưa xét";
+                            db.KETQUAHOCKies.Add(kqhk);
+
+                        }
+                        db.SaveChanges() ;
                         foreach (var item in lstHanhKiem)
                         {
                             DANHGIAHANHKIEM dghk = new DANHGIAHANHKIEM();
@@ -243,6 +254,11 @@ namespace QLPhoThong.Areas.Admin.Controllers
             {
                 var diemList = db.DIEMs.Where(d => d.MaHS == hOCSINH.MaHS).ToList();
                 var dghkList = db.DANHGIAHANHKIEMs.Where(d=> d.MaHS == hOCSINH.MaHS).ToList() ;
+                var kqhkList = db.KETQUAHOCKies.Where(d => d.MaHS == hOCSINH.MaHS).ToList();
+                foreach (var kqhk in kqhkList)
+                {
+                    db.KETQUAHOCKies.Remove(kqhk);
+                }
                 foreach (var diem in diemList)
                 {
                     db.DIEMs.Remove(diem);

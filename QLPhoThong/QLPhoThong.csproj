@@ -181,6 +181,9 @@
     <Compile Include="Models\HOCSINH.cs">
       <DependentUpon>QLPhoThongModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\KETQUAHOCKY.cs">
+      <DependentUpon>QLPhoThongModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\LOP.cs">
       <DependentUpon>QLPhoThongModel.tt</DependentUpon>
     </Compile>

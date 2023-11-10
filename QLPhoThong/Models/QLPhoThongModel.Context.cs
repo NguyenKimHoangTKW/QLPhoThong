@@ -41,5 +41,6 @@ namespace QLPhoThong.Models
         public virtual DbSet<DANHMUCHANHKIEM> DANHMUCHANHKIEMs { get; set; }
         public virtual DbSet<HANHKIEM> HANHKIEMs { get; set; }
         public virtual DbSet<DANHGIAHANHKIEM> DANHGIAHANHKIEMs { get; set; }
+        public virtual DbSet<KETQUAHOCKY> KETQUAHOCKies { get; set; }
     }
 }
