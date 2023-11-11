@@ -4,7 +4,7 @@
     Layout = "~/Areas/Teacher/Views/Shared/_TeacherLayout.cshtml";
     int i = 0;
 }
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 @{ var user = Session["User"] as QLPhoThong.Models.User;
 }
 @if (Model.Any())
@@ -21,9 +21,16 @@
 
                 @using (Html.BeginForm("DanhSachHocSinhPhuTrachDay", "Lop", FormMethod.Get, new { id = "myForm" }))
                 {
-                    @Html.Hidden("returnUrl", Request.Url.PathAndQuery)
-                    <label>Học kỳ:</label>
-                    @Html.DropDownList("hocky", ViewBag.hocky as SelectList, new { onchange = "this.form.submit();" })
+
+                    <div class="row">
+                        <div class="col-md-2">
+                            <h4>Chọn học kỳ :</h4>
+                        </div>
+                        <div style="margin-left: -70px; margin-bottom: 20px; margin-top: -5px; ">
+                            @Html.DropDownList("hocky", ViewBag.hocky as SelectList, new { @class = "form-control", onchange = "this.form.submit();" })
+                        </div>
+                    </div>
+
                     if (!string.IsNullOrEmpty(Request.QueryString["idlop"]))
                     {
                         <input type="hidden" name="idlop" value="@Request.QueryString["idlop"]" />
@@ -37,8 +44,8 @@
                 <div class="table-responsive">
                     <table class="table table-bordered">
                         <thead>
-                            <tr>
-                                <th scope="col">#</th>
+                            <tr style="text-align:center;">
+                                <th scope="col">STT</th>
                                 <th scope="col">Tên học sinh</th>
                                 <th scope="col">Điểm miệng</th>
                                 <th scope="col">Điểm 15 phút</th>
@@ -53,7 +60,7 @@
                             {
                                 i++;
                                 <tr>
-                                    <th scope="row">@i</th>
+                                    <th scope="row">#@i</th>
                                     <td>@item.HOCSINH.TenHS</td>
                                     @Html.Action("NhapDiem", "QuanLyDiem", new { id = item.MaBD })
                                 </tr>
@@ -66,10 +73,7 @@
         </div>
     </div>
 
-    if (!string.IsNullOrEmpty(ViewBag.SuccessMessage))
-    {
-        <div class="alert alert-success">@ViewBag.SuccessMessage</div>
-    }
+
 }
 else
 {
@@ -101,26 +105,18 @@ else
         // Lưu địa chỉ URL khi giá trị của dropdown list thay đổi
         $('#hocky').change(function () {
             var selectedValue = $(this).val();
-            var returnUrl = $('#returnUrl').val();
+            var idlop = "@Request.QueryString["idlop"]";
+            var idmh = "@Request.QueryString["idmh"]";
 
-            // Thêm hoặc cập nhật tham số hocky vào địa chỉ URL
-            var newUrl = updateQueryStringParameter(returnUrl, 'hocky', selectedValue);
+            // Xây dựng URL mới với các tham số mong muốn
+            var newUrl = '@Url.Action("DanhSachHocSinhPhuTrachDay", "Lop", new { hocky = "REPLACEME", idlop = "REPLACEME_IDLOP", idmh = "REPLACEME_IDMH" })'
+                .replace("REPLACEME", selectedValue)
+                .replace("REPLACEME_IDLOP", idlop)
+                .replace("REPLACEME_IDMH", idmh);
 
             // Chuyển hướng đến địa chỉ URL mới
             window.location.href = newUrl;
         });
-
-        // Hàm cập nhật tham số trong địa chỉ URL
-        function updateQueryStringParameter(uri, key, value) {
-            var re = new RegExp("([?&])" + key + "=.*?(&|$)", "i");
-            var separator = uri.indexOf('?') !== -1 ? "&" : "?";
-            if (uri.match(re)) {
-                return uri.replace(re, '$1' + key + "=" + value + '$2');
-            }
-            else {
-                return uri + separator + key + "=" + value;
-            }
-        }
     });
+
 </script>
-    

@@ -10,11 +10,11 @@
     @Html.HiddenFor(model => model.MaMH)
     @Html.HiddenFor(model => model.MaHK)
     @Html.HiddenFor(model => model.MaNH)
-    <td><input type="text" name="DiemMieng" value="@Model.DiemMieng" oninput="validateInput(this)" /></td>
-    <td><input type="text" name="Diem15p" value="@Model.Diem15p" oninput="validateInput(this)" /></td>
-    <td><input type="text" name="Diem1Tiet" value="@Model.Diem1Tiet" oninput="validateInput(this)" /></td>
-    <td><input type="text" name="DiemThi" value="@Model.DiemThi" oninput="validateInput(this)" /></td>
-    <td>@String.Format("{0:N1}", Model.DiemTB)</td>
+    <td><input type="text" class="form-control" name="DiemMieng" value="@Model.DiemMieng" placeholder="Nhập điểm ..." oninput="validateInput(this)"></td>
+    <td><input type="text" class="form-control" name="Diem15p" value="@Model.Diem15p" placeholder="Nhập điểm ..." oninput="validateInput(this)"></td>
+    <td><input type="text" class="form-control" name="Diem1Tiet" value="@Model.Diem1Tiet" placeholder="Nhập điểm ..." oninput="validateInput(this)"></td>
+    <td><input type="text" class="form-control" name="DiemThi" value="@Model.DiemThi" placeholder="Nhập điểm ..." oninput="validateInput(this)"></td>
+    <th scope="row" style="text-align:center;">@String.Format("{0:N1}", Model.DiemTB)</th>
     <button type="submit" class="btn btn-primary" id="btnLuu" style="display: none;">Lưu</button>
 
 }
@@ -24,6 +24,7 @@
 }
 
 <script>
+
     document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('diemForm').addEventListener('keyup', function (e) {
             if (e.key === 'Enter') {
@@ -40,4 +41,15 @@
             input.value = '';
         }
     }
+    @if (TempData["SweetAlertMessage"] != null)
+{
+    <text>
+    Swal.fire({
+        title: '@TempData["SweetAlertMessage"]',
+        icon: '@TempData["SweetAlertType"]',
+        showConfirmButton: false,
+        timer: 2000
+    });
+    </text>
+}
 </script>

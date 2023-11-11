@@ -6,7 +6,7 @@
             @{ var user = Session["User"] as QLPhoThong.Models.User;}
            
                     <li class="nav-item dropdown">
-                        <a class="dropdown-toggle" href="javascript:void(0);">
+                        <a class="dropdown-toggle" href="@Url.Action("LopChuNhiem","Lop", new {id = user.MaGV})">
                             <span class="icon-holder">
                                 <i class="anticon anticon-solution"></i>
                             </span>
@@ -15,16 +15,9 @@
                                 <i class="arrow-icon"></i>
                             </span>
                         </a>
-                        <ul class="dropdown-menu">
-
-                            <li>
-                                <a href="@Url.Action("LopChuNhiem","Lop", new {id = user.MaGV})">Default</a>
-                            </li>
-
-                        </ul>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="dropdown-toggle" href="javascript:void(0);">
+                        <a class="dropdown-toggle" href="@Url.Action("Index","Lop", new {id = user.MaGV})">
                             <span class="icon-holder">
                                 <i class="anticon anticon-team"></i>
                             </span>
@@ -33,12 +26,7 @@
                                 <i class="arrow-icon"></i>
                             </span>
                         </a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a href="@Url.Action("Index","Lop", new {id = user.MaGV})">Default</a>
-                            </li>
-
-                        </ul>
+                   
                     </li>
                     <li class="nav-item dropdown">
                         <a class="dropdown-toggle" href="javascript:void(0);">

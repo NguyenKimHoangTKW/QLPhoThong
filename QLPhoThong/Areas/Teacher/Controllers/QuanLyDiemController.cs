@@ -36,7 +36,7 @@ namespace QLPhoThong.Areas.Teacher.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult NhapDiem(DIEM diem, string returnUrl)
+        public ActionResult NhapDiem(DIEM diem)
         {
             HOCSINH hocsinh = db.HOCSINHs.Where(hs => hs.MaHS == diem.MaHS).FirstOrDefault();
              MONHOC monhoc = db.MONHOCs.Where(mh => mh.MaMH == diem.MaMH).FirstOrDefault();
@@ -49,21 +49,26 @@ namespace QLPhoThong.Areas.Teacher.Controllers
                     string diemtbmFormatted = diemtbm.ToString("N1");
                     float diemtbmRounded = float.Parse(diemtbmFormatted);
                     diem.DiemTB = diemtbmRounded;
-                    TempData["SweetAlertMessage"] = "Nhập điểm cho học sinh" ;
-                    TempData["SweetAlertType"] = "success";
                     db.Entry(diem).State = EntityState.Modified;
                     db.SaveChanges();
                 }
                 else
                 {
-                    TempData["SweetAlertMessage"] = "Nhập điểm cho học sinh";
-                    TempData["SweetAlertType"] = "success";
                     db.Entry(diem).State = EntityState.Modified;
                     db.SaveChanges();
 
                 }
             }
-            return Redirect(returnUrl);
+            if (Request.UrlReferrer != null)
+            {
+                TempData["SweetAlertMessage"] = "Cập nhật điểm thành công";
+                TempData["SweetAlertType"] = "success";
+                return Redirect(Request.UrlReferrer.ToString());
+            }
+            else
+            {
+                return View();
+            }
         }
         [HttpGet]
         public ActionResult NhapDiem(int id)
