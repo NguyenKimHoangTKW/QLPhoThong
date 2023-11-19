@@ -13,7 +13,7 @@ namespace QLPhoThong.Areas.Teacher.Controllers
         // GET: Teacher/Lop
         public ActionResult Index(string id)
         {
-            var danhSachLop = db.PHANCONGs.Where(pc => pc.MaGV == id).ToList();
+            var danhSachLop = db.PHANCONGs.Where(pc => pc.MaGV == id).OrderBy(pc => pc.LOP.TenLop).ToList();
             return View(danhSachLop);
         }
 
@@ -25,7 +25,8 @@ namespace QLPhoThong.Areas.Teacher.Controllers
 
         public ActionResult DanhSachHocSinh(string id)
         {
-            var danhSachLop = db.HOCSINHs.Where(pc => pc.MaLop == id).ToList();
+            var danhSachLop = db.HOCSINHs.Where(pc => pc.MaLop == id).OrderByDescending(pc=>pc.TenHS).ToList();
+            ViewBag.TongHocSinh = danhSachLop.Count;
             return View(danhSachLop);
         }
         public ActionResult DanhSachHocSinhPhuTrachDay(string idlop, int idmh, string hocky = "1")

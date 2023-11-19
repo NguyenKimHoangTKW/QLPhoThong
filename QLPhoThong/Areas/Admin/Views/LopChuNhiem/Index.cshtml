@@ -31,9 +31,9 @@
                 {
                     <tr>
                         <th scope="row">@Html.DisplayFor(modelItem => item.MaLopChuNhiem)</th>
-                        <td>@Html.DisplayFor(modelItem => item.MaLop)</td>
-                        <td>@Html.DisplayFor(modelItem => item.MaGV)</td>
-                        <td>@Html.DisplayFor(modelItem => item.MaHKy)</td>
+                        <td>@Html.DisplayFor(modelItem => item.LOP.TenLop)</td>
+                        <td>@Html.DisplayFor(modelItem => item.GIAOVIEN.TenGV)</td>
+                        <td>@Html.DisplayFor(modelItem => item.NAMHOC.TenNH)</td>
                         
                         <td>
                             @Html.ActionLink("Sửa", "Edit",

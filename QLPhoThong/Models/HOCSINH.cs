@@ -17,8 +17,9 @@ namespace QLPhoThong.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public HOCSINH()
         {
-            this.DIEMs = new HashSet<DIEM>();
             this.DANHGIAHANHKIEMs = new HashSet<DANHGIAHANHKIEM>();
+            this.DIEMs = new HashSet<DIEM>();
+            this.DIEMDANHs = new HashSet<DIEMDANH>();
             this.KETQUAHOCKies = new HashSet<KETQUAHOCKY>();
         }
     
@@ -33,12 +34,14 @@ namespace QLPhoThong.Models
         public int idDanToc { get; set; }
         public string Thumb { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DANHGIAHANHKIEM> DANHGIAHANHKIEMs { get; set; }
         public virtual DanToc DanToc { get; set; }
-        public virtual LOP LOP { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DIEM> DIEMs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DANHGIAHANHKIEM> DANHGIAHANHKIEMs { get; set; }
+        public virtual ICollection<DIEMDANH> DIEMDANHs { get; set; }
+        public virtual LOP LOP { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<KETQUAHOCKY> KETQUAHOCKies { get; set; }
     }

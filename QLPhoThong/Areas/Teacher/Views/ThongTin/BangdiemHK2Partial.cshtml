@@ -2,12 +2,7 @@
 
 
 <div class="card-body">
-
-
-    <h4>Bảng điểm học kỳ 2</h4>
-
-
-
+    <h4 style="text-align: center;">Bảng điểm học kỳ 2</h4>
     <div class="m-t-25">
         <div class="table-responsive">
             <table class="table table-bordered">
@@ -33,10 +28,10 @@
                             <td>@String.Format("{0:N1}", item.DiemTB)</td>
                         </tr>
                     }
-
                 </tbody>
             </table>
         </div>
     </div>
+    @Html.Action("KetQuaHocKy2Partial", "ThongTin", new { id = Model.FirstOrDefault().MaHS })
 </div>
 

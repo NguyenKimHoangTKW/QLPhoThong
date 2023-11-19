@@ -26,8 +26,8 @@ namespace QLPhoThong.Models
         public string MaNH { get; set; }
     
         public virtual HOCKY HOCKY { get; set; }
-        public virtual HOCSINH HOCSINH { get; set; }
         public virtual MONHOC MONHOC { get; set; }
         public virtual NAMHOC NAMHOC { get; set; }
+        public virtual HOCSINH HOCSINH { get; set; }
     }
 }

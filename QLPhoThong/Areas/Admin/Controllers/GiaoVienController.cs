@@ -8,7 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using QLPhoThong.Models;
-
+using OfficeOpenXml;
 namespace QLPhoThong.Areas.Admin.Controllers
 {
     public class GiaoVienController : Controller
@@ -19,6 +19,7 @@ namespace QLPhoThong.Areas.Admin.Controllers
         public ActionResult Index()
         {
             var gIAOVIENs = db.GIAOVIENs.Include(g => g.DanToc);
+            ViewBag.idDanToc = new SelectList(db.DanTocs, "idDanToc", "TenDanToc");
             return View(gIAOVIENs.ToList());
         }
 
@@ -38,50 +39,50 @@ namespace QLPhoThong.Areas.Admin.Controllers
         }
 
         // GET: Admin/GiaoVien/Create
-        public ActionResult Create()
-        {
-            ViewBag.MaMH = new SelectList(db.MONHOCs, "MaMH", "TenMH");
-            ViewBag.idDanToc = new SelectList(db.DanTocs, "idDanToc", "TenDanToc");
-            return View();
-        }
-
-        // POST: Admin/GiaoVien/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "MaGV,TenGV,NgaySinh,SDT,Diachi,MaMH,GioiTinh,Gmail,TrangThai,idDanToc,Thumb,iDGV")] GIAOVIEN gIAOVIEN, HttpPostedFileBase Thumb)
-        {
-            if (ModelState.IsValid)
+            public ActionResult Create()
             {
-                try
-                {
-                    
-                    string nextId = GetNextId();
-                    gIAOVIEN.MaGV = nextId;
-                    if (Thumb != null && Thumb.ContentLength > 0)
-                    {
-                        string _Head = Path.GetFileNameWithoutExtension(Thumb.FileName);
-                        string _Tail = Path.GetExtension(Thumb.FileName);
-                        string fullLink = _Head + "-" + DateTime.Now.ToString("yyyyMMddHHmmssfff") + _Tail;
-                        string _path = Path.Combine(Server.MapPath("~/Areas/Admin/Images/ImagesStudent"), fullLink);
-
-                        Thumb.SaveAs(_path);
-                        gIAOVIEN.Thumb = fullLink;
-                        db.GIAOVIENs.Add(gIAOVIEN);
-                        db.SaveChanges();
-                        return RedirectToAction("Index");
-                    }
-                }
-                catch
-                {
-                    ViewBag.Message = "không thành công!!";
-                }
+                ViewBag.idDanToc = new SelectList(db.DanTocs, "idDanToc", "TenDanToc");
+                GIAOVIEN gIAOVIEN = new GIAOVIEN();
+                return PartialView("Create", gIAOVIEN);
             }
 
-            ViewBag.idDanToc = new SelectList(db.DanTocs, "idDanToc", "TenDanToc", gIAOVIEN.idDanToc);
+            // POST: Admin/GiaoVien/Create
+            // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+            // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+            [HttpPost]
+            [ValidateAntiForgeryToken]
+            public ActionResult Create([Bind(Include = "MaGV,TenGV,NgaySinh,SDT,Diachi,GioiTinh,Gmail,TrangThai,idDanToc,Thumb")] GIAOVIEN gIAOVIEN, HttpPostedFileBase Thumb)
+            {
+                if (ModelState.IsValid)
+                {
+                    try
+                    {
+                    
+                        string nextId = GetNextId();
+                        gIAOVIEN.MaGV = nextId;
+                        if (Thumb != null && Thumb.ContentLength > 0)
+                        {
+                            string _Head = Path.GetFileNameWithoutExtension(Thumb.FileName);
+                            string _Tail = Path.GetExtension(Thumb.FileName);
+                            string fullLink = _Head + "-" + DateTime.Now.ToString("yyyyMMddHHmmssfff") + _Tail;
+                            string _path = Path.Combine(Server.MapPath("~/Areas/Admin/Images/ImagesTeacher"), fullLink);
+
+                            Thumb.SaveAs(_path);
+                            gIAOVIEN.Thumb = fullLink;
+                            db.GIAOVIENs.Add(gIAOVIEN);
+                            db.SaveChanges();
+                            return RedirectToAction("Index");
+                        }
+                    }
+                    catch
+                    {
+                        ViewBag.Message = "không thành công!!";
+                    }
+                }
+
+                ViewBag.idDanToc = new SelectList(db.DanTocs, "idDanToc", "TenDanToc", gIAOVIEN.idDanToc);
             return View(gIAOVIEN);
-        }
+            }
         private string GetNextId()
         {
             var allIds = db.GIAOVIENs.Select(h => h.MaGV).ToList();
@@ -92,14 +93,14 @@ namespace QLPhoThong.Areas.Admin.Controllers
             {
                 var maxId = allIds.Max();
 
-                if (maxId.StartsWith("GVPT0"))
+                if (maxId.StartsWith("GV"))
                 {
                     int.TryParse(maxId.Substring(2), out int numericPart);
                     nextId = numericPart + 1;
                 }
             }
 
-            string formattedId = "GVPT0" + nextId.ToString();
+            string formattedId = "GV" + nextId.ToString();
 
             return formattedId;
         }
@@ -116,7 +117,7 @@ namespace QLPhoThong.Areas.Admin.Controllers
                 return HttpNotFound();
             }
             ViewBag.idDanToc = new SelectList(db.DanTocs, "idDanToc", "TenDanToc", gIAOVIEN.idDanToc);
-            return View(gv);
+            return PartialView(gv);
         }
 
         // POST: Admin/GiaoVien/Edit/5
@@ -124,7 +125,7 @@ namespace QLPhoThong.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "MaGV,TenGV,NgaySinh,SDT,Diachi,MaMH,GioiTinh,Gmail,TrangThai,idDanToc,Thumb,iDGV")] GIAOVIEN gIAOVIEN, HttpPostedFileBase Thumb, FormCollection form)
+        public ActionResult Edit([Bind(Include = "MaGV,TenGV,NgaySinh,SDT,GioiTinh,Gmail,Diachi,TrangThai,idDanToc,Thumb")] GIAOVIEN gIAOVIEN, HttpPostedFileBase Thumb, FormCollection form)
         {
             if (ModelState.IsValid)
             {
@@ -142,7 +143,6 @@ namespace QLPhoThong.Areas.Admin.Controllers
 
                         if (System.IO.File.Exists(_path))
                             System.IO.File.Delete(_path);
-
                     }
                     else
                     gIAOVIEN.Thumb = form["oldimage"];
@@ -182,6 +182,14 @@ namespace QLPhoThong.Areas.Admin.Controllers
         public ActionResult DeleteConfirmed(string id)
         {
             GIAOVIEN gIAOVIEN = db.GIAOVIENs.Find(id);
+            if (!string.IsNullOrEmpty(gIAOVIEN.Thumb))
+            {
+                string imagePath = Path.Combine(Server.MapPath("~/Areas/Admin/Images/ImagesTeacher"), gIAOVIEN.Thumb);
+                if (System.IO.File.Exists(imagePath))
+                {
+                    System.IO.File.Delete(imagePath);
+                }
+            }
             db.GIAOVIENs.Remove(gIAOVIEN);
             db.SaveChanges();
             return RedirectToAction("Index");

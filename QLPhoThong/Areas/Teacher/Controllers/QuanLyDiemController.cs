@@ -61,8 +61,6 @@ namespace QLPhoThong.Areas.Teacher.Controllers
             }
             if (Request.UrlReferrer != null)
             {
-                TempData["SweetAlertMessage"] = "Cập nhật điểm thành công";
-                TempData["SweetAlertType"] = "success";
                 return Redirect(Request.UrlReferrer.ToString());
             }
             else

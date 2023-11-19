@@ -17,10 +17,10 @@ namespace QLPhoThong.Models
         public string MaLopChuNhiem { get; set; }
         public string MaLop { get; set; }
         public string MaGV { get; set; }
-        public string MaHKy { get; set; }
+        public string MaNH { get; set; }
     
         public virtual LOP LOP { get; set; }
-        public virtual HOCKY HOCKY { get; set; }
+        public virtual NAMHOC NAMHOC { get; set; }
         public virtual GIAOVIEN GIAOVIEN { get; set; }
     }
 }

@@ -21,7 +21,7 @@ namespace QLPhoThong.Models
         public Nullable<int> DiemSo { get; set; }
     
         public virtual HANHKIEM HANHKIEM { get; set; }
-        public virtual HOCSINH HOCSINH { get; set; }
         public virtual NAMHOC NAMHOC { get; set; }
+        public virtual HOCSINH HOCSINH { get; set; }
     }
 }

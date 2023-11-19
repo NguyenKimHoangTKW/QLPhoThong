@@ -12,6 +12,7 @@
     @Html.Action("BangdiemHK1Partial", "ThongTin", new { id = Model.MaHS })
     @Html.Action("BangdiemHK2Partial", "ThongTin", new { id = Model.MaHS })
 
+    @Html.Action("DiemDanhPartial", "ThongTin", new {id = Model.MaHS})
     <a href="@Url.Action("DanhSachHocSinh","Lop", new {id = Model.HOCSINH.MaLop})">Quay lại danh sách học sinh</a>
 </div>
 

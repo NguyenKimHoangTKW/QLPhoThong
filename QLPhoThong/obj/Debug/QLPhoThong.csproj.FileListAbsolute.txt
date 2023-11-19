@@ -550,3 +550,16 @@ D:\LTWEB\QLPhoThong\QLPhoThong\obj\Debug\QLPhoThong.csproj.CoreCompileInputs.cac
 D:\LTWEB\QLPhoThong\QLPhoThong\obj\Debug\QLPhoThong.csproj.CopyComplete
 D:\LTWEB\QLPhoThong\QLPhoThong\obj\Debug\QLPhoThong.dll
 D:\LTWEB\QLPhoThong\QLPhoThong\obj\Debug\QLPhoThong.pdb
+D:\LapTrinhWeb\QLPhoThong\QLPhoThong\QLPhoThong\bin\EPPlus.dll
+D:\LapTrinhWeb\QLPhoThong\QLPhoThong\QLPhoThong\bin\EPPlus.Interfaces.dll
+D:\LapTrinhWeb\QLPhoThong\QLPhoThong\QLPhoThong\bin\EPPlus.System.Drawing.dll
+D:\LapTrinhWeb\QLPhoThong\QLPhoThong\QLPhoThong\bin\Microsoft.IO.RecyclableMemoryStream.dll
+D:\LapTrinhWeb\QLPhoThong\QLPhoThong\QLPhoThong\bin\System.ComponentModel.Annotations.dll
+D:\LapTrinhWeb\QLPhoThong\QLPhoThong\QLPhoThong\bin\EPPlus.xml
+D:\LapTrinhWeb\QLPhoThong\QLPhoThong\QLPhoThong\bin\Microsoft.IO.RecyclableMemoryStream.xml
+D:\LapTrinhWeb\QLPhoThong\QLPhoThong\QLPhoThong\bin\ExcelDataReader.DataSet.dll
+D:\LapTrinhWeb\QLPhoThong\QLPhoThong\QLPhoThong\bin\ExcelDataReader.dll
+D:\LapTrinhWeb\QLPhoThong\QLPhoThong\QLPhoThong\bin\ExcelDataReader.pdb
+D:\LapTrinhWeb\QLPhoThong\QLPhoThong\QLPhoThong\bin\ExcelDataReader.xml
+D:\LapTrinhWeb\QLPhoThong\QLPhoThong\QLPhoThong\bin\ExcelDataReader.DataSet.pdb
+D:\LapTrinhWeb\QLPhoThong\QLPhoThong\QLPhoThong\bin\ExcelDataReader.DataSet.xml

@@ -1,0 +1,64 @@
+﻿@model QLPhoThong.Models.DIEMDANH
+
+@using (Html.BeginForm("DiemDanhPartial", "ThongTin", FormMethod.Post, new { id = "diemForm" }))
+{
+
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.IDDiemDanh)
+    @Html.HiddenFor(model => model.MaHS)
+    <div class="card-body">
+        <h4 style="text-align:center;">ĐIỂM DANH</h4>
+        <div class="m-t-25">
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">Nghỉ có phép</th>
+                            <th scope="col">Nghỉ không phép</th>
+                            <th scope="col">Bỏ tiết</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                            <tr>
+                                <td><input type="text" class="form-control" name="NghiCoPhep" value="@Model.NghiCoPhep" oninput="validateInput(this)"></td>
+                                <td><input type="text" class="form-control" name="NghiKhongPhep" value="@Model.NghiKhongPhep" oninput="validateInput(this)"></td>
+                                <td><input type="text" class="form-control" name="BoTiet" value="@Model.BoTiet" oninput="validateInput(this)"></td>
+                            </tr>
+                        
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary" id="btnLuu" style="display: none;">Lưu</button>
+
+}
+@if (!string.IsNullOrEmpty(ViewBag.SuccessMessage))
+{
+    <div class="alert alert-success">@ViewBag.SuccessMessage</div>
+}
+
+<script>
+
+    document.addEventListener('DOMContentLoaded', function () {
+        document.getElementById('diemForm').addEventListener('keyup', function (e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                document.getElementById('btnLuu').click();
+            }
+        });
+    });
+
+    function validateInput(input) {
+        var currentValue = input.value;
+
+        if (isNaN(currentValue) || parseFloat(currentValue) < 0 || parseFloat(currentValue) > 45) {
+            input.value = input.previousValue || '';
+        } else {
+            input.previousValue = currentValue;
+        }
+    }
+
+</script>

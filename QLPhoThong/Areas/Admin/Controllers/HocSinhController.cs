@@ -7,7 +7,6 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.UI.WebControls;
 using QLPhoThong.Models;
 
 namespace QLPhoThong.Areas.Admin.Controllers
@@ -19,7 +18,7 @@ namespace QLPhoThong.Areas.Admin.Controllers
         // GET: Admin/HocSinh
         public ActionResult Index()
         {
-            var hOCSINHs = db.HOCSINHs.Include(h => h.LOP).Include(h => h.DanToc);
+            var hOCSINHs = db.HOCSINHs.Include(h => h.DanToc).Include(h => h.LOP);
             return View(hOCSINHs.ToList());
         }
 
@@ -39,16 +38,15 @@ namespace QLPhoThong.Areas.Admin.Controllers
         }
 
         // GET: Admin/HocSinh/Create
-        [HttpGet]
         public ActionResult Create()
         {
-            ViewBag.MaLop = new SelectList(db.LOPs, "MaLop", "TenLop");
             ViewBag.idDanToc = new SelectList(db.DanTocs, "idDanToc", "TenDanToc");
+            ViewBag.MaLop = new SelectList(db.LOPs, "MaLop", "TenLop");
             return View();
         }
         public List<MONHOC> LayMonHoc()
         {
-            List<MONHOC> lstMonHoc =db.MONHOCs.ToList();
+            List<MONHOC> lstMonHoc = db.MONHOCs.ToList();
             return lstMonHoc;
         }
         public List<HANHKIEM> LayHanhKiem()
@@ -58,8 +56,13 @@ namespace QLPhoThong.Areas.Admin.Controllers
         }
         public List<HOCKY> LayHocKy()
         {
-            List<HOCKY> lstHocKy =db.HOCKies.ToList();
+            List<HOCKY> lstHocKy = db.HOCKies.ToList();
             return lstHocKy;
+        }
+        public List<DIEMDANH> LayDiemDanh()
+        {
+            List<DIEMDANH> lstDiemDanh = db.DIEMDANHs.ToList();
+            return lstDiemDanh;
         }
         // POST: Admin/HocSinh/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
@@ -78,6 +81,7 @@ namespace QLPhoThong.Areas.Admin.Controllers
                     List<MONHOC> lstMonHoc = LayMonHoc();
                     List<HOCKY> lstHocKy = LayHocKy();
                     List<HANHKIEM> lstHanhKiem = LayHanhKiem();
+                    List<DIEMDANH> lstDiemDanh = LayDiemDanh();
                     string nextId = GetNextId();
                     hOCSINH.MaHS = nextId;
                     if (Thumb != null && Thumb.ContentLength > 0)
@@ -90,9 +94,18 @@ namespace QLPhoThong.Areas.Admin.Controllers
                         hOCSINH.Thumb = fullLink;
                         db.HOCSINHs.Add(hOCSINH);
                         db.SaveChanges();
+
+                        DIEMDANH dd = new DIEMDANH();
+                        dd.MaHS = hOCSINH.MaHS;
+                        dd.NghiCoPhep = 0;
+                        dd.NghiKhongPhep = 0;
+                        dd.BoTiet = 0;
+                        db.DIEMDANHs.Add(dd);
+                        db.SaveChanges();
+
                         foreach (var item in lstMonHoc)
                         {
-                            foreach(var item2 in lstHocKy)
+                            foreach (var item2 in lstHocKy)
                             {
                                 DIEM diem = new DIEM();
                                 diem.MaHS = hOCSINH.MaHS;
@@ -100,8 +113,8 @@ namespace QLPhoThong.Areas.Admin.Controllers
                                 diem.MaHK = item2.MaHky;
                                 diem.MaNH = "NH23|24";
                                 db.DIEMs.Add(diem);
-                              
-                            }  
+
+                            }
                         }
                         db.SaveChanges();
                         foreach (var item2 in lstHocKy)
@@ -114,7 +127,7 @@ namespace QLPhoThong.Areas.Admin.Controllers
                             db.KETQUAHOCKies.Add(kqhk);
 
                         }
-                        db.SaveChanges() ;
+                        db.SaveChanges();
                         foreach (var item in lstHanhKiem)
                         {
                             DANHGIAHANHKIEM dghk = new DANHGIAHANHKIEM();
@@ -164,6 +177,7 @@ namespace QLPhoThong.Areas.Admin.Controllers
 
             return formattedId;
         }
+
         // GET: Admin/HocSinh/Edit/5
         public ActionResult Edit(string id)
         {
@@ -176,8 +190,8 @@ namespace QLPhoThong.Areas.Admin.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.MaLop = new SelectList(db.LOPs, "MaLop", "TenLop", hOCSINH.MaLop);
             ViewBag.idDanToc = new SelectList(db.DanTocs, "idDanToc", "TenDanToc", hOCSINH.idDanToc);
+            ViewBag.MaLop = new SelectList(db.LOPs, "MaLop", "TenLop", hOCSINH.MaLop);
             return View(hOCSINH);
         }
 
@@ -192,7 +206,7 @@ namespace QLPhoThong.Areas.Admin.Controllers
 
             if (ModelState.IsValid)
             {
-               
+
                 try
                 {
                     if (Thumb != null)
@@ -204,17 +218,17 @@ namespace QLPhoThong.Areas.Admin.Controllers
                         Thumb.SaveAs(_path);
                         hOCSINH.Thumb = fullLink;
                         _path = Path.Combine(Server.MapPath("~/Areas/Admin/Images/ImagesStudent"), form["oldimage"]);
-                       
+
                         if (System.IO.File.Exists(_path))
                             System.IO.File.Delete(_path);
-                        
+
                     }
                     else
                         hOCSINH.Thumb = form["oldimage"];
-                        db.Entry(hOCSINH).State = EntityState.Modified;
-                        db.SaveChanges();
-                        return RedirectToAction("Index");
-                    
+                    db.Entry(hOCSINH).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+
                 }
                 catch
                 {
@@ -226,7 +240,6 @@ namespace QLPhoThong.Areas.Admin.Controllers
             ViewBag.idDanToc = new SelectList(db.DanTocs, "idDanToc", "TenDanToc", hOCSINH.idDanToc);
             return View(hOCSINH);
         }
-        
 
         // GET: Admin/HocSinh/Delete/5
         public ActionResult Delete(string id)
@@ -235,7 +248,7 @@ namespace QLPhoThong.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            HOCSINH hOCSINH = db.HOCSINHs.SingleOrDefault(hs => hs.MaHS == id);
+            HOCSINH hOCSINH = db.HOCSINHs.Find(id);
             if (hOCSINH == null)
             {
                 return HttpNotFound();
@@ -253,7 +266,7 @@ namespace QLPhoThong.Areas.Admin.Controllers
             if (hOCSINH != null)
             {
                 var diemList = db.DIEMs.Where(d => d.MaHS == hOCSINH.MaHS).ToList();
-                var dghkList = db.DANHGIAHANHKIEMs.Where(d=> d.MaHS == hOCSINH.MaHS).ToList() ;
+                var dghkList = db.DANHGIAHANHKIEMs.Where(d => d.MaHS == hOCSINH.MaHS).ToList();
                 var kqhkList = db.KETQUAHOCKies.Where(d => d.MaHS == hOCSINH.MaHS).ToList();
                 foreach (var kqhk in kqhkList)
                 {
@@ -282,7 +295,6 @@ namespace QLPhoThong.Areas.Admin.Controllers
 
             return RedirectToAction("Index");
         }
-
 
         protected override void Dispose(bool disposing)
         {

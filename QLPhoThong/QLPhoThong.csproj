@@ -52,10 +52,28 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="EPPlus, Version=7.0.1.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPPlus.7.0.1\lib\net462\EPPlus.dll</HintPath>
+    </Reference>
+    <Reference Include="EPPlus.Interfaces, Version=6.1.1.0, Culture=neutral, PublicKeyToken=a694d7f3b0907a61, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPPlus.Interfaces.6.1.1\lib\net462\EPPlus.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="EPPlus.System.Drawing, Version=6.1.1.0, Culture=neutral, PublicKeyToken=2308d35469c9bac0, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPPlus.System.Drawing.6.1.1\lib\net462\EPPlus.System.Drawing.dll</HintPath>
+    </Reference>
+    <Reference Include="ExcelDataReader, Version=3.6.0.0, Culture=neutral, PublicKeyToken=93517dbe6a4012fa, processorArchitecture=MSIL">
+      <HintPath>..\packages\ExcelDataReader.3.6.0\lib\net45\ExcelDataReader.dll</HintPath>
+    </Reference>
+    <Reference Include="ExcelDataReader.DataSet, Version=3.6.0.0, Culture=neutral, PublicKeyToken=93517dbe6a4012fa, processorArchitecture=MSIL">
+      <HintPath>..\packages\ExcelDataReader.DataSet.3.6.0\lib\net35\ExcelDataReader.DataSet.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.4.1.0\lib\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.IO.RecyclableMemoryStream, Version=1.4.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IO.RecyclableMemoryStream.1.4.1\lib\net46\Microsoft.IO.RecyclableMemoryStream.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -65,11 +83,17 @@
     <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
       <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationCore" />
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Annotations, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ComponentModel.Annotations.5.0.0\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
+    </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Compression" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Threading.Tasks" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -153,7 +177,7 @@
     <Compile Include="Areas\Teacher\Controllers\ThongTinController.cs" />
     <Compile Include="Areas\Teacher\TeacherAreaRegistration.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\Login.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -167,6 +191,9 @@
       <DependentUpon>QLPhoThongModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DIEM.cs">
+      <DependentUpon>QLPhoThongModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DIEMDANH.cs">
       <DependentUpon>QLPhoThongModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\GIAOVIEN.cs">
@@ -304,6 +331,7 @@
     <Content Include="Areas\Style\assets\images\others\product-3.jpg" />
     <Content Include="Areas\Style\assets\images\others\sign-up-1.jpg" />
     <Content Include="Areas\Style\assets\images\others\sign-up-2.png" />
+    <Content Include="Areas\Style\assets\images\others\ThemeSoLienLac.jpg" />
     <Content Include="Areas\Style\assets\images\others\thumb-1.jpg" />
     <Content Include="Areas\Style\assets\images\others\thumb-10.jpg" />
     <Content Include="Areas\Style\assets\images\others\thumb-11.jpg" />
@@ -850,11 +878,6 @@
     <Content Include="Areas\Admin\Views\Lop\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Lop\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Lop\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\HocSinh\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\HocSinh\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\HocSinh\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\HocSinh\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\HocSinh\Index.cshtml" />
     <Content Include="Areas\Style\assets\fonts\anticon.eot" />
     <Content Include="Areas\Style\assets\fonts\anticon.ttf" />
     <Content Include="Areas\Style\assets\fonts\anticon.woff" />
@@ -1121,6 +1144,14 @@
     <Content Include="Areas\Admin\Views\HanhKiem\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\HanhKiem\Index.cshtml" />
     <Content Include="Areas\Teacher\Views\QuanLyHanhKiem\DanhGiaHanhKiem.cshtml" />
+    <Content Include="Areas\Teacher\Views\ThongTin\KetQuaHocKy1Partial.cshtml" />
+    <Content Include="Areas\Teacher\Views\ThongTin\KetQuaHocKy2Partial.cshtml" />
+    <Content Include="Areas\Admin\Views\HocSinh\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\HocSinh\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\HocSinh\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\HocSinh\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\HocSinh\Index.cshtml" />
+    <Content Include="Areas\Teacher\Views\ThongTin\DiemDanhPartial.cshtml" />
     <None Include="Scripts\jquery-3.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.1.js" />
     <Content Include="Scripts\jquery-3.7.1.min.js" />

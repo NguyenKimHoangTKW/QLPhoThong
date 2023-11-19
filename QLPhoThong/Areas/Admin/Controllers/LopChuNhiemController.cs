@@ -21,7 +21,7 @@ namespace QLPhoThong.Areas.Admin.Controllers
         [HttpGet]
         public ActionResult Index(int? size, int? page)
         {
-            var lOPCHUNHIEMs = db.LOPCHUNHIEMs.Include(l => l.GIAOVIEN).Include(l => l.HOCKY).Include(l => l.LOP).OrderBy(g => g.MaLopChuNhiem);
+            var lOPCHUNHIEMs = db.LOPCHUNHIEMs.Include(l => l.GIAOVIEN).Include(l => l.NAMHOC).Include(l => l.LOP).OrderBy(g => g.MaLopChuNhiem);
             //1.2.Tạo câu truy vấn kết 3 bảng Book, Author, Category
 
             // 3 Đoạn code sau dùng để phân trang
@@ -84,7 +84,7 @@ namespace QLPhoThong.Areas.Admin.Controllers
         public ActionResult Create()
         {
             ViewBag.MaGV = new SelectList(db.GIAOVIENs, "MaGV", "TenGV");
-            ViewBag.MaHKy = new SelectList(db.HOCKies, "MaHky", "TenHky");
+            ViewBag.MaNH = new SelectList(db.NAMHOCs, "MaNH", "TenNH");
             ViewBag.MaLop = new SelectList(db.LOPs, "MaLop", "TenLop");
             return View();
         }
@@ -94,7 +94,7 @@ namespace QLPhoThong.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "MaLop,MaGV,MaHKy,MaLopChuNhiem")] LOPCHUNHIEM lOPCHUNHIEM)
+        public ActionResult Create(LOPCHUNHIEM lOPCHUNHIEM)
         {
             if (ModelState.IsValid)
             {
@@ -106,7 +106,7 @@ namespace QLPhoThong.Areas.Admin.Controllers
             }
 
             ViewBag.MaGV = new SelectList(db.GIAOVIENs, "MaGV", "TenGV", lOPCHUNHIEM.MaGV);
-            ViewBag.MaHKy = new SelectList(db.HOCKies, "MaHky", "TenHky", lOPCHUNHIEM.MaHKy);
+            ViewBag.MaNH = new SelectList(db.NAMHOCs, "MaNH", "TenNH", lOPCHUNHIEM.NAMHOC);
             ViewBag.MaLop = new SelectList(db.LOPs, "MaLop", "TenLop", lOPCHUNHIEM.MaLop);
             return View(lOPCHUNHIEM);
         }
@@ -144,7 +144,7 @@ namespace QLPhoThong.Areas.Admin.Controllers
                 return HttpNotFound();
             }
             ViewBag.MaGV = new SelectList(db.GIAOVIENs, "MaGV", "TenGV", lOPCHUNHIEM.MaGV);
-            ViewBag.MaHKy = new SelectList(db.HOCKies, "MaHky", "TenHky", lOPCHUNHIEM.MaHKy);
+            ViewBag.MaNH = new SelectList(db.NAMHOCs, "MaNH", "TenNH", lOPCHUNHIEM.NAMHOC);
             ViewBag.MaLop = new SelectList(db.LOPs, "MaLop", "TenLop", lOPCHUNHIEM.MaLop);
             return View(lOPCHUNHIEM);
         }
@@ -163,7 +163,7 @@ namespace QLPhoThong.Areas.Admin.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.MaGV = new SelectList(db.GIAOVIENs, "MaGV", "TenGV", lOPCHUNHIEM.MaGV);
-            ViewBag.MaHKy = new SelectList(db.HOCKies, "MaHky", "TenHky", lOPCHUNHIEM.MaHKy);
+            ViewBag.MaNH = new SelectList(db.NAMHOCs, "MaNH", "TenNH", lOPCHUNHIEM.NAMHOC);
             ViewBag.MaLop = new SelectList(db.LOPs, "MaLop", "TenLop", lOPCHUNHIEM.MaLop);
             return View(lOPCHUNHIEM);
         }

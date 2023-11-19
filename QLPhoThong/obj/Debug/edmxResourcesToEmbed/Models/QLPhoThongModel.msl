@@ -9,22 +9,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="HOCSINHs">
-      <EntityTypeMapping TypeName="diemhsModel.HOCSINH">
-        <MappingFragment StoreEntitySet="HOCSINH">
-          <ScalarProperty Name="MaHS" ColumnName="MaHS" />
-          <ScalarProperty Name="TenHS" ColumnName="TenHS" />
-          <ScalarProperty Name="NgaySinh" ColumnName="NgaySinh" />
-          <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
-          <ScalarProperty Name="SDT" ColumnName="SDT" />
-          <ScalarProperty Name="GioiTinh" ColumnName="GioiTinh" />
-          <ScalarProperty Name="MaLop" ColumnName="MaLop" />
-          <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
-          <ScalarProperty Name="idDanToc" ColumnName="idDanToc" />
-          <ScalarProperty Name="Thumb" ColumnName="Thumb" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="LOPs">
       <EntityTypeMapping TypeName="diemhsModel.LOP">
         <MappingFragment StoreEntitySet="LOP">
@@ -32,16 +16,6 @@
           <ScalarProperty Name="TenLop" ColumnName="TenLop" />
           <ScalarProperty Name="LopChuyen" ColumnName="LopChuyen" />
           <ScalarProperty Name="TenLopChuyen" ColumnName="TenLopChuyen" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="LOPCHUNHIEMs">
-      <EntityTypeMapping TypeName="diemhsModel.LOPCHUNHIEM">
-        <MappingFragment StoreEntitySet="LOPCHUNHIEM">
-          <ScalarProperty Name="MaLopChuNhiem" ColumnName="MaLopChuNhiem" />
-          <ScalarProperty Name="MaLop" ColumnName="MaLop" />
-          <ScalarProperty Name="MaGV" ColumnName="MaGV" />
-          <ScalarProperty Name="MaHKy" ColumnName="MaHKy" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -126,22 +100,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="GIAOVIENs">
-      <EntityTypeMapping TypeName="diemhsModel.GIAOVIEN">
-        <MappingFragment StoreEntitySet="GIAOVIEN">
-          <ScalarProperty Name="Thumb" ColumnName="Thumb" />
-          <ScalarProperty Name="idDanToc" ColumnName="idDanToc" />
-          <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
-          <ScalarProperty Name="Diachi" ColumnName="Diachi" />
-          <ScalarProperty Name="Gmail" ColumnName="Gmail" />
-          <ScalarProperty Name="GioiTinh" ColumnName="GioiTinh" />
-          <ScalarProperty Name="SDT" ColumnName="SDT" />
-          <ScalarProperty Name="NgaySinh" ColumnName="NgaySinh" />
-          <ScalarProperty Name="TenGV" ColumnName="TenGV" />
-          <ScalarProperty Name="MaGV" ColumnName="MaGV" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="DANHMUCHANHKIEMs">
       <EntityTypeMapping TypeName="diemhsModel.DANHMUCHANHKIEM">
         <MappingFragment StoreEntitySet="DANHMUCHANHKIEM">
@@ -179,6 +137,60 @@
           <ScalarProperty Name="MaNH" ColumnName="MaNH" />
           <ScalarProperty Name="MaHK" ColumnName="MaHK" />
           <ScalarProperty Name="TBMHK" ColumnName="TBMHK" />
+          <ScalarProperty Name="MaHS" ColumnName="MaHS" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LOPCHUNHIEMs">
+      <EntityTypeMapping TypeName="diemhsModel.LOPCHUNHIEM">
+        <MappingFragment StoreEntitySet="LOPCHUNHIEM">
+          <ScalarProperty Name="MaNH" ColumnName="MaNH" />
+          <ScalarProperty Name="MaGV" ColumnName="MaGV" />
+          <ScalarProperty Name="MaLop" ColumnName="MaLop" />
+          <ScalarProperty Name="MaLopChuNhiem" ColumnName="MaLopChuNhiem" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GIAOVIENs">
+      <EntityTypeMapping TypeName="diemhsModel.GIAOVIEN">
+        <MappingFragment StoreEntitySet="GIAOVIEN">
+          <ScalarProperty Name="Thumb" ColumnName="Thumb" />
+          <ScalarProperty Name="idDanToc" ColumnName="idDanToc" />
+          <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
+          <ScalarProperty Name="Diachi" ColumnName="Diachi" />
+          <ScalarProperty Name="Gmail" ColumnName="Gmail" />
+          <ScalarProperty Name="GioiTinh" ColumnName="GioiTinh" />
+          <ScalarProperty Name="SDT" ColumnName="SDT" />
+          <ScalarProperty Name="NgaySinh" ColumnName="NgaySinh" />
+          <ScalarProperty Name="TenGV" ColumnName="TenGV" />
+          <ScalarProperty Name="MaGV" ColumnName="MaGV" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DIEMDANHs">
+      <EntityTypeMapping TypeName="diemhsModel.DIEMDANH">
+        <MappingFragment StoreEntitySet="DIEMDANH">
+          <ScalarProperty Name="IDDiemDanh" ColumnName="IDDiemDanh" />
+          <ScalarProperty Name="GhiChu" ColumnName="GhiChu" />
+          <ScalarProperty Name="BoTiet" ColumnName="BoTiet" />
+          <ScalarProperty Name="NghiKhongPhep" ColumnName="NghiKhongPhep" />
+          <ScalarProperty Name="NghiCoPhep" ColumnName="NghiCoPhep" />
+          <ScalarProperty Name="MaHS" ColumnName="MaHS" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="HOCSINHs">
+      <EntityTypeMapping TypeName="diemhsModel.HOCSINH">
+        <MappingFragment StoreEntitySet="HOCSINH">
+          <ScalarProperty Name="Thumb" ColumnName="Thumb" />
+          <ScalarProperty Name="idDanToc" ColumnName="idDanToc" />
+          <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
+          <ScalarProperty Name="MaLop" ColumnName="MaLop" />
+          <ScalarProperty Name="GioiTinh" ColumnName="GioiTinh" />
+          <ScalarProperty Name="SDT" ColumnName="SDT" />
+          <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
+          <ScalarProperty Name="NgaySinh" ColumnName="NgaySinh" />
+          <ScalarProperty Name="TenHS" ColumnName="TenHS" />
           <ScalarProperty Name="MaHS" ColumnName="MaHS" />
         </MappingFragment>
       </EntityTypeMapping>

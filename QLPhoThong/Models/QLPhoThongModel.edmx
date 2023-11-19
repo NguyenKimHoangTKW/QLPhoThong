@@ -47,6 +47,17 @@
           <Property Name="DiemTB" Type="float" />
           <Property Name="MaNH" Type="nvarchar" MaxLength="20" Nullable="false" />
         </EntityType>
+        <EntityType Name="DIEMDANH">
+          <Key>
+            <PropertyRef Name="IDDiemDanh" />
+          </Key>
+          <Property Name="MaHS" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="NghiCoPhep" Type="int" Nullable="false" />
+          <Property Name="NghiKhongPhep" Type="int" Nullable="false" />
+          <Property Name="BoTiet" Type="int" Nullable="false" />
+          <Property Name="GhiChu" Type="ntext" />
+          <Property Name="IDDiemDanh" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
         <EntityType Name="GIAOVIEN">
           <Key>
             <PropertyRef Name="MaGV" />
@@ -54,7 +65,7 @@
           <Property Name="MaGV" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="TenGV" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="NgaySinh" Type="date" Nullable="false" />
-          <Property Name="SDT" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="SDT" Type="nchar" MaxLength="12" Nullable="false" />
           <Property Name="GioiTinh" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Gmail" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Diachi" Type="nvarchar" MaxLength="50" Nullable="false" />
@@ -86,12 +97,12 @@
           <Property Name="TenHS" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="NgaySinh" Type="date" Nullable="false" />
           <Property Name="DiaChi" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="SDT" Type="char" MaxLength="12" Nullable="false" />
+          <Property Name="SDT" Type="nchar" MaxLength="12" Nullable="false" />
           <Property Name="GioiTinh" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="MaLop" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="TrangThai" Type="nvarchar" MaxLength="50" />
           <Property Name="idDanToc" Type="int" Nullable="false" />
-          <Property Name="Thumb" Type="nvarchar" MaxLength="200" />
+          <Property Name="Thumb" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="KETQUAHOCKY">
           <Key>
@@ -121,7 +132,7 @@
           <Property Name="MaLopChuNhiem" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="MaLop" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="MaGV" Type="nvarchar" MaxLength="20" Nullable="false" />
-          <Property Name="MaHKy" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="MaNH" Type="nvarchar" MaxLength="20" Nullable="false" />
         </EntityType>
         <EntityType Name="MONHOC">
           <Key>
@@ -258,6 +269,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_DIEMDANH_HOCSINH">
+          <End Role="HOCSINH" Type="Self.HOCSINH" Multiplicity="1" />
+          <End Role="DIEMDANH" Type="Self.DIEMDANH" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HOCSINH">
+              <PropertyRef Name="MaHS" />
+            </Principal>
+            <Dependent Role="DIEMDANH">
+              <PropertyRef Name="MaHS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_GIAOVIEN_DanToc">
           <End Role="DanToc" Type="Self.DanToc" Multiplicity="1" />
           <End Role="GIAOVIEN" Type="Self.GIAOVIEN" Multiplicity="*" />
@@ -354,18 +377,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_LOPCHUNHIEM_HOCKY">
-          <End Role="HOCKY" Type="Self.HOCKY" Multiplicity="1" />
-          <End Role="LOPCHUNHIEM" Type="Self.LOPCHUNHIEM" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="HOCKY">
-              <PropertyRef Name="MaHky" />
-            </Principal>
-            <Dependent Role="LOPCHUNHIEM">
-              <PropertyRef Name="MaHKy" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_LOPCHUNHIEM_LOP">
           <End Role="LOP" Type="Self.LOP" Multiplicity="1" />
           <End Role="LOPCHUNHIEM" Type="Self.LOPCHUNHIEM" Multiplicity="*" />
@@ -375,6 +386,18 @@
             </Principal>
             <Dependent Role="LOPCHUNHIEM">
               <PropertyRef Name="MaLop" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LOPCHUNHIEM_NAMHOC">
+          <End Role="NAMHOC" Type="Self.NAMHOC" Multiplicity="1" />
+          <End Role="LOPCHUNHIEM" Type="Self.LOPCHUNHIEM" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NAMHOC">
+              <PropertyRef Name="MaNH" />
+            </Principal>
+            <Dependent Role="LOPCHUNHIEM">
+              <PropertyRef Name="MaNH" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -443,6 +466,7 @@
           <EntitySet Name="DANHMUCHANHKIEM" EntityType="Self.DANHMUCHANHKIEM" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DanToc" EntityType="Self.DanToc" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DIEM" EntityType="Self.DIEM" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DIEMDANH" EntityType="Self.DIEMDANH" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GIAOVIEN" EntityType="Self.GIAOVIEN" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HANHKIEM" EntityType="Self.HANHKIEM" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HOCKY" EntityType="Self.HOCKY" Schema="dbo" store:Type="Tables" />
@@ -484,6 +508,10 @@
             <End Role="NAMHOC" EntitySet="NAMHOC" />
             <End Role="DIEM" EntitySet="DIEM" />
           </AssociationSet>
+          <AssociationSet Name="FK_DIEMDANH_HOCSINH" Association="Self.FK_DIEMDANH_HOCSINH">
+            <End Role="HOCSINH" EntitySet="HOCSINH" />
+            <End Role="DIEMDANH" EntitySet="DIEMDANH" />
+          </AssociationSet>
           <AssociationSet Name="FK_GIAOVIEN_DanToc" Association="Self.FK_GIAOVIEN_DanToc">
             <End Role="DanToc" EntitySet="DanToc" />
             <End Role="GIAOVIEN" EntitySet="GIAOVIEN" />
@@ -516,12 +544,12 @@
             <End Role="GIAOVIEN" EntitySet="GIAOVIEN" />
             <End Role="LOPCHUNHIEM" EntitySet="LOPCHUNHIEM" />
           </AssociationSet>
-          <AssociationSet Name="FK_LOPCHUNHIEM_HOCKY" Association="Self.FK_LOPCHUNHIEM_HOCKY">
-            <End Role="HOCKY" EntitySet="HOCKY" />
-            <End Role="LOPCHUNHIEM" EntitySet="LOPCHUNHIEM" />
-          </AssociationSet>
           <AssociationSet Name="FK_LOPCHUNHIEM_LOP" Association="Self.FK_LOPCHUNHIEM_LOP">
             <End Role="LOP" EntitySet="LOP" />
+            <End Role="LOPCHUNHIEM" EntitySet="LOPCHUNHIEM" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LOPCHUNHIEM_NAMHOC" Association="Self.FK_LOPCHUNHIEM_NAMHOC">
+            <End Role="NAMHOC" EntitySet="NAMHOC" />
             <End Role="LOPCHUNHIEM" EntitySet="LOPCHUNHIEM" />
           </AssociationSet>
           <AssociationSet Name="FK_PHANCONG_GIAOVIEN" Association="Self.FK_PHANCONG_GIAOVIEN">
@@ -555,28 +583,8 @@
           </Key>
           <Property Name="idDanToc" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TenDanToc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="HOCSINHs" Relationship="Self.FK_HOCSINH_DanToc" FromRole="DanToc" ToRole="HOCSINH" />
           <NavigationProperty Name="GIAOVIENs" Relationship="diemhsModel.FK_GIAOVIEN_DanToc" FromRole="DanToc" ToRole="GIAOVIEN" />
-        </EntityType>
-        <EntityType Name="HOCSINH">
-          <Key>
-            <PropertyRef Name="MaHS" />
-          </Key>
-          <Property Name="MaHS" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="TenHS" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="NgaySinh" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="DiaChi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="SDT" Type="String" MaxLength="12" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="GioiTinh" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="MaLop" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="TrangThai" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="idDanToc" Type="Int32" Nullable="false" />
-          <Property Name="Thumb" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="DanToc" Relationship="Self.FK_HOCSINH_DanToc" FromRole="HOCSINH" ToRole="DanToc" />
-          <NavigationProperty Name="LOP" Relationship="Self.FK_HOCSINH_LOP" FromRole="HOCSINH" ToRole="LOP" />
-          <NavigationProperty Name="DIEMs" Relationship="diemhsModel.FK_DIEM_HOCSINH" FromRole="HOCSINH" ToRole="DIEM" />
-          <NavigationProperty Name="DANHGIAHANHKIEMs" Relationship="diemhsModel.FK_DANHGIAHANHKIEM_HOCSINH" FromRole="HOCSINH" ToRole="DANHGIAHANHKIEM" />
-          <NavigationProperty Name="KETQUAHOCKies" Relationship="diemhsModel.FK_KETQUAHOCKY_HOCSINH" FromRole="HOCSINH" ToRole="KETQUAHOCKY" />
+          <NavigationProperty Name="HOCSINHs" Relationship="diemhsModel.FK_HOCSINH_DanToc" FromRole="DanToc" ToRole="HOCSINH" />
         </EntityType>
         <EntityType Name="LOP">
           <Key>
@@ -586,21 +594,9 @@
           <Property Name="TenLop" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="LopChuyen" Type="Boolean" Nullable="false" />
           <Property Name="TenLopChuyen" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="HOCSINHs" Relationship="Self.FK_HOCSINH_LOP" FromRole="LOP" ToRole="HOCSINH" />
-          <NavigationProperty Name="LOPCHUNHIEMs" Relationship="Self.FK_LOPCHUNHIEM_LOP" FromRole="LOP" ToRole="LOPCHUNHIEM" />
           <NavigationProperty Name="PHANCONGs" Relationship="diemhsModel.FK_PHANCONG_LOP" FromRole="LOP" ToRole="PHANCONG" />
-        </EntityType>
-        <EntityType Name="LOPCHUNHIEM">
-          <Key>
-            <PropertyRef Name="MaLopChuNhiem" />
-          </Key>
-          <Property Name="MaLopChuNhiem" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="MaLop" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="MaGV" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="MaHKy" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="LOP" Relationship="Self.FK_LOPCHUNHIEM_LOP" FromRole="LOPCHUNHIEM" ToRole="LOP" />
-          <NavigationProperty Name="HOCKY" Relationship="diemhsModel.FK_LOPCHUNHIEM_HOCKY" FromRole="LOPCHUNHIEM" ToRole="HOCKY" />
-          <NavigationProperty Name="GIAOVIEN" Relationship="diemhsModel.FK_LOPCHUNHIEM_GIAOVIEN" FromRole="LOPCHUNHIEM" ToRole="GIAOVIEN" />
+          <NavigationProperty Name="LOPCHUNHIEMs" Relationship="diemhsModel.FK_LOPCHUNHIEM_LOP" FromRole="LOP" ToRole="LOPCHUNHIEM" />
+          <NavigationProperty Name="HOCSINHs" Relationship="diemhsModel.FK_HOCSINH_LOP" FromRole="LOP" ToRole="HOCSINH" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -633,42 +629,6 @@
           <NavigationProperty Name="TITLEUSER" Relationship="Self.FK_User_TITLEUSER" FromRole="User" ToRole="TITLEUSER" />
           <NavigationProperty Name="GIAOVIEN" Relationship="diemhsModel.FK_User_GIAOVIEN" FromRole="User" ToRole="GIAOVIEN" />
         </EntityType>
-        <Association Name="FK_HOCSINH_DanToc">
-          <End Role="DanToc" Type="Self.DanToc" Multiplicity="1" />
-          <End Role="HOCSINH" Type="Self.HOCSINH" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DanToc">
-              <PropertyRef Name="idDanToc" />
-            </Principal>
-            <Dependent Role="HOCSINH">
-              <PropertyRef Name="idDanToc" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_HOCSINH_LOP">
-          <End Role="LOP" Type="Self.LOP" Multiplicity="1" />
-          <End Role="HOCSINH" Type="Self.HOCSINH" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="LOP">
-              <PropertyRef Name="MaLop" />
-            </Principal>
-            <Dependent Role="HOCSINH">
-              <PropertyRef Name="MaLop" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_LOPCHUNHIEM_LOP">
-          <End Role="LOP" Type="Self.LOP" Multiplicity="1" />
-          <End Role="LOPCHUNHIEM" Type="Self.LOPCHUNHIEM" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="LOP">
-              <PropertyRef Name="MaLop" />
-            </Principal>
-            <Dependent Role="LOPCHUNHIEM">
-              <PropertyRef Name="MaLop" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_User_TITLEUSER">
           <End Role="TITLEUSER" Type="Self.TITLEUSER" Multiplicity="1" />
           <End Role="User" Type="Self.User" Multiplicity="*" />
@@ -683,34 +643,16 @@
         </Association>
         <EntityContainer Name="diemhsEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="DanTocs" EntityType="Self.DanToc" />
-          <EntitySet Name="HOCSINHs" EntityType="Self.HOCSINH" />
           <EntitySet Name="LOPs" EntityType="Self.LOP" />
-          <EntitySet Name="LOPCHUNHIEMs" EntityType="Self.LOPCHUNHIEM" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <EntitySet Name="TITLEUSERs" EntityType="Self.TITLEUSER" />
           <EntitySet Name="Users" EntityType="Self.User" />
-          <AssociationSet Name="FK_HOCSINH_DanToc" Association="Self.FK_HOCSINH_DanToc">
-            <End Role="DanToc" EntitySet="DanTocs" />
-            <End Role="HOCSINH" EntitySet="HOCSINHs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_HOCSINH_LOP" Association="Self.FK_HOCSINH_LOP">
-            <End Role="LOP" EntitySet="LOPs" />
-            <End Role="HOCSINH" EntitySet="HOCSINHs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_LOPCHUNHIEM_LOP" Association="Self.FK_LOPCHUNHIEM_LOP">
-            <End Role="LOP" EntitySet="LOPs" />
-            <End Role="LOPCHUNHIEM" EntitySet="LOPCHUNHIEMs" />
-          </AssociationSet>
           <AssociationSet Name="FK_User_TITLEUSER" Association="Self.FK_User_TITLEUSER">
             <End Role="TITLEUSER" EntitySet="TITLEUSERs" />
             <End Role="User" EntitySet="Users" />
           </AssociationSet>
           <EntitySet Name="HOCKies" EntityType="diemhsModel.HOCKY" />
           <EntitySet Name="NAMHOCs" EntityType="diemhsModel.NAMHOC" />
-          <AssociationSet Name="FK_LOPCHUNHIEM_HOCKY" Association="diemhsModel.FK_LOPCHUNHIEM_HOCKY">
-            <End Role="HOCKY" EntitySet="HOCKies" />
-            <End Role="LOPCHUNHIEM" EntitySet="LOPCHUNHIEMs" />
-          </AssociationSet>
           <EntitySet Name="MONHOCs" EntityType="diemhsModel.MONHOC" />
           <EntitySet Name="PHANCONGs" EntityType="diemhsModel.PHANCONG" />
           <AssociationSet Name="FK_PHANCONG_LOP" Association="diemhsModel.FK_PHANCONG_LOP">
@@ -726,10 +668,6 @@
             <End Role="HOCKY" EntitySet="HOCKies" />
             <End Role="DIEM" EntitySet="DIEMs" />
           </AssociationSet>
-          <AssociationSet Name="FK_DIEM_HOCSINH" Association="diemhsModel.FK_DIEM_HOCSINH">
-            <End Role="HOCSINH" EntitySet="HOCSINHs" />
-            <End Role="DIEM" EntitySet="DIEMs" />
-          </AssociationSet>
           <AssociationSet Name="FK_DIEM_MONHOC" Association="diemhsModel.FK_DIEM_MONHOC">
             <End Role="MONHOC" EntitySet="MONHOCs" />
             <End Role="DIEM" EntitySet="DIEMs" />
@@ -737,6 +675,39 @@
           <AssociationSet Name="FK_DIEM_NAMHOC" Association="diemhsModel.FK_DIEM_NAMHOC">
             <End Role="NAMHOC" EntitySet="NAMHOCs" />
             <End Role="DIEM" EntitySet="DIEMs" />
+          </AssociationSet>
+          <EntitySet Name="DANHMUCHANHKIEMs" EntityType="diemhsModel.DANHMUCHANHKIEM" />
+          <EntitySet Name="HANHKIEMs" EntityType="diemhsModel.HANHKIEM" />
+          <AssociationSet Name="FK_HANHKIEM_DANHMUCHANHKIEM" Association="diemhsModel.FK_HANHKIEM_DANHMUCHANHKIEM">
+            <End Role="DANHMUCHANHKIEM" EntitySet="DANHMUCHANHKIEMs" />
+            <End Role="HANHKIEM" EntitySet="HANHKIEMs" />
+          </AssociationSet>
+          <EntitySet Name="DANHGIAHANHKIEMs" EntityType="diemhsModel.DANHGIAHANHKIEM" />
+          <AssociationSet Name="FK_DANHGIAHANHKIEM_HANHKIEM" Association="diemhsModel.FK_DANHGIAHANHKIEM_HANHKIEM">
+            <End Role="HANHKIEM" EntitySet="HANHKIEMs" />
+            <End Role="DANHGIAHANHKIEM" EntitySet="DANHGIAHANHKIEMs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DANHGIAHANHKIEM_NAMHOC" Association="diemhsModel.FK_DANHGIAHANHKIEM_NAMHOC">
+            <End Role="NAMHOC" EntitySet="NAMHOCs" />
+            <End Role="DANHGIAHANHKIEM" EntitySet="DANHGIAHANHKIEMs" />
+          </AssociationSet>
+          <EntitySet Name="KETQUAHOCKies" EntityType="diemhsModel.KETQUAHOCKY" />
+          <AssociationSet Name="FK_KETQUAHOCKY_HOCKY" Association="diemhsModel.FK_KETQUAHOCKY_HOCKY">
+            <End Role="HOCKY" EntitySet="HOCKies" />
+            <End Role="KETQUAHOCKY" EntitySet="KETQUAHOCKies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_KETQUAHOCKY_NAMHOC" Association="diemhsModel.FK_KETQUAHOCKY_NAMHOC">
+            <End Role="NAMHOC" EntitySet="NAMHOCs" />
+            <End Role="KETQUAHOCKY" EntitySet="KETQUAHOCKies" />
+          </AssociationSet>
+          <EntitySet Name="LOPCHUNHIEMs" EntityType="diemhsModel.LOPCHUNHIEM" />
+          <AssociationSet Name="FK_LOPCHUNHIEM_LOP" Association="diemhsModel.FK_LOPCHUNHIEM_LOP">
+            <End Role="LOP" EntitySet="LOPs" />
+            <End Role="LOPCHUNHIEM" EntitySet="LOPCHUNHIEMs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LOPCHUNHIEM_NAMHOC" Association="diemhsModel.FK_LOPCHUNHIEM_NAMHOC">
+            <End Role="NAMHOC" EntitySet="NAMHOCs" />
+            <End Role="LOPCHUNHIEM" EntitySet="LOPCHUNHIEMs" />
           </AssociationSet>
           <EntitySet Name="GIAOVIENs" EntityType="diemhsModel.GIAOVIEN" />
           <AssociationSet Name="FK_GIAOVIEN_DanToc" Association="diemhsModel.FK_GIAOVIEN_DanToc">
@@ -755,36 +726,30 @@
             <End Role="GIAOVIEN" EntitySet="GIAOVIENs" />
             <End Role="User" EntitySet="Users" />
           </AssociationSet>
-          <EntitySet Name="DANHMUCHANHKIEMs" EntityType="diemhsModel.DANHMUCHANHKIEM" />
-          <EntitySet Name="HANHKIEMs" EntityType="diemhsModel.HANHKIEM" />
-          <AssociationSet Name="FK_HANHKIEM_DANHMUCHANHKIEM" Association="diemhsModel.FK_HANHKIEM_DANHMUCHANHKIEM">
-            <End Role="DANHMUCHANHKIEM" EntitySet="DANHMUCHANHKIEMs" />
-            <End Role="HANHKIEM" EntitySet="HANHKIEMs" />
-          </AssociationSet>
-          <EntitySet Name="DANHGIAHANHKIEMs" EntityType="diemhsModel.DANHGIAHANHKIEM" />
-          <AssociationSet Name="FK_DANHGIAHANHKIEM_HANHKIEM" Association="diemhsModel.FK_DANHGIAHANHKIEM_HANHKIEM">
-            <End Role="HANHKIEM" EntitySet="HANHKIEMs" />
-            <End Role="DANHGIAHANHKIEM" EntitySet="DANHGIAHANHKIEMs" />
-          </AssociationSet>
+          <EntitySet Name="DIEMDANHs" EntityType="diemhsModel.DIEMDANH" />
+          <EntitySet Name="HOCSINHs" EntityType="diemhsModel.HOCSINH" />
           <AssociationSet Name="FK_DANHGIAHANHKIEM_HOCSINH" Association="diemhsModel.FK_DANHGIAHANHKIEM_HOCSINH">
             <End Role="HOCSINH" EntitySet="HOCSINHs" />
             <End Role="DANHGIAHANHKIEM" EntitySet="DANHGIAHANHKIEMs" />
           </AssociationSet>
-          <AssociationSet Name="FK_DANHGIAHANHKIEM_NAMHOC" Association="diemhsModel.FK_DANHGIAHANHKIEM_NAMHOC">
-            <End Role="NAMHOC" EntitySet="NAMHOCs" />
-            <End Role="DANHGIAHANHKIEM" EntitySet="DANHGIAHANHKIEMs" />
+          <AssociationSet Name="FK_HOCSINH_DanToc" Association="diemhsModel.FK_HOCSINH_DanToc">
+            <End Role="DanToc" EntitySet="DanTocs" />
+            <End Role="HOCSINH" EntitySet="HOCSINHs" />
           </AssociationSet>
-          <EntitySet Name="KETQUAHOCKies" EntityType="diemhsModel.KETQUAHOCKY" />
-          <AssociationSet Name="FK_KETQUAHOCKY_HOCKY" Association="diemhsModel.FK_KETQUAHOCKY_HOCKY">
-            <End Role="HOCKY" EntitySet="HOCKies" />
-            <End Role="KETQUAHOCKY" EntitySet="KETQUAHOCKies" />
+          <AssociationSet Name="FK_DIEM_HOCSINH" Association="diemhsModel.FK_DIEM_HOCSINH">
+            <End Role="HOCSINH" EntitySet="HOCSINHs" />
+            <End Role="DIEM" EntitySet="DIEMs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DIEMDANH_HOCSINH" Association="diemhsModel.FK_DIEMDANH_HOCSINH">
+            <End Role="HOCSINH" EntitySet="HOCSINHs" />
+            <End Role="DIEMDANH" EntitySet="DIEMDANHs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HOCSINH_LOP" Association="diemhsModel.FK_HOCSINH_LOP">
+            <End Role="LOP" EntitySet="LOPs" />
+            <End Role="HOCSINH" EntitySet="HOCSINHs" />
           </AssociationSet>
           <AssociationSet Name="FK_KETQUAHOCKY_HOCSINH" Association="diemhsModel.FK_KETQUAHOCKY_HOCSINH">
             <End Role="HOCSINH" EntitySet="HOCSINHs" />
-            <End Role="KETQUAHOCKY" EntitySet="KETQUAHOCKies" />
-          </AssociationSet>
-          <AssociationSet Name="FK_KETQUAHOCKY_NAMHOC" Association="diemhsModel.FK_KETQUAHOCKY_NAMHOC">
-            <End Role="NAMHOC" EntitySet="NAMHOCs" />
             <End Role="KETQUAHOCKY" EntitySet="KETQUAHOCKies" />
           </AssociationSet>
           </EntityContainer>
@@ -794,7 +759,6 @@
           </Key>
           <Property Name="MaHky" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="TenHky" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="LOPCHUNHIEMs" Relationship="diemhsModel.FK_LOPCHUNHIEM_HOCKY" FromRole="HOCKY" ToRole="LOPCHUNHIEM" />
           <NavigationProperty Name="DIEMs" Relationship="diemhsModel.FK_DIEM_HOCKY" FromRole="HOCKY" ToRole="DIEM" />
           <NavigationProperty Name="KETQUAHOCKies" Relationship="diemhsModel.FK_KETQUAHOCKY_HOCKY" FromRole="HOCKY" ToRole="KETQUAHOCKY" />
         </EntityType>
@@ -807,19 +771,8 @@
           <NavigationProperty Name="DIEMs" Relationship="diemhsModel.FK_DIEM_NAMHOC" FromRole="NAMHOC" ToRole="DIEM" />
           <NavigationProperty Name="DANHGIAHANHKIEMs" Relationship="diemhsModel.FK_DANHGIAHANHKIEM_NAMHOC" FromRole="NAMHOC" ToRole="DANHGIAHANHKIEM" />
           <NavigationProperty Name="KETQUAHOCKies" Relationship="diemhsModel.FK_KETQUAHOCKY_NAMHOC" FromRole="NAMHOC" ToRole="KETQUAHOCKY" />
+          <NavigationProperty Name="LOPCHUNHIEMs" Relationship="diemhsModel.FK_LOPCHUNHIEM_NAMHOC" FromRole="NAMHOC" ToRole="LOPCHUNHIEM" />
         </EntityType>
-        <Association Name="FK_LOPCHUNHIEM_HOCKY">
-          <End Type="diemhsModel.HOCKY" Role="HOCKY" Multiplicity="1" />
-          <End Type="diemhsModel.LOPCHUNHIEM" Role="LOPCHUNHIEM" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="HOCKY">
-              <PropertyRef Name="MaHky" />
-            </Principal>
-            <Dependent Role="LOPCHUNHIEM">
-              <PropertyRef Name="MaHKy" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="MONHOC">
           <Key>
             <PropertyRef Name="MaMH" />
@@ -880,9 +833,9 @@
           <Property Name="DiemTB" Type="Double" />
           <Property Name="MaNH" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="HOCKY" Relationship="diemhsModel.FK_DIEM_HOCKY" FromRole="DIEM" ToRole="HOCKY" />
-          <NavigationProperty Name="HOCSINH" Relationship="diemhsModel.FK_DIEM_HOCSINH" FromRole="DIEM" ToRole="HOCSINH" />
           <NavigationProperty Name="MONHOC" Relationship="diemhsModel.FK_DIEM_MONHOC" FromRole="DIEM" ToRole="MONHOC" />
           <NavigationProperty Name="NAMHOC" Relationship="diemhsModel.FK_DIEM_NAMHOC" FromRole="DIEM" ToRole="NAMHOC" />
+          <NavigationProperty Name="HOCSINH" Relationship="diemhsModel.FK_DIEM_HOCSINH" FromRole="DIEM" ToRole="HOCSINH" />
         </EntityType>
         <Association Name="FK_DIEM_HOCKY">
           <End Type="diemhsModel.HOCKY" Role="HOCKY" Multiplicity="1" />
@@ -893,18 +846,6 @@
             </Principal>
             <Dependent Role="DIEM">
               <PropertyRef Name="MaHK" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_DIEM_HOCSINH">
-          <End Type="diemhsModel.HOCSINH" Role="HOCSINH" Multiplicity="1" />
-          <End Type="diemhsModel.DIEM" Role="DIEM" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="HOCSINH">
-              <PropertyRef Name="MaHS" />
-            </Principal>
-            <Dependent Role="DIEM">
-              <PropertyRef Name="MaHS" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -932,6 +873,152 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="DANHMUCHANHKIEM">
+          <Key>
+            <PropertyRef Name="MaDMHK" />
+          </Key>
+          <Property Name="MaDMHK" Type="Int32" Nullable="false" />
+          <Property Name="TenDMHK" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DiemToiDa" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="HANHKIEMs" Relationship="diemhsModel.FK_HANHKIEM_DANHMUCHANHKIEM" FromRole="DANHMUCHANHKIEM" ToRole="HANHKIEM" />
+        </EntityType>
+        <EntityType Name="HANHKIEM">
+          <Key>
+            <PropertyRef Name="MaHKiem" />
+          </Key>
+          <Property Name="MaHKiem" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="MaDMHK" Type="Int32" Nullable="false" />
+          <Property Name="TenHKiem" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DiemToiDa" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="DANHMUCHANHKIEM" Relationship="diemhsModel.FK_HANHKIEM_DANHMUCHANHKIEM" FromRole="HANHKIEM" ToRole="DANHMUCHANHKIEM" />
+          <NavigationProperty Name="DANHGIAHANHKIEMs" Relationship="diemhsModel.FK_DANHGIAHANHKIEM_HANHKIEM" FromRole="HANHKIEM" ToRole="DANHGIAHANHKIEM" />
+        </EntityType>
+        <Association Name="FK_HANHKIEM_DANHMUCHANHKIEM">
+          <End Type="diemhsModel.DANHMUCHANHKIEM" Role="DANHMUCHANHKIEM" Multiplicity="1" />
+          <End Type="diemhsModel.HANHKIEM" Role="HANHKIEM" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DANHMUCHANHKIEM">
+              <PropertyRef Name="MaDMHK" />
+            </Principal>
+            <Dependent Role="HANHKIEM">
+              <PropertyRef Name="MaDMHK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="DANHGIAHANHKIEM">
+          <Key>
+            <PropertyRef Name="MaHS" />
+            <PropertyRef Name="MaHKiem" />
+            <PropertyRef Name="MaNH" />
+          </Key>
+          <Property Name="MaHS" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="GiaoVienDanhGia" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="MaHKiem" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="MaNH" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="DiemSo" Type="Int32" />
+          <NavigationProperty Name="HANHKIEM" Relationship="diemhsModel.FK_DANHGIAHANHKIEM_HANHKIEM" FromRole="DANHGIAHANHKIEM" ToRole="HANHKIEM" />
+          <NavigationProperty Name="NAMHOC" Relationship="diemhsModel.FK_DANHGIAHANHKIEM_NAMHOC" FromRole="DANHGIAHANHKIEM" ToRole="NAMHOC" />
+          <NavigationProperty Name="HOCSINH" Relationship="diemhsModel.FK_DANHGIAHANHKIEM_HOCSINH" FromRole="DANHGIAHANHKIEM" ToRole="HOCSINH" />
+        </EntityType>
+        <Association Name="FK_DANHGIAHANHKIEM_HANHKIEM">
+          <End Type="diemhsModel.HANHKIEM" Role="HANHKIEM" Multiplicity="1" />
+          <End Type="diemhsModel.DANHGIAHANHKIEM" Role="DANHGIAHANHKIEM" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HANHKIEM">
+              <PropertyRef Name="MaHKiem" />
+            </Principal>
+            <Dependent Role="DANHGIAHANHKIEM">
+              <PropertyRef Name="MaHKiem" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DANHGIAHANHKIEM_NAMHOC">
+          <End Type="diemhsModel.NAMHOC" Role="NAMHOC" Multiplicity="1" />
+          <End Type="diemhsModel.DANHGIAHANHKIEM" Role="DANHGIAHANHKIEM" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NAMHOC">
+              <PropertyRef Name="MaNH" />
+            </Principal>
+            <Dependent Role="DANHGIAHANHKIEM">
+              <PropertyRef Name="MaNH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="KETQUAHOCKY">
+          <Key>
+            <PropertyRef Name="MaHS" />
+            <PropertyRef Name="MaHK" />
+            <PropertyRef Name="MaNH" />
+          </Key>
+          <Property Name="MaHS" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="TBMHK" Type="Double" />
+          <Property Name="MaHK" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="MaNH" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="HOCKY" Relationship="diemhsModel.FK_KETQUAHOCKY_HOCKY" FromRole="KETQUAHOCKY" ToRole="HOCKY" />
+          <NavigationProperty Name="NAMHOC" Relationship="diemhsModel.FK_KETQUAHOCKY_NAMHOC" FromRole="KETQUAHOCKY" ToRole="NAMHOC" />
+          <Property Name="Xeploai" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="HOCSINH" Relationship="diemhsModel.FK_KETQUAHOCKY_HOCSINH" FromRole="KETQUAHOCKY" ToRole="HOCSINH" />
+        </EntityType>
+        <Association Name="FK_KETQUAHOCKY_HOCKY">
+          <End Type="diemhsModel.HOCKY" Role="HOCKY" Multiplicity="1" />
+          <End Type="diemhsModel.KETQUAHOCKY" Role="KETQUAHOCKY" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HOCKY">
+              <PropertyRef Name="MaHky" />
+            </Principal>
+            <Dependent Role="KETQUAHOCKY">
+              <PropertyRef Name="MaHK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_KETQUAHOCKY_NAMHOC">
+          <End Type="diemhsModel.NAMHOC" Role="NAMHOC" Multiplicity="1" />
+          <End Type="diemhsModel.KETQUAHOCKY" Role="KETQUAHOCKY" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NAMHOC">
+              <PropertyRef Name="MaNH" />
+            </Principal>
+            <Dependent Role="KETQUAHOCKY">
+              <PropertyRef Name="MaNH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="LOPCHUNHIEM">
+          <Key>
+            <PropertyRef Name="MaLopChuNhiem" />
+          </Key>
+          <Property Name="MaLopChuNhiem" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="MaLop" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="MaGV" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="MaNH" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="LOP" Relationship="diemhsModel.FK_LOPCHUNHIEM_LOP" FromRole="LOPCHUNHIEM" ToRole="LOP" />
+          <NavigationProperty Name="NAMHOC" Relationship="diemhsModel.FK_LOPCHUNHIEM_NAMHOC" FromRole="LOPCHUNHIEM" ToRole="NAMHOC" />
+          <NavigationProperty Name="GIAOVIEN" Relationship="diemhsModel.FK_LOPCHUNHIEM_GIAOVIEN" FromRole="LOPCHUNHIEM" ToRole="GIAOVIEN" />
+        </EntityType>
+        <Association Name="FK_LOPCHUNHIEM_LOP">
+          <End Type="diemhsModel.LOP" Role="LOP" Multiplicity="1" />
+          <End Type="diemhsModel.LOPCHUNHIEM" Role="LOPCHUNHIEM" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LOP">
+              <PropertyRef Name="MaLop" />
+            </Principal>
+            <Dependent Role="LOPCHUNHIEM">
+              <PropertyRef Name="MaLop" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LOPCHUNHIEM_NAMHOC">
+          <End Type="diemhsModel.NAMHOC" Role="NAMHOC" Multiplicity="1" />
+          <End Type="diemhsModel.LOPCHUNHIEM" Role="LOPCHUNHIEM" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NAMHOC">
+              <PropertyRef Name="MaNH" />
+            </Principal>
+            <Dependent Role="LOPCHUNHIEM">
+              <PropertyRef Name="MaNH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityType Name="GIAOVIEN">
           <Key>
             <PropertyRef Name="MaGV" />
@@ -939,7 +1026,7 @@
           <Property Name="MaGV" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="TenGV" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="NgaySinh" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="SDT" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="SDT" Type="String" Nullable="false" MaxLength="12" FixedLength="true" Unicode="true" />
           <Property Name="GioiTinh" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Gmail" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Diachi" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -999,65 +1086,39 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="DANHMUCHANHKIEM">
+        <EntityType Name="DIEMDANH">
           <Key>
-            <PropertyRef Name="MaDMHK" />
-          </Key>
-          <Property Name="MaDMHK" Type="Int32" Nullable="false" />
-          <Property Name="TenDMHK" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="DiemToiDa" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="HANHKIEMs" Relationship="diemhsModel.FK_HANHKIEM_DANHMUCHANHKIEM" FromRole="DANHMUCHANHKIEM" ToRole="HANHKIEM" />
-        </EntityType>
-        <EntityType Name="HANHKIEM">
-          <Key>
-            <PropertyRef Name="MaHKiem" />
-          </Key>
-          <Property Name="MaHKiem" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="MaDMHK" Type="Int32" Nullable="false" />
-          <Property Name="TenHKiem" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="DiemToiDa" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="DANHMUCHANHKIEM" Relationship="diemhsModel.FK_HANHKIEM_DANHMUCHANHKIEM" FromRole="HANHKIEM" ToRole="DANHMUCHANHKIEM" />
-          <NavigationProperty Name="DANHGIAHANHKIEMs" Relationship="diemhsModel.FK_DANHGIAHANHKIEM_HANHKIEM" FromRole="HANHKIEM" ToRole="DANHGIAHANHKIEM" />
-        </EntityType>
-        <Association Name="FK_HANHKIEM_DANHMUCHANHKIEM">
-          <End Type="diemhsModel.DANHMUCHANHKIEM" Role="DANHMUCHANHKIEM" Multiplicity="1" />
-          <End Type="diemhsModel.HANHKIEM" Role="HANHKIEM" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DANHMUCHANHKIEM">
-              <PropertyRef Name="MaDMHK" />
-            </Principal>
-            <Dependent Role="HANHKIEM">
-              <PropertyRef Name="MaDMHK" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="DANHGIAHANHKIEM">
-          <Key>
-            <PropertyRef Name="MaHS" />
-            <PropertyRef Name="MaHKiem" />
-            <PropertyRef Name="MaNH" />
+            <PropertyRef Name="IDDiemDanh" />
           </Key>
           <Property Name="MaHS" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="GiaoVienDanhGia" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="MaHKiem" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="MaNH" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="DiemSo" Type="Int32" />
-          <NavigationProperty Name="HANHKIEM" Relationship="diemhsModel.FK_DANHGIAHANHKIEM_HANHKIEM" FromRole="DANHGIAHANHKIEM" ToRole="HANHKIEM" />
-          <NavigationProperty Name="HOCSINH" Relationship="diemhsModel.FK_DANHGIAHANHKIEM_HOCSINH" FromRole="DANHGIAHANHKIEM" ToRole="HOCSINH" />
-          <NavigationProperty Name="NAMHOC" Relationship="diemhsModel.FK_DANHGIAHANHKIEM_NAMHOC" FromRole="DANHGIAHANHKIEM" ToRole="NAMHOC" />
+          <Property Name="NghiCoPhep" Type="Int32" Nullable="false" />
+          <Property Name="NghiKhongPhep" Type="Int32" Nullable="false" />
+          <Property Name="BoTiet" Type="Int32" Nullable="false" />
+          <Property Name="GhiChu" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IDDiemDanh" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="HOCSINH" Relationship="diemhsModel.FK_DIEMDANH_HOCSINH" FromRole="DIEMDANH" ToRole="HOCSINH" />
         </EntityType>
-        <Association Name="FK_DANHGIAHANHKIEM_HANHKIEM">
-          <End Type="diemhsModel.HANHKIEM" Role="HANHKIEM" Multiplicity="1" />
-          <End Type="diemhsModel.DANHGIAHANHKIEM" Role="DANHGIAHANHKIEM" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="HANHKIEM">
-              <PropertyRef Name="MaHKiem" />
-            </Principal>
-            <Dependent Role="DANHGIAHANHKIEM">
-              <PropertyRef Name="MaHKiem" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
+        <EntityType Name="HOCSINH">
+          <Key>
+            <PropertyRef Name="MaHS" />
+          </Key>
+          <Property Name="MaHS" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="TenHS" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="NgaySinh" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="DiaChi" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SDT" Type="String" Nullable="false" MaxLength="12" FixedLength="true" Unicode="true" />
+          <Property Name="GioiTinh" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MaLop" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="TrangThai" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="idDanToc" Type="Int32" Nullable="false" />
+          <Property Name="Thumb" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="DANHGIAHANHKIEMs" Relationship="diemhsModel.FK_DANHGIAHANHKIEM_HOCSINH" FromRole="HOCSINH" ToRole="DANHGIAHANHKIEM" />
+          <NavigationProperty Name="DanToc" Relationship="diemhsModel.FK_HOCSINH_DanToc" FromRole="HOCSINH" ToRole="DanToc" />
+          <NavigationProperty Name="DIEMs" Relationship="diemhsModel.FK_DIEM_HOCSINH" FromRole="HOCSINH" ToRole="DIEM" />
+          <NavigationProperty Name="DIEMDANHs" Relationship="diemhsModel.FK_DIEMDANH_HOCSINH" FromRole="HOCSINH" ToRole="DIEMDANH" />
+          <NavigationProperty Name="LOP" Relationship="diemhsModel.FK_HOCSINH_LOP" FromRole="HOCSINH" ToRole="LOP" />
+          <NavigationProperty Name="KETQUAHOCKies" Relationship="diemhsModel.FK_KETQUAHOCKY_HOCSINH" FromRole="HOCSINH" ToRole="KETQUAHOCKY" />
+        </EntityType>
         <Association Name="FK_DANHGIAHANHKIEM_HOCSINH">
           <End Type="diemhsModel.HOCSINH" Role="HOCSINH" Multiplicity="1" />
           <End Type="diemhsModel.DANHGIAHANHKIEM" Role="DANHGIAHANHKIEM" Multiplicity="*" />
@@ -1070,42 +1131,51 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_DANHGIAHANHKIEM_NAMHOC">
-          <End Type="diemhsModel.NAMHOC" Role="NAMHOC" Multiplicity="1" />
-          <End Type="diemhsModel.DANHGIAHANHKIEM" Role="DANHGIAHANHKIEM" Multiplicity="*" />
+        <Association Name="FK_HOCSINH_DanToc">
+          <End Type="diemhsModel.DanToc" Role="DanToc" Multiplicity="1" />
+          <End Type="diemhsModel.HOCSINH" Role="HOCSINH" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="NAMHOC">
-              <PropertyRef Name="MaNH" />
+            <Principal Role="DanToc">
+              <PropertyRef Name="idDanToc" />
             </Principal>
-            <Dependent Role="DANHGIAHANHKIEM">
-              <PropertyRef Name="MaNH" />
+            <Dependent Role="HOCSINH">
+              <PropertyRef Name="idDanToc" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="KETQUAHOCKY">
-          <Key>
-            <PropertyRef Name="MaHS" />
-            <PropertyRef Name="MaHK" />
-            <PropertyRef Name="MaNH" />
-          </Key>
-          <Property Name="MaHS" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="TBMHK" Type="Double" />
-          <Property Name="MaHK" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="MaNH" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="HOCKY" Relationship="diemhsModel.FK_KETQUAHOCKY_HOCKY" FromRole="KETQUAHOCKY" ToRole="HOCKY" />
-          <NavigationProperty Name="HOCSINH" Relationship="diemhsModel.FK_KETQUAHOCKY_HOCSINH" FromRole="KETQUAHOCKY" ToRole="HOCSINH" />
-          <NavigationProperty Name="NAMHOC" Relationship="diemhsModel.FK_KETQUAHOCKY_NAMHOC" FromRole="KETQUAHOCKY" ToRole="NAMHOC" />
-          <Property Name="Xeploai" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <Association Name="FK_KETQUAHOCKY_HOCKY">
-          <End Type="diemhsModel.HOCKY" Role="HOCKY" Multiplicity="1" />
-          <End Type="diemhsModel.KETQUAHOCKY" Role="KETQUAHOCKY" Multiplicity="*" />
+        <Association Name="FK_DIEM_HOCSINH">
+          <End Type="diemhsModel.HOCSINH" Role="HOCSINH" Multiplicity="1" />
+          <End Type="diemhsModel.DIEM" Role="DIEM" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="HOCKY">
-              <PropertyRef Name="MaHky" />
+            <Principal Role="HOCSINH">
+              <PropertyRef Name="MaHS" />
             </Principal>
-            <Dependent Role="KETQUAHOCKY">
-              <PropertyRef Name="MaHK" />
+            <Dependent Role="DIEM">
+              <PropertyRef Name="MaHS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DIEMDANH_HOCSINH">
+          <End Type="diemhsModel.HOCSINH" Role="HOCSINH" Multiplicity="1" />
+          <End Type="diemhsModel.DIEMDANH" Role="DIEMDANH" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HOCSINH">
+              <PropertyRef Name="MaHS" />
+            </Principal>
+            <Dependent Role="DIEMDANH">
+              <PropertyRef Name="MaHS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HOCSINH_LOP">
+          <End Type="diemhsModel.LOP" Role="LOP" Multiplicity="1" />
+          <End Type="diemhsModel.HOCSINH" Role="HOCSINH" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LOP">
+              <PropertyRef Name="MaLop" />
+            </Principal>
+            <Dependent Role="HOCSINH">
+              <PropertyRef Name="MaLop" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1118,18 +1188,6 @@
             </Principal>
             <Dependent Role="KETQUAHOCKY">
               <PropertyRef Name="MaHS" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_KETQUAHOCKY_NAMHOC">
-          <End Type="diemhsModel.NAMHOC" Role="NAMHOC" Multiplicity="1" />
-          <End Type="diemhsModel.KETQUAHOCKY" Role="KETQUAHOCKY" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="NAMHOC">
-              <PropertyRef Name="MaNH" />
-            </Principal>
-            <Dependent Role="KETQUAHOCKY">
-              <PropertyRef Name="MaNH" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1147,22 +1205,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="HOCSINHs">
-            <EntityTypeMapping TypeName="diemhsModel.HOCSINH">
-              <MappingFragment StoreEntitySet="HOCSINH">
-                <ScalarProperty Name="MaHS" ColumnName="MaHS" />
-                <ScalarProperty Name="TenHS" ColumnName="TenHS" />
-                <ScalarProperty Name="NgaySinh" ColumnName="NgaySinh" />
-                <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
-                <ScalarProperty Name="SDT" ColumnName="SDT" />
-                <ScalarProperty Name="GioiTinh" ColumnName="GioiTinh" />
-                <ScalarProperty Name="MaLop" ColumnName="MaLop" />
-                <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
-                <ScalarProperty Name="idDanToc" ColumnName="idDanToc" />
-                <ScalarProperty Name="Thumb" ColumnName="Thumb" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="LOPs">
             <EntityTypeMapping TypeName="diemhsModel.LOP">
               <MappingFragment StoreEntitySet="LOP">
@@ -1170,16 +1212,6 @@
                 <ScalarProperty Name="TenLop" ColumnName="TenLop" />
                 <ScalarProperty Name="LopChuyen" ColumnName="LopChuyen" />
                 <ScalarProperty Name="TenLopChuyen" ColumnName="TenLopChuyen" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="LOPCHUNHIEMs">
-            <EntityTypeMapping TypeName="diemhsModel.LOPCHUNHIEM">
-              <MappingFragment StoreEntitySet="LOPCHUNHIEM">
-                <ScalarProperty Name="MaLopChuNhiem" ColumnName="MaLopChuNhiem" />
-                <ScalarProperty Name="MaLop" ColumnName="MaLop" />
-                <ScalarProperty Name="MaGV" ColumnName="MaGV" />
-                <ScalarProperty Name="MaHKy" ColumnName="MaHKy" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1264,22 +1296,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="GIAOVIENs">
-            <EntityTypeMapping TypeName="diemhsModel.GIAOVIEN">
-              <MappingFragment StoreEntitySet="GIAOVIEN">
-                <ScalarProperty Name="Thumb" ColumnName="Thumb" />
-                <ScalarProperty Name="idDanToc" ColumnName="idDanToc" />
-                <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
-                <ScalarProperty Name="Diachi" ColumnName="Diachi" />
-                <ScalarProperty Name="Gmail" ColumnName="Gmail" />
-                <ScalarProperty Name="GioiTinh" ColumnName="GioiTinh" />
-                <ScalarProperty Name="SDT" ColumnName="SDT" />
-                <ScalarProperty Name="NgaySinh" ColumnName="NgaySinh" />
-                <ScalarProperty Name="TenGV" ColumnName="TenGV" />
-                <ScalarProperty Name="MaGV" ColumnName="MaGV" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="DANHMUCHANHKIEMs">
             <EntityTypeMapping TypeName="diemhsModel.DANHMUCHANHKIEM">
               <MappingFragment StoreEntitySet="DANHMUCHANHKIEM">
@@ -1317,6 +1333,60 @@
                 <ScalarProperty Name="MaNH" ColumnName="MaNH" />
                 <ScalarProperty Name="MaHK" ColumnName="MaHK" />
                 <ScalarProperty Name="TBMHK" ColumnName="TBMHK" />
+                <ScalarProperty Name="MaHS" ColumnName="MaHS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LOPCHUNHIEMs">
+            <EntityTypeMapping TypeName="diemhsModel.LOPCHUNHIEM">
+              <MappingFragment StoreEntitySet="LOPCHUNHIEM">
+                <ScalarProperty Name="MaNH" ColumnName="MaNH" />
+                <ScalarProperty Name="MaGV" ColumnName="MaGV" />
+                <ScalarProperty Name="MaLop" ColumnName="MaLop" />
+                <ScalarProperty Name="MaLopChuNhiem" ColumnName="MaLopChuNhiem" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GIAOVIENs">
+            <EntityTypeMapping TypeName="diemhsModel.GIAOVIEN">
+              <MappingFragment StoreEntitySet="GIAOVIEN">
+                <ScalarProperty Name="Thumb" ColumnName="Thumb" />
+                <ScalarProperty Name="idDanToc" ColumnName="idDanToc" />
+                <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
+                <ScalarProperty Name="Diachi" ColumnName="Diachi" />
+                <ScalarProperty Name="Gmail" ColumnName="Gmail" />
+                <ScalarProperty Name="GioiTinh" ColumnName="GioiTinh" />
+                <ScalarProperty Name="SDT" ColumnName="SDT" />
+                <ScalarProperty Name="NgaySinh" ColumnName="NgaySinh" />
+                <ScalarProperty Name="TenGV" ColumnName="TenGV" />
+                <ScalarProperty Name="MaGV" ColumnName="MaGV" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DIEMDANHs">
+            <EntityTypeMapping TypeName="diemhsModel.DIEMDANH">
+              <MappingFragment StoreEntitySet="DIEMDANH">
+                <ScalarProperty Name="IDDiemDanh" ColumnName="IDDiemDanh" />
+                <ScalarProperty Name="GhiChu" ColumnName="GhiChu" />
+                <ScalarProperty Name="BoTiet" ColumnName="BoTiet" />
+                <ScalarProperty Name="NghiKhongPhep" ColumnName="NghiKhongPhep" />
+                <ScalarProperty Name="NghiCoPhep" ColumnName="NghiCoPhep" />
+                <ScalarProperty Name="MaHS" ColumnName="MaHS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HOCSINHs">
+            <EntityTypeMapping TypeName="diemhsModel.HOCSINH">
+              <MappingFragment StoreEntitySet="HOCSINH">
+                <ScalarProperty Name="Thumb" ColumnName="Thumb" />
+                <ScalarProperty Name="idDanToc" ColumnName="idDanToc" />
+                <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
+                <ScalarProperty Name="MaLop" ColumnName="MaLop" />
+                <ScalarProperty Name="GioiTinh" ColumnName="GioiTinh" />
+                <ScalarProperty Name="SDT" ColumnName="SDT" />
+                <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
+                <ScalarProperty Name="NgaySinh" ColumnName="NgaySinh" />
+                <ScalarProperty Name="TenHS" ColumnName="TenHS" />
                 <ScalarProperty Name="MaHS" ColumnName="MaHS" />
               </MappingFragment>
             </EntityTypeMapping>

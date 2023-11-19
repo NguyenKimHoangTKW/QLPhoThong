@@ -5,32 +5,53 @@
     int i = 0;
 }
 @{ var user = Session["User"] as QLPhoThong.Models.User;}
-<h2>Danh sách học sinh</h2>
+@if (Model.Any())
+{
+    <div class="card" style="margin-top:75px;">
+        <div class="card-body">
+            <div style="text-align:center;">
+                <h4>Danh sách học sinh chủ nhiệm</h4>
+                <h4>Lớp : <b>@Model.FirstOrDefault().LOP.TenLop</b></h4>
+            </div>
+            <h4>Lớp này có tổng <b style="color:red;">@ViewBag.TongHocSinh</b> học sinh</h4>
+            <div class="m-t-25">
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th scope="col">STT</th>
+                                <th scope="col">Tên Học sinh</th>
+                                <th scope="col">Bảng điểm</th>
+                                <th scope="col">Hồ sơ</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                i++;
+                                <tr>
+                                    <th scope="row">#@i</th>
+                                    <td>@item.TenHS</td>
+                                    <td>
+                                        <a href="@Url.Action("XemBangDiemHocSinh","Lop", new {id = item.MaHS})">
+                                            <button class="btn btn-info btn-tone m-r-5">Xem chi tiết</button>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a href="@Url.Action("ThongTin","ThongTin", new {id = item.MaHS})">
+                                            <button class="btn btn-info btn-tone m-r-5">Xem chi tiết</button>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
 
-<table class="table" style="margin-top:75px">
-    <thead>
-        <tr>
-            <th>STT</th>
-            <th>Tên Học sinh</th>
 
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            i++;
+                        </tbody>
+                    </table>
+                    <a href="@Url.Action("LopChuNhiem","Lop", new {id = user.MaGV})">Quay lại danh sách học sinh</a>
+                </div>
+            </div>
 
-            <tr>
-                <td>#@i</td>
-                <td>@item.TenHS</td>
-                <td><a href="@Url.Action("XemBangDiemHocSinh","Lop", new {id = item.MaHS})">Xem điểm</a></td>
-                <td><a href="@Url.Action("ThongTin","ThongTin", new {id = item.MaHS})">Xem thông tin học sinh</a></td>
-                <td><a href="/">Đánh giá hạnh kiểm cho học sinh</a></td>
-            </tr>
-
-        }
-    </tbody>
-</table>
-<p>
-    <a href="@Url.Action("LopChuNhiem","Lop", new {id = user.MaGV})">Quay lại danh sách học sinh</a>
-</p>
+        </div>
+    </div>
+}

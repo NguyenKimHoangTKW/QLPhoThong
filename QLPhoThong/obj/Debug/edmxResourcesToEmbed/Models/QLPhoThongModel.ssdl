@@ -42,6 +42,17 @@
     <Property Name="DiemTB" Type="float" />
     <Property Name="MaNH" Type="nvarchar" MaxLength="20" Nullable="false" />
   </EntityType>
+  <EntityType Name="DIEMDANH">
+    <Key>
+      <PropertyRef Name="IDDiemDanh" />
+    </Key>
+    <Property Name="MaHS" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="NghiCoPhep" Type="int" Nullable="false" />
+    <Property Name="NghiKhongPhep" Type="int" Nullable="false" />
+    <Property Name="BoTiet" Type="int" Nullable="false" />
+    <Property Name="GhiChu" Type="ntext" />
+    <Property Name="IDDiemDanh" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
   <EntityType Name="GIAOVIEN">
     <Key>
       <PropertyRef Name="MaGV" />
@@ -49,7 +60,7 @@
     <Property Name="MaGV" Type="nvarchar" MaxLength="20" Nullable="false" />
     <Property Name="TenGV" Type="nvarchar" MaxLength="100" Nullable="false" />
     <Property Name="NgaySinh" Type="date" Nullable="false" />
-    <Property Name="SDT" Type="char" MaxLength="10" Nullable="false" />
+    <Property Name="SDT" Type="nchar" MaxLength="12" Nullable="false" />
     <Property Name="GioiTinh" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="Gmail" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="Diachi" Type="nvarchar" MaxLength="50" Nullable="false" />
@@ -81,12 +92,12 @@
     <Property Name="TenHS" Type="nvarchar" MaxLength="100" Nullable="false" />
     <Property Name="NgaySinh" Type="date" Nullable="false" />
     <Property Name="DiaChi" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="SDT" Type="char" MaxLength="12" Nullable="false" />
+    <Property Name="SDT" Type="nchar" MaxLength="12" Nullable="false" />
     <Property Name="GioiTinh" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="MaLop" Type="nvarchar" MaxLength="20" Nullable="false" />
     <Property Name="TrangThai" Type="nvarchar" MaxLength="50" />
     <Property Name="idDanToc" Type="int" Nullable="false" />
-    <Property Name="Thumb" Type="nvarchar" MaxLength="200" />
+    <Property Name="Thumb" Type="nvarchar(max)" />
   </EntityType>
   <EntityType Name="KETQUAHOCKY">
     <Key>
@@ -116,7 +127,7 @@
     <Property Name="MaLopChuNhiem" Type="nvarchar" MaxLength="20" Nullable="false" />
     <Property Name="MaLop" Type="nvarchar" MaxLength="20" Nullable="false" />
     <Property Name="MaGV" Type="nvarchar" MaxLength="20" Nullable="false" />
-    <Property Name="MaHKy" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="MaNH" Type="nvarchar" MaxLength="20" Nullable="false" />
   </EntityType>
   <EntityType Name="MONHOC">
     <Key>
@@ -253,6 +264,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_DIEMDANH_HOCSINH">
+    <End Role="HOCSINH" Type="Self.HOCSINH" Multiplicity="1" />
+    <End Role="DIEMDANH" Type="Self.DIEMDANH" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="HOCSINH">
+        <PropertyRef Name="MaHS" />
+      </Principal>
+      <Dependent Role="DIEMDANH">
+        <PropertyRef Name="MaHS" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_GIAOVIEN_DanToc">
     <End Role="DanToc" Type="Self.DanToc" Multiplicity="1" />
     <End Role="GIAOVIEN" Type="Self.GIAOVIEN" Multiplicity="*" />
@@ -349,18 +372,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_LOPCHUNHIEM_HOCKY">
-    <End Role="HOCKY" Type="Self.HOCKY" Multiplicity="1" />
-    <End Role="LOPCHUNHIEM" Type="Self.LOPCHUNHIEM" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="HOCKY">
-        <PropertyRef Name="MaHky" />
-      </Principal>
-      <Dependent Role="LOPCHUNHIEM">
-        <PropertyRef Name="MaHKy" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_LOPCHUNHIEM_LOP">
     <End Role="LOP" Type="Self.LOP" Multiplicity="1" />
     <End Role="LOPCHUNHIEM" Type="Self.LOPCHUNHIEM" Multiplicity="*" />
@@ -370,6 +381,18 @@
       </Principal>
       <Dependent Role="LOPCHUNHIEM">
         <PropertyRef Name="MaLop" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_LOPCHUNHIEM_NAMHOC">
+    <End Role="NAMHOC" Type="Self.NAMHOC" Multiplicity="1" />
+    <End Role="LOPCHUNHIEM" Type="Self.LOPCHUNHIEM" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NAMHOC">
+        <PropertyRef Name="MaNH" />
+      </Principal>
+      <Dependent Role="LOPCHUNHIEM">
+        <PropertyRef Name="MaNH" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -438,6 +461,7 @@
     <EntitySet Name="DANHMUCHANHKIEM" EntityType="Self.DANHMUCHANHKIEM" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="DanToc" EntityType="Self.DanToc" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="DIEM" EntityType="Self.DIEM" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DIEMDANH" EntityType="Self.DIEMDANH" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="GIAOVIEN" EntityType="Self.GIAOVIEN" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="HANHKIEM" EntityType="Self.HANHKIEM" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="HOCKY" EntityType="Self.HOCKY" Schema="dbo" store:Type="Tables" />
@@ -479,6 +503,10 @@
       <End Role="NAMHOC" EntitySet="NAMHOC" />
       <End Role="DIEM" EntitySet="DIEM" />
     </AssociationSet>
+    <AssociationSet Name="FK_DIEMDANH_HOCSINH" Association="Self.FK_DIEMDANH_HOCSINH">
+      <End Role="HOCSINH" EntitySet="HOCSINH" />
+      <End Role="DIEMDANH" EntitySet="DIEMDANH" />
+    </AssociationSet>
     <AssociationSet Name="FK_GIAOVIEN_DanToc" Association="Self.FK_GIAOVIEN_DanToc">
       <End Role="DanToc" EntitySet="DanToc" />
       <End Role="GIAOVIEN" EntitySet="GIAOVIEN" />
@@ -511,12 +539,12 @@
       <End Role="GIAOVIEN" EntitySet="GIAOVIEN" />
       <End Role="LOPCHUNHIEM" EntitySet="LOPCHUNHIEM" />
     </AssociationSet>
-    <AssociationSet Name="FK_LOPCHUNHIEM_HOCKY" Association="Self.FK_LOPCHUNHIEM_HOCKY">
-      <End Role="HOCKY" EntitySet="HOCKY" />
-      <End Role="LOPCHUNHIEM" EntitySet="LOPCHUNHIEM" />
-    </AssociationSet>
     <AssociationSet Name="FK_LOPCHUNHIEM_LOP" Association="Self.FK_LOPCHUNHIEM_LOP">
       <End Role="LOP" EntitySet="LOP" />
+      <End Role="LOPCHUNHIEM" EntitySet="LOPCHUNHIEM" />
+    </AssociationSet>
+    <AssociationSet Name="FK_LOPCHUNHIEM_NAMHOC" Association="Self.FK_LOPCHUNHIEM_NAMHOC">
+      <End Role="NAMHOC" EntitySet="NAMHOC" />
       <End Role="LOPCHUNHIEM" EntitySet="LOPCHUNHIEM" />
     </AssociationSet>
     <AssociationSet Name="FK_PHANCONG_GIAOVIEN" Association="Self.FK_PHANCONG_GIAOVIEN">

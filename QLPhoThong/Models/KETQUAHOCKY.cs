@@ -21,7 +21,7 @@ namespace QLPhoThong.Models
         public string Xeploai { get; set; }
     
         public virtual HOCKY HOCKY { get; set; }
-        public virtual HOCSINH HOCSINH { get; set; }
         public virtual NAMHOC NAMHOC { get; set; }
+        public virtual HOCSINH HOCSINH { get; set; }
     }
 }

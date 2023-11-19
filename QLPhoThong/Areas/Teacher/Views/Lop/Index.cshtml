@@ -6,28 +6,52 @@
     int i = 0;
 }
 @{ var user = Session["User"] as QLPhoThong.Models.User;}
-<h2>Danh sách lớp</h2>
+@if (Model.Any())
+{
+    <div class="card" style="margin-top:75px;">
+        <div class="card-body">
+            <h4>Danh sách lớp được phân công dạy</h4>
+            <div class="m-t-25">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">STT</th>
+                                <th scope="col">Tên Lớp</th>
+                                <th scope="col">Tên môn học</th>
+                                <th scope="col">#</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var lop in Model)
+                            {
+                                i++;
+                                <tr>
+                                    <th scope="row">#@i</th>
+                                    <td>@lop.LOP.TenLop</td>
+                                    <td>@lop.MONHOC.TenMH</td>
+                                    <td>
+                                        <a href="@Url.Action("DanhSachHocSinhPhuTrachDay","Lop", new { idlop = lop.MaLop, idmh = lop.MaMH})">
+                                            <button class="btn btn-success btn-tone m-r-5">Xem chi tiết</button>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>STT</th>
-            <th>Tên Lớp</th>
-            <th>Tên môn học</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var lop in Model)
-        {
-            i++;
-            <tr>
-                <td>#@i</td>
-                <td>@lop.LOP.TenLop</td>
-                <td>@lop.MONHOC.TenMH</td>
-                <td><a href="@Url.Action("DanhSachHocSinhPhuTrachDay","Lop", new { idlop = lop.MaLop, idmh = lop.MaMH})">Xem danh sách học sinh</a></td>
-
-            </tr>
-
-        }
-    </tbody>
-</table>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+<div class="card" style="margin-top:75px;">
+    <div class="card-body">
+        <div class="alert alert-danger">
+            <h4 style="text-align:center;"><b>Hiện chưa có phân công giảng dạy trong năm học</b></h4>
+        </div>
+    </div>
+</div>
+}
