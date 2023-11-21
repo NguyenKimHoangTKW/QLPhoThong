@@ -563,3 +563,12 @@ D:\LapTrinhWeb\QLPhoThong\QLPhoThong\QLPhoThong\bin\ExcelDataReader.pdb
 D:\LapTrinhWeb\QLPhoThong\QLPhoThong\QLPhoThong\bin\ExcelDataReader.xml
 D:\LapTrinhWeb\QLPhoThong\QLPhoThong\QLPhoThong\bin\ExcelDataReader.DataSet.pdb
 D:\LapTrinhWeb\QLPhoThong\QLPhoThong\QLPhoThong\bin\ExcelDataReader.DataSet.xml
+D:\LapTrinhWeb\QLPhoThong\QLPhoThong\QLPhoThong\bin\Microsoft.IdentityModel.Logging.dll
+D:\LapTrinhWeb\QLPhoThong\QLPhoThong\QLPhoThong\bin\Microsoft.IdentityModel.Tokens.dll
+D:\LapTrinhWeb\QLPhoThong\QLPhoThong\QLPhoThong\bin\System.IdentityModel.Tokens.Jwt.dll
+D:\LapTrinhWeb\QLPhoThong\QLPhoThong\QLPhoThong\bin\Twilio.AspNet.Common.dll
+D:\LapTrinhWeb\QLPhoThong\QLPhoThong\QLPhoThong\bin\Twilio.AspNet.Mvc.dll
+D:\LapTrinhWeb\QLPhoThong\QLPhoThong\QLPhoThong\bin\Twilio.dll
+D:\LapTrinhWeb\QLPhoThong\QLPhoThong\QLPhoThong\bin\Microsoft.IdentityModel.Tokens.xml
+D:\LapTrinhWeb\QLPhoThong\QLPhoThong\QLPhoThong\bin\System.IdentityModel.Tokens.Jwt.xml
+D:\LapTrinhWeb\QLPhoThong\QLPhoThong\QLPhoThong\bin\Twilio.xml

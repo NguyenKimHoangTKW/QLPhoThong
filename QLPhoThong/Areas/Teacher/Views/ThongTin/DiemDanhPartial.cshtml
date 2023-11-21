@@ -2,7 +2,6 @@
 
 @using (Html.BeginForm("DiemDanhPartial", "ThongTin", FormMethod.Post, new { id = "diemForm" }))
 {
-
     @Html.AntiForgeryToken()
     @Html.HiddenFor(model => model.IDDiemDanh)
     @Html.HiddenFor(model => model.MaHS)
@@ -19,46 +18,48 @@
                         </tr>
                     </thead>
                     <tbody>
-                        
-                            <tr>
-                                <td><input type="text" class="form-control" name="NghiCoPhep" value="@Model.NghiCoPhep" oninput="validateInput(this)"></td>
-                                <td><input type="text" class="form-control" name="NghiKhongPhep" value="@Model.NghiKhongPhep" oninput="validateInput(this)"></td>
-                                <td><input type="text" class="form-control" name="BoTiet" value="@Model.BoTiet" oninput="validateInput(this)"></td>
-                            </tr>
-                        
-
+                        <tr>
+                            <td><input type="text" class="form-control" name="NghiCoPhep" value="@Model.NghiCoPhep" oninput="validateInput(this)"></td>
+                            <td><input type="text" class="form-control" name="NghiKhongPhep" value="@Model.NghiKhongPhep" oninput="validateInput(this)"></td>
+                            <td><input type="text" class="form-control" name="BoTiet" value="@Model.BoTiet" oninput="validateInput(this)"></td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
-    <button type="submit" class="btn btn-primary" id="btnLuu" style="display: none;">Lưu</button>
-
+    <button class="btn btn-primary" id="btnLuu" onclick="saveAndSendSms()">Lưu</button>
 }
+
+
 @if (!string.IsNullOrEmpty(ViewBag.SuccessMessage))
 {
     <div class="alert alert-success">@ViewBag.SuccessMessage</div>
 }
 
 <script>
+    function saveAndSendSms() {
+        document.getElementById('btnLuu').type = 'submit';
+        document.getElementById('btnLuu').click();
+        var nghiCoPhep = document.getElementsByName("NghiCoPhep")[0].value;
+        var nghiKhongPhep = document.getElementsByName("NghiKhongPhep")[0].value;
+        var boTiet = document.getElementsByName("BoTiet")[0].value;
+        var maHS = document.getElementsByName("MaHS")[0].value;
+        var smsMessage = `Thông báo điểm danh - Học sinh (Mã HS: ${maHS}) đã cập nhật điểm danh: Nghỉ có phép: ${nghiCoPhep}, Nghỉ không phép: ${nghiKhongPhep}, Bỏ tiết: ${boTiet}`;
+        var phoneNumber = "replace_with_actual_phone_number";
+        sendSms(phoneNumber, smsMessage);
+    }
 
-    document.addEventListener('DOMContentLoaded', function () {
-        document.getElementById('diemForm').addEventListener('keyup', function (e) {
-            if (e.key === 'Enter') {
-                e.preventDefault();
-                document.getElementById('btnLuu').click();
-            }
-        });
-    });
+    function sendSms(phoneNumber, message) {
+        alert(`Sending SMS to ${phoneNumber}: ${message}`);
+    }
 
     function validateInput(input) {
         var currentValue = input.value;
-
         if (isNaN(currentValue) || parseFloat(currentValue) < 0 || parseFloat(currentValue) > 45) {
             input.value = input.previousValue || '';
         } else {
             input.previousValue = currentValue;
         }
     }
-
 </script>
