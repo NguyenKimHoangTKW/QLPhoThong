@@ -1,0 +1,40 @@
+﻿@model QLPhoThong.Models.DIEMDANH
+
+@using (Html.BeginForm("SendSMSPartial", "Lop", FormMethod.Post, new { id = "diemForm" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.IDDiemDanh)
+    @Html.HiddenFor(model => model.MaHS)
+    @Html.HiddenFor(model => model.NghiKhongPhep)
+    @Html.HiddenFor(model => model.NghiCoPhep)
+    @Html.HiddenFor(model => model.BoTiet)
+    <div class="modal fade" id="DiemDanh-@Model.MaHS" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Thông tin gửi SMS</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Vắng có phép : @Model.NghiCoPhep</p>
+                    <p>Vắng không phép : @Model.NghiKhongPhep</p>
+                    <p>Bỏ Tiết : @Model.BoTiet</p>
+                    <p>Nội dung cần gửi SMS ( hoặc có thể bỏ trống )</p>
+                    <textarea name="GhiChu" class="form-control"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" id="btnLuu">Gửi SMS</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+
+@if (!string.IsNullOrEmpty(ViewBag.SuccessMessage))
+{
+    <div class="alert alert-success">@ViewBag.SuccessMessage</div>
+}

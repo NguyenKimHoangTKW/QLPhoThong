@@ -18,7 +18,7 @@ namespace QLPhoThong.Areas.Admin.Controllers
         // GET: Admin/HocSinh
         public ActionResult Index()
         {
-            var hOCSINHs = db.HOCSINHs.Include(h => h.DanToc).Include(h => h.LOP);
+            var hOCSINHs = db.HOCSINHs.Include(h => h.DanToc).Include(h => h.LOP).OrderBy(h => h.TenHS);
             return View(hOCSINHs.ToList());
         }
 
@@ -41,7 +41,7 @@ namespace QLPhoThong.Areas.Admin.Controllers
         public ActionResult Create()
         {
             ViewBag.idDanToc = new SelectList(db.DanTocs, "idDanToc", "TenDanToc");
-            ViewBag.MaLop = new SelectList(db.LOPs, "MaLop", "TenLop");
+            ViewBag.MaLop = new SelectList(db.LOPs.OrderBy(l => l.MaLop), "MaLop", "TenLop");
             return View();
         }
         public List<MONHOC> LayMonHoc()
@@ -70,10 +70,8 @@ namespace QLPhoThong.Areas.Admin.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ValidateInput(false)]
-        public ActionResult Create(HOCSINH hOCSINH, HttpPostedFileBase Thumb)
+        public ActionResult Create(HOCSINH hOCSINH, HttpPostedFileBase Thumb, FormCollection f)
         {
-
-
             if (ModelState.IsValid)
             {
                 try
@@ -82,6 +80,8 @@ namespace QLPhoThong.Areas.Admin.Controllers
                     List<HOCKY> lstHocKy = LayHocKy();
                     List<HANHKIEM> lstHanhKiem = LayHanhKiem();
                     List<DIEMDANH> lstDiemDanh = LayDiemDanh();
+                    var sdt = f["SoDienThoai"];
+                    hOCSINH.SDT ="+84" + sdt;
                     string nextId = GetNextId();
                     hOCSINH.MaHS = nextId;
                     if (Thumb != null && Thumb.ContentLength > 0)
@@ -152,7 +152,7 @@ namespace QLPhoThong.Areas.Admin.Controllers
             }
 
 
-            ViewBag.MaLop = new SelectList(db.LOPs, "MaLop", "TenLop", hOCSINH.MaLop);
+            ViewBag.MaLop = new SelectList(db.LOPs.OrderBy(l => l.MaLop), "MaLop", "TenLop", hOCSINH.MaLop);
             ViewBag.idDanToc = new SelectList(db.DanTocs, "idDanToc", "TenDanToc", hOCSINH.idDanToc);
             return View(hOCSINH);
         }
@@ -191,7 +191,7 @@ namespace QLPhoThong.Areas.Admin.Controllers
                 return HttpNotFound();
             }
             ViewBag.idDanToc = new SelectList(db.DanTocs, "idDanToc", "TenDanToc", hOCSINH.idDanToc);
-            ViewBag.MaLop = new SelectList(db.LOPs, "MaLop", "TenLop", hOCSINH.MaLop);
+            ViewBag.MaLop = new SelectList(db.LOPs.OrderBy(l => l.MaLop), "MaLop", "TenLop", hOCSINH.MaLop);
             return View(hOCSINH);
         }
 
@@ -236,7 +236,7 @@ namespace QLPhoThong.Areas.Admin.Controllers
                 }
                 return RedirectToAction("Index");
             }
-            ViewBag.MaLop = new SelectList(db.LOPs, "MaLop", "TenLop", hOCSINH.MaLop);
+            ViewBag.MaLop = new SelectList(db.LOPs.OrderBy(l => l.MaLop), "MaLop", "TenLop", hOCSINH.MaLop);
             ViewBag.idDanToc = new SelectList(db.DanTocs, "idDanToc", "TenDanToc", hOCSINH.idDanToc);
             return View(hOCSINH);
         }
@@ -268,6 +268,7 @@ namespace QLPhoThong.Areas.Admin.Controllers
                 var diemList = db.DIEMs.Where(d => d.MaHS == hOCSINH.MaHS).ToList();
                 var dghkList = db.DANHGIAHANHKIEMs.Where(d => d.MaHS == hOCSINH.MaHS).ToList();
                 var kqhkList = db.KETQUAHOCKies.Where(d => d.MaHS == hOCSINH.MaHS).ToList();
+                var diemdanh = db.DIEMDANHs.Where(d => d.MaHS == hOCSINH.MaHS).ToList();
                 foreach (var kqhk in kqhkList)
                 {
                     db.KETQUAHOCKies.Remove(kqhk);
@@ -279,6 +280,10 @@ namespace QLPhoThong.Areas.Admin.Controllers
                 foreach (var dghk in dghkList)
                 {
                     db.DANHGIAHANHKIEMs.Remove(dghk);
+                }
+                foreach (var dd in diemdanh)
+                {
+                    db.DIEMDANHs.Remove(dd);
                 }
                 if (!string.IsNullOrEmpty(hOCSINH.Thumb))
                 {
@@ -294,6 +299,62 @@ namespace QLPhoThong.Areas.Admin.Controllers
             }
 
             return RedirectToAction("Index");
+        }
+        public ActionResult ChuyenLopHocSinh(string malop = "1")
+        {
+            var hOCSINHs = db.HOCSINHs.Include(h => h.DanToc).Include(h => h.LOP).Where(hs => hs.MaLop == malop).OrderBy(h => h.TenHS);
+            ViewBag.idLop = new SelectList(db.LOPs, "MaLop", "TenLop");
+            ViewBag.malop = new SelectList(db.LOPs, "MaLop", "TenLop");
+            return View(hOCSINHs.ToList());
+        }
+        public ActionResult CapNhatChuyenLopPartial(string id)
+        {
+            var hOCSINHs = db.HOCSINHs.Where(hs => hs.MaHS == id).FirstOrDefault();
+            ViewBag.idLop = new SelectList(db.LOPs, "MaLop", "TenLop");
+            return PartialView(hOCSINHs);
+        }
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public ActionResult CapNhatChuyenLopPartial(HOCSINH hOCSINH)
+        {
+            if (ModelState.IsValid)
+            {
+                List<DIEM> lstdiem = db.DIEMs.Where(d => d.MaHS == hOCSINH.MaHS).ToList();
+                List<DIEMDANH> lstdiemdanh = db.DIEMDANHs.Where(d => d.MaHS == hOCSINH.MaHS).ToList();
+                foreach(var item in lstdiem)
+                {
+                    if (item != null)
+                    {
+                        item.DiemMieng = null;
+                        item.Diem15p = null;
+                        item.Diem1Tiet =null;
+                        item.DiemThi = null;
+                        item.DiemTB = null;
+                    }
+                }
+                foreach (var item in lstdiemdanh)
+                {
+                    if (item != null)
+                    {
+                        item.NghiCoPhep = 0;
+                        item.NghiKhongPhep = 0;
+                        item.BoTiet = 0;
+                        item.GhiChu = null;
+                    }
+                }
+                db.Entry(hOCSINH).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+
+            if (Request.UrlReferrer != null)
+            {
+                return Redirect(Request.UrlReferrer.ToString());
+            }
+            else
+            {
+                return View();
+            }
         }
 
         protected override void Dispose(bool disposing)

@@ -39,7 +39,7 @@
         <AssociationConnector Association="diemhsModel.FK_PHANCONG_GIAOVIEN" />
         <AssociationConnector Association="diemhsModel.FK_User_GIAOVIEN" />
         <EntityTypeShape EntityType="diemhsModel.DIEMDANH" Width="1.5" PointX="6" PointY="10.875" />
-        <EntityTypeShape EntityType="diemhsModel.HOCSINH" Width="1.5" PointX="3.75" PointY="10" />
+        <EntityTypeShape EntityType="diemhsModel.HOCSINH" Width="1.5" PointX="3.75" PointY="9.875" />
         <AssociationConnector Association="diemhsModel.FK_DANHGIAHANHKIEM_HOCSINH" />
         <AssociationConnector Association="diemhsModel.FK_HOCSINH_DanToc" />
         <AssociationConnector Association="diemhsModel.FK_DIEM_HOCSINH" />

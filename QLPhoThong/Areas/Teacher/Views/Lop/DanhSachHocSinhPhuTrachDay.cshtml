@@ -47,6 +47,7 @@
                             <tr style="text-align:center;">
                                 <th scope="col">STT</th>
                                 <th scope="col">Tên học sinh</th>
+                                <th scope="col">Giới tính</th>
                                 <th scope="col">Điểm miệng</th>
                                 <th scope="col">Điểm 15 phút</th>
                                 <th scope="col">Điểm 1 tiết</th>
@@ -61,7 +62,8 @@
                                 i++;
                                 <tr>
                                     <th scope="row">#@i</th>
-                                    <td>@item.HOCSINH.TenHS</td>
+                                    <td>@item.HOCSINH.HoVaTenDem @item.HOCSINH.TenHS</td>
+                                    <td>@item.HOCSINH.GioiTinh</td>
                                     @Html.Action("NhapDiem", "QuanLyDiem", new { id = item.MaBD })
                                 </tr>
                             }

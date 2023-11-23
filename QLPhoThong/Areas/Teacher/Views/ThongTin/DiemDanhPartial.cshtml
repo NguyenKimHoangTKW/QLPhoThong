@@ -28,7 +28,7 @@
             </div>
         </div>
     </div>
-    <button class="btn btn-primary" id="btnLuu" onclick="saveAndSendSms()">Lưu</button>
+    <button class="btn btn-primary" id="btnLuu" style="display:none;">Lưu</button>
 }
 
 
@@ -38,21 +38,6 @@
 }
 
 <script>
-    function saveAndSendSms() {
-        document.getElementById('btnLuu').type = 'submit';
-        document.getElementById('btnLuu').click();
-        var nghiCoPhep = document.getElementsByName("NghiCoPhep")[0].value;
-        var nghiKhongPhep = document.getElementsByName("NghiKhongPhep")[0].value;
-        var boTiet = document.getElementsByName("BoTiet")[0].value;
-        var maHS = document.getElementsByName("MaHS")[0].value;
-        var smsMessage = `Thông báo điểm danh - Học sinh (Mã HS: ${maHS}) đã cập nhật điểm danh: Nghỉ có phép: ${nghiCoPhep}, Nghỉ không phép: ${nghiKhongPhep}, Bỏ tiết: ${boTiet}`;
-        var phoneNumber = "replace_with_actual_phone_number";
-        sendSms(phoneNumber, smsMessage);
-    }
-
-    function sendSms(phoneNumber, message) {
-        alert(`Sending SMS to ${phoneNumber}: ${message}`);
-    }
 
     function validateInput(input) {
         var currentValue = input.value;

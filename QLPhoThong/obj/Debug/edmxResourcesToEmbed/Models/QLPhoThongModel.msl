@@ -191,6 +191,7 @@
           <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
           <ScalarProperty Name="NgaySinh" ColumnName="NgaySinh" />
           <ScalarProperty Name="TenHS" ColumnName="TenHS" />
+          <ScalarProperty Name="HoVaTenDem" ColumnName="HoVaTenDem" />
           <ScalarProperty Name="MaHS" ColumnName="MaHS" />
         </MappingFragment>
       </EntityTypeMapping>

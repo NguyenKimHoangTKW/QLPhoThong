@@ -89,10 +89,11 @@
       <PropertyRef Name="MaHS" />
     </Key>
     <Property Name="MaHS" Type="nvarchar" MaxLength="20" Nullable="false" />
-    <Property Name="TenHS" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="HoVaTenDem" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="TenHS" Type="nvarchar" MaxLength="20" Nullable="false" />
     <Property Name="NgaySinh" Type="date" Nullable="false" />
     <Property Name="DiaChi" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="SDT" Type="nchar" MaxLength="12" Nullable="false" />
+    <Property Name="SDT" Type="nchar" MaxLength="15" Nullable="false" />
     <Property Name="GioiTinh" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="MaLop" Type="nvarchar" MaxLength="20" Nullable="false" />
     <Property Name="TrangThai" Type="nvarchar" MaxLength="50" />

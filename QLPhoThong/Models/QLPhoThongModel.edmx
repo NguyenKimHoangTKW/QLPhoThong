@@ -94,10 +94,11 @@
             <PropertyRef Name="MaHS" />
           </Key>
           <Property Name="MaHS" Type="nvarchar" MaxLength="20" Nullable="false" />
-          <Property Name="TenHS" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="HoVaTenDem" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="TenHS" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="NgaySinh" Type="date" Nullable="false" />
           <Property Name="DiaChi" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="SDT" Type="nchar" MaxLength="12" Nullable="false" />
+          <Property Name="SDT" Type="nchar" MaxLength="15" Nullable="false" />
           <Property Name="GioiTinh" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="MaLop" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="TrangThai" Type="nvarchar" MaxLength="50" />
@@ -1103,10 +1104,11 @@
             <PropertyRef Name="MaHS" />
           </Key>
           <Property Name="MaHS" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="TenHS" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="HoVaTenDem" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="TenHS" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="NgaySinh" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="DiaChi" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="SDT" Type="String" Nullable="false" MaxLength="12" FixedLength="true" Unicode="true" />
+          <Property Name="SDT" Type="String" Nullable="false" MaxLength="15" FixedLength="true" Unicode="true" />
           <Property Name="GioiTinh" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="MaLop" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="TrangThai" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -1387,6 +1389,7 @@
                 <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
                 <ScalarProperty Name="NgaySinh" ColumnName="NgaySinh" />
                 <ScalarProperty Name="TenHS" ColumnName="TenHS" />
+                <ScalarProperty Name="HoVaTenDem" ColumnName="HoVaTenDem" />
                 <ScalarProperty Name="MaHS" ColumnName="MaHS" />
               </MappingFragment>
             </EntityTypeMapping>

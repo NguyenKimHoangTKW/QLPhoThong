@@ -24,6 +24,7 @@ namespace QLPhoThong.Models
         }
     
         public string MaHS { get; set; }
+        public string HoVaTenDem { get; set; }
         public string TenHS { get; set; }
         public System.DateTime NgaySinh { get; set; }
         public string DiaChi { get; set; }

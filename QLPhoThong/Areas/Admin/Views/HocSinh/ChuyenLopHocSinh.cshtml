@@ -1,0 +1,94 @@
+﻿﻿@model IEnumerable<QLPhoThong.Models.HOCSINH>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    int i = 0;
+}
+@if (Model.Any())
+{
+    <div class="card" style="margin-top:65px;">
+        <div class="card-body">
+            <div class="row m-b-30">
+                <div class="col-lg-8">
+                    <div class="d-md-flex">
+                        <div class="m-b-10 m-r-15">
+                            @using (Html.BeginForm("ChuyenLopHocSinh", "HocSinh", FormMethod.Get, new { id = "myForm" }))
+                            {
+                                <h4>Lọc theo lớp</h4>
+                                @Html.DropDownList("malop", ViewBag.malop as SelectList, new { @class = "form-control", onchange = "this.form.submit();" })
+                            }
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-hover e-commerce-table">
+                    <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>Tên học sinh</th>
+                            <th>Giới Tính</th>
+                            <th>Ngày sinh</th>
+                            <th>Lớp học hiện tại</th>
+                            <th>Lớp cần chuyển</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            i++;
+                            <tr>
+                                <td>
+                                    #@i
+                                </td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <img class="img-fluid rounded" src="~/Areas/Admin/Images/ImagesStudent/@item.Thumb" style="max-width: 60px" alt="">
+                                        <h6 class="m-b-0 m-l-10">@item.HoVaTenDem @item.TenHS</h6>
+                                    </div>
+                                </td>
+                                <td>@item.GioiTinh</td>
+                                <td>@string.Format("{0:dd-MM-yyyy}", item.NgaySinh)</td>
+                                <td>@item.LOP.TenLop</td>
+                                <td>
+                                    @Html.Action("CapNhatChuyenLopPartial", "HocSinh", new { id = item.MaHS })
+                                </td>
+
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="card" style="margin-top:65px;">
+        <div class="card-body">
+            <div class="row m-b-30">
+                <div class="col-lg-8">
+                    <div class="d-md-flex">
+                        <div class="m-b-10 m-r-15">
+                            @using (Html.BeginForm("ChuyenLopHocSinh", "HocSinh", FormMethod.Get, new { id = "myForm" }))
+                            {
+                                <h4>Lọc theo lớp</h4>
+                                @Html.DropDownList("malop", ViewBag.malop as SelectList, new { @class = "form-control", onchange = "this.form.submit();" })
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-hover e-commerce-table">
+                    <div class="alert alert-success"  style="text-align:center">
+                       Hiện chưa có học sinh nào trong lớp này
+                    </div>
+                </table>
+            </div>
+        </div>
+    </div>
+}

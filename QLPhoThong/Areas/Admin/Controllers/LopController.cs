@@ -17,7 +17,8 @@ namespace QLPhoThong.Areas.Admin.Controllers
         // GET: Admin/Lop
         public ActionResult Index()
         {
-            return View(db.LOPs.ToList());
+            var lop = db.LOPs.OrderBy(l => l.MaLop);
+            return View(lop.ToList());
         }
 
         // GET: Admin/Lop/Details/5

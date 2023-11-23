@@ -39,7 +39,7 @@ namespace QLPhoThong.Areas.Teacher.Controllers
         public ActionResult NhapDiem(DIEM diem)
         {
             HOCSINH hocsinh = db.HOCSINHs.Where(hs => hs.MaHS == diem.MaHS).FirstOrDefault();
-             MONHOC monhoc = db.MONHOCs.Where(mh => mh.MaMH == diem.MaMH).FirstOrDefault();
+            MONHOC monhoc = db.MONHOCs.Where(mh => mh.MaMH == diem.MaMH).FirstOrDefault();
             var user = Session["User"] as QLPhoThong.Models.User;
             if (ModelState.IsValid)
             {
