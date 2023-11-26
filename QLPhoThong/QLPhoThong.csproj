@@ -275,8 +275,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Admin\Images\ImagesStudent\1532169492-532-10-su-that-ve-mr-bean-thang-ngo-ngo-ngan---ban-than-cua-cuu-thu-tuong-anh-mr-bean--1--1532060582-width1252height1252-20231122161912736.jpeg" />
-    <Content Include="Areas\Admin\Images\ImagesStudent\96fdcd65ef075b128f36c289a62723db-20231122161836468.jpg" />
-    <Content Include="Areas\Admin\Images\ImagesStudent\96fdcd65ef075b128f36c289a62723db-20231122161850323.jpg" />
     <Content Include="Areas\Style\assets\css\app.min.css" />
     <Content Include="Areas\Style\assets\es6\app.js" />
     <Content Include="Areas\Style\assets\es6\constant\theme-constant.js" />
@@ -1150,7 +1148,6 @@
     <Content Include="Areas\Teacher\Views\Lop\LopChuNhiem.cshtml" />
     <Content Include="Areas\Teacher\Views\Lop\DanhSachHocSinh.cshtml" />
     <Content Include="Areas\Teacher\Views\Lop\XemBangDiemHocSinh.cshtml" />
-    <Content Include="Areas\Teacher\Views\ThongTin\ThongTin.cshtml" />
     <Content Include="Areas\Teacher\Views\ThongTin\ThongTinGiaoVienPartial.cshtml" />
     <Content Include="Areas\Teacher\Views\Lop\DanhSachHocSinhPhuTrachDay.cshtml" />
     <Content Include="Areas\Teacher\Views\ThongTin\BangdiemHK1Partial.cshtml" />
@@ -1179,6 +1176,7 @@
     <Content Include="Areas\Teacher\Views\Lop\SendSMSPartial.cshtml" />
     <Content Include="Areas\Admin\Views\HocSinh\ChuyenLopHocSinh.cshtml" />
     <Content Include="Areas\Admin\Views\HocSinh\CapNhatChuyenLopPartial.cshtml" />
+    <Content Include="Areas\Teacher\Views\Lop\ThongTin.cshtml" />
     <None Include="Scripts\jquery-3.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.1.js" />
     <Content Include="Scripts\jquery-3.7.1.min.js" />

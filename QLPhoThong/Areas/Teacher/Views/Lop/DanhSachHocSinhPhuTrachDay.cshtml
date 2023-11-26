@@ -104,19 +104,14 @@ else
 }
 <script>
     $(document).ready(function () {
-        // Lưu địa chỉ URL khi giá trị của dropdown list thay đổi
         $('#hocky').change(function () {
             var selectedValue = $(this).val();
             var idlop = "@Request.QueryString["idlop"]";
             var idmh = "@Request.QueryString["idmh"]";
-
-            // Xây dựng URL mới với các tham số mong muốn
             var newUrl = '@Url.Action("DanhSachHocSinhPhuTrachDay", "Lop", new { hocky = "REPLACEME", idlop = "REPLACEME_IDLOP", idmh = "REPLACEME_IDMH" })'
                 .replace("REPLACEME", selectedValue)
                 .replace("REPLACEME_IDLOP", idlop)
                 .replace("REPLACEME_IDMH", idmh);
-
-            // Chuyển hướng đến địa chỉ URL mới
             window.location.href = newUrl;
         });
     });

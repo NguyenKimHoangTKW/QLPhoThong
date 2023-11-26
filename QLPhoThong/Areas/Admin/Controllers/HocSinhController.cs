@@ -302,10 +302,11 @@ namespace QLPhoThong.Areas.Admin.Controllers
         }
         public ActionResult ChuyenLopHocSinh(string malop = "1")
         {
-            var hOCSINHs = db.HOCSINHs.Include(h => h.DanToc).Include(h => h.LOP).Where(hs => hs.MaLop == malop).OrderBy(h => h.TenHS);
+            var hOCSINHs = db.HOCSINHs.Include(h => h.DanToc).Include(h => h.LOP).Where(hs => hs.MaLop == malop).OrderBy(h => h.TenHS).ToList();
             ViewBag.idLop = new SelectList(db.LOPs, "MaLop", "TenLop");
             ViewBag.malop = new SelectList(db.LOPs, "MaLop", "TenLop");
-            return View(hOCSINHs.ToList());
+            ViewBag.SiSo = hOCSINHs.Count;
+            return View(hOCSINHs);
         }
         public ActionResult CapNhatChuyenLopPartial(string id)
         {
@@ -345,6 +346,8 @@ namespace QLPhoThong.Areas.Admin.Controllers
                 }
                 db.Entry(hOCSINH).State = EntityState.Modified;
                 db.SaveChanges();
+                TempData["SweetAlertMessage"] = "Chuyển lớp thành công cho học sinh " + hOCSINH.TenHS;
+                TempData["SweetAlertType"] = "success";
             }
 
             if (Request.UrlReferrer != null)

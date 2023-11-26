@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -89,6 +90,7 @@ namespace QLPhoThong.Areas.Teacher.Controllers
                 return View();
             }
         }
+
         private void SendSms(string toPhoneNumber, string message)
         {
             var accountSid = System.Configuration.ConfigurationManager.AppSettings["TwilioAccountSID"];
@@ -103,6 +105,56 @@ namespace QLPhoThong.Areas.Teacher.Controllers
             };
             var messageResponse = MessageResource.Create(messageOptions);
             Console.WriteLine(messageResponse.Sid);
+        }
+
+        [HttpGet]
+        public ActionResult ThongTin(string id)
+        {
+            var thongtin = db.HOCSINHs.Where(pc => pc.MaHS == id);
+            ViewBag.idDanToc = new SelectList(db.DanTocs, "idDanToc", "TenDanToc");
+            return PartialView("ThongTin", thongtin);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [ValidateInput(false)]
+        public ActionResult ThongTin([Bind(Include = "MaHS,TenHS,NgaySinh,DiaChi,SDT,MaLop,GioiTinh,TrangThai,idDanToc,Thumb, iDHS")] HOCSINH hOCSINH, HttpPostedFileBase Thumb, FormCollection form)
+        {
+
+            if (ModelState.IsValid)
+            {
+
+                try
+                {
+                    if (Thumb != null)
+                    {
+                        string _Head = Path.GetFileNameWithoutExtension(Thumb.FileName);
+                        string _Tail = Path.GetExtension(Thumb.FileName);
+                        string fullLink = _Head + "-" + DateTime.Now.ToString("yyyyMMddHHmmssfff") + _Tail;
+                        string _path = Path.Combine(Server.MapPath("~/Areas/Admin/Images/ImagesStudent"), fullLink);
+                        Thumb.SaveAs(_path);
+                        hOCSINH.Thumb = fullLink;
+                        _path = Path.Combine(Server.MapPath("~/Areas/Admin/Images/ImagesStudent"), form["oldimage"]);
+
+                        if (System.IO.File.Exists(_path))
+                            System.IO.File.Delete(_path);
+
+                    }
+                    else
+                        hOCSINH.Thumb = form["oldimage"];
+                    db.Entry(hOCSINH).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+
+                }
+                catch
+                {
+                    ViewBag.Message = "không thành công!!";
+                }
+                return RedirectToAction("Index");
+            }
+            ViewBag.MaLop = new SelectList(db.LOPs.OrderBy(l => l.MaLop), "MaLop", "TenLop", hOCSINH.MaLop);
+            ViewBag.idDanToc = new SelectList(db.DanTocs, "idDanToc", "TenDanToc", hOCSINH.idDanToc);
+            return View(hOCSINH);
         }
     }
 }

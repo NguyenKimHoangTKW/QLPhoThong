@@ -14,7 +14,15 @@
     <td><input type="text" class="form-control" name="Diem15p" value="@Model.Diem15p" placeholder="Nhập điểm ..." oninput="validateInput(this)"></td>
     <td><input type="text" class="form-control" name="Diem1Tiet" value="@Model.Diem1Tiet" placeholder="Nhập điểm ..." oninput="validateInput(this)"></td>
     <td><input type="text" class="form-control" name="DiemThi" value="@Model.DiemThi" placeholder="Nhập điểm ..." oninput="validateInput(this)"></td>
-    <th scope="row" style="text-align:center;">@String.Format("{0:N1}", Model.DiemTB)</th>
+    if (Model.DiemTB < 5)
+    {
+        <th scope="row" style="text-align:center; color:red;">@String.Format("{0:N1}", Model.DiemTB)</th>
+    }
+    else
+    {
+        <th scope="row" style="text-align:center;">@String.Format("{0:N1}", Model.DiemTB)</th>
+    }
+
     <button type="submit" class="btn btn-primary" id="btnLuu" style="display: none;">Lưu</button>
 
 }

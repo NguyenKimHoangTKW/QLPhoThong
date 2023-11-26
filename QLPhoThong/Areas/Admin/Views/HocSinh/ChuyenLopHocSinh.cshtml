@@ -7,16 +7,32 @@
 }
 @if (Model.Any())
 {
-    <div class="card" style="margin-top:65px;">
+    <div class="card" style="margin-top:50px;">
         <div class="card-body">
+            <div style="text-align:center;">
+                @if (Model.FirstOrDefault().LOP.LOPCHUNHIEMs.Any())
+                {
+                    <h4>GVCN : <b>@Model.FirstOrDefault().LOP.LOPCHUNHIEMs.FirstOrDefault().GIAOVIEN.TenGV</b></h4>
+                }
+                else
+                {
+                    <h4>Lớp này hiện chưa có giáo viên chủ nhiệm</h4>
+                }
+                <h4>Lớp hiện tại : <b>@Model.FirstOrDefault().LOP.TenLop</b></h4>
+                <h4>Sỉ số : <b>@ViewBag.SiSo</b></h4>
+
+            </div>
             <div class="row m-b-30">
                 <div class="col-lg-8">
+
                     <div class="d-md-flex">
                         <div class="m-b-10 m-r-15">
                             @using (Html.BeginForm("ChuyenLopHocSinh", "HocSinh", FormMethod.Get, new { id = "myForm" }))
                             {
-                                <h4>Lọc theo lớp</h4>
-                                @Html.DropDownList("malop", ViewBag.malop as SelectList, new { @class = "form-control", onchange = "this.form.submit();" })
+                                <div style="text-align:right;">
+                                    <h4>Lọc theo lớp</h4>
+                                    @Html.DropDownList("malop", ViewBag.malop as SelectList, new { @class = "form-control", onchange = "this.form.submit();" })
+                                </div>
                             }
 
                         </div>
@@ -92,3 +108,16 @@ else
         </div>
     </div>
 }
+<script>
+    @if (TempData["SweetAlertMessage"] != null)
+    {
+        <text>
+        Swal.fire({
+            title: '@TempData["SweetAlertMessage"]',
+            icon: '@TempData["SweetAlertType"]',
+            showConfirmButton: false,
+            timer: 2000
+        });
+        </text>
+    }
+</script>
