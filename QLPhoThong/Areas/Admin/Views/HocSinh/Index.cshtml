@@ -14,9 +14,8 @@
 <h2>Index</h2>
 
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+<button data-toggle="modal" data-target="#ThemHocSinh" data-url="@Url.Action("Create","HocSinh")" class="form-control">Thêm mới Học sinh</button>
+@Html.Partial("Create", new QLPhoThong.Models.HOCSINH())
 <table class="table">
     <tr>
         <th>
@@ -95,7 +94,8 @@
                 @item.DanToc.TenDanToc
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.MaHS }) |
+                <button data-toggle="modal" data-target="@("#Edit-"+item.MaHS)" data-url="@Url.Action("Edit","HocSinh", new {id = item.MaHS})" class="form-control">Thay đổi học sinh</button>
+                @Html.Partial("Edit", item) |
                 @Html.ActionLink("Details", "Details", new { id = item.MaHS }) |
                 @Html.ActionLink("Delete", "Delete", new { id = item.MaHS })
             </td>

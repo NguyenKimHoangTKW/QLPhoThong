@@ -19,6 +19,8 @@ namespace QLPhoThong.Areas.Admin.Controllers
         public ActionResult Index()
         {
             var hOCSINHs = db.HOCSINHs.Include(h => h.DanToc).Include(h => h.LOP).OrderBy(h => h.TenHS);
+            ViewBag.idDanToc = new SelectList(db.DanTocs, "idDanToc", "TenDanToc");
+            ViewBag.MaLop = new SelectList(db.LOPs.OrderBy(l => l.MaLop), "MaLop", "TenLop");
             return View(hOCSINHs.ToList());
         }
 
@@ -42,7 +44,8 @@ namespace QLPhoThong.Areas.Admin.Controllers
         {
             ViewBag.idDanToc = new SelectList(db.DanTocs, "idDanToc", "TenDanToc");
             ViewBag.MaLop = new SelectList(db.LOPs.OrderBy(l => l.MaLop), "MaLop", "TenLop");
-            return View();
+            HOCSINH hOCSINH = new HOCSINH();
+            return PartialView("Create",hOCSINH);
         }
         public List<MONHOC> LayMonHoc()
         {
@@ -192,7 +195,7 @@ namespace QLPhoThong.Areas.Admin.Controllers
             }
             ViewBag.idDanToc = new SelectList(db.DanTocs, "idDanToc", "TenDanToc", hOCSINH.idDanToc);
             ViewBag.MaLop = new SelectList(db.LOPs.OrderBy(l => l.MaLop), "MaLop", "TenLop", hOCSINH.MaLop);
-            return View(hOCSINH);
+            return PartialView("Edit", hOCSINH);
         }
 
         // POST: Admin/HocSinh/Edit/5
@@ -201,7 +204,7 @@ namespace QLPhoThong.Areas.Admin.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ValidateInput(false)]
-        public ActionResult Edit([Bind(Include = "MaHS,TenHS,NgaySinh,DiaChi,SDT,MaLop,GioiTinh,TrangThai,idDanToc,Thumb, iDHS")] HOCSINH hOCSINH, HttpPostedFileBase Thumb, FormCollection form)
+        public ActionResult Edit([Bind(Include = "MaHS,HoVaTenDem,TenHS,NgaySinh,DiaChi,SDT,GioiTinh,MaLop,TrangThai,idDanToc,Thumb")] HOCSINH hOCSINH, HttpPostedFileBase Thumb, FormCollection form)
         {
 
             if (ModelState.IsValid)

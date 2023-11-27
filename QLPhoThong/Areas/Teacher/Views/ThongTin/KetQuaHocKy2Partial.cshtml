@@ -6,7 +6,14 @@
             <thead>
                 <tr>
                     <th scope="col">Điểm trung bình học kỳ 2</th>
-                    <th scope="col">@Model.TBMHK</th>
+                    @if (Model.TBMHK < 5)
+                    {
+                        <th scope="col" style="color:red;"><b>@String.Format("{0:N1}", Model.TBMHK)</b></th>
+                    }
+                    else
+                    {
+                        <th scope="col"><b>@String.Format("{0:N1}", Model.TBMHK)</b></th>
+                    }
                 </tr>
                 <tr>
                     <th scope="col">Xếp loại học kỳ 2</th>
