@@ -202,6 +202,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\BANGDIEMCANAM.cs">
+      <DependentUpon>QLPhoThongModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\DANHGIAHANHKIEM.cs">
       <DependentUpon>QLPhoThongModel.tt</DependentUpon>
     </Compile>
@@ -1177,6 +1180,8 @@
     <Content Include="Areas\Admin\Views\HocSinh\ChuyenLopHocSinh.cshtml" />
     <Content Include="Areas\Admin\Views\HocSinh\CapNhatChuyenLopPartial.cshtml" />
     <Content Include="Areas\Teacher\Views\Lop\ThongTin.cshtml" />
+    <Content Include="Areas\Teacher\Views\ThongTin\BangDiemCaNamPartial.cshtml" />
+    <Content Include="Areas\Admin\FileExcel\Biểu mẫu Thêm Học Sinh.xlsx" />
     <None Include="Scripts\jquery-3.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.1.js" />
     <Content Include="Scripts\jquery-3.7.1.min.js" />

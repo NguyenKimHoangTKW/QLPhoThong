@@ -8,6 +8,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using QLPhoThong.Models;
+using OfficeOpenXml;
+using System.Globalization;
 
 namespace QLPhoThong.Areas.Admin.Controllers
 {
@@ -103,6 +105,7 @@ namespace QLPhoThong.Areas.Admin.Controllers
                         dd.NghiCoPhep = 0;
                         dd.NghiKhongPhep = 0;
                         dd.BoTiet = 0;
+                        dd.MaNH = "NH23|24";
                         db.DIEMDANHs.Add(dd);
                         db.SaveChanges();
 
@@ -118,6 +121,11 @@ namespace QLPhoThong.Areas.Admin.Controllers
                                 db.DIEMs.Add(diem);
 
                             }
+                            BANGDIEMCANAM bdcn = new BANGDIEMCANAM();
+                            bdcn.MaHS = hOCSINH.MaHS;
+                            bdcn.MaMH = item.MaMH;
+                            bdcn.MaNH = "NH23|24";
+                            db.BANGDIEMCANAMs.Add(bdcn);
                         }
                         db.SaveChanges();
                         foreach (var item2 in lstHocKy)
@@ -127,6 +135,8 @@ namespace QLPhoThong.Areas.Admin.Controllers
                             kqhk.MaHK = item2.MaHky;
                             kqhk.MaNH = "NH23|24";
                             kqhk.Xeploai = "Chưa xét";
+                            kqhk.HocLuc = "Chưa xét";
+                            kqhk.HanhKiem = "Chưa xét";
                             db.KETQUAHOCKies.Add(kqhk);
 
                         }
@@ -153,12 +163,149 @@ namespace QLPhoThong.Areas.Admin.Controllers
             {
                 ModelState.AddModelError("", "Vui lòng chọn một tệp ảnh.");
             }
-
-
             ViewBag.MaLop = new SelectList(db.LOPs.OrderBy(l => l.MaLop), "MaLop", "TenLop", hOCSINH.MaLop);
             ViewBag.idDanToc = new SelectList(db.DanTocs, "idDanToc", "TenDanToc", hOCSINH.idDanToc);
             return View(hOCSINH);
         }
+        private string MapTenLopToMaLop(string tenLop)
+        {
+            var lop = db.LOPs.FirstOrDefault(l => l.TenLop == tenLop);
+
+            if (lop != null)
+            {
+                return lop.MaLop;
+            }
+            else
+            {
+                return "";
+            }
+        }
+        private int MapTenDanTocToIdDanToc(string tenDanToc)
+        {
+            var danToc = db.DanTocs.FirstOrDefault(dt => dt.TenDanToc == tenDanToc);
+
+            if (danToc != null)
+            {
+                return danToc.idDanToc;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
+        [HttpPost]
+        public ActionResult UploadExcel(HttpPostedFileBase file)
+        {
+            if (file != null && file.ContentLength > 0)
+            {
+                try
+                {
+                    List<MONHOC> lstMonHoc = LayMonHoc();
+                    List<HOCKY> lstHocKy = LayHocKy();
+                    List<HANHKIEM> lstHanhKiem = LayHanhKiem();
+                    List<DIEMDANH> lstDiemDanh = LayDiemDanh();
+
+                    using (var package = new ExcelPackage(file.InputStream))
+                    {
+                        ExcelWorksheet worksheet = package.Workbook.Worksheets[0];
+                        List<HOCSINH> danhSachHocSinh = new List<HOCSINH>();
+                        for (int row = 3; row <= worksheet.Dimension.End.Row; row++)
+                        {
+                            string tenLop = worksheet.Cells[row, 8].Value.ToString();
+                            string maLop = MapTenLopToMaLop(tenLop);
+                            string tenDanToc = worksheet.Cells[row, 10].Value.ToString();
+                            int idDanToc = MapTenDanTocToIdDanToc(tenDanToc);
+                            HOCSINH hOCSINH = new HOCSINH
+                            {
+                                HoVaTenDem = worksheet.Cells[row, 2].Value.ToString(),
+                                TenHS = worksheet.Cells[row, 3].Value.ToString(),
+                                NgaySinh = DateTime.Parse(worksheet.Cells[row, 4].Value.ToString()),
+                                DiaChi = worksheet.Cells[row, 5].Value.ToString(),
+                                SDT = worksheet.Cells[row, 6].Value.ToString(),
+                                GioiTinh = worksheet.Cells[row, 7].Value.ToString(),
+                                MaLop = maLop,
+                                TrangThai = worksheet.Cells[row, 9].Value.ToString(),
+                                idDanToc = idDanToc,
+                                Thumb = worksheet.Cells[row, 11].Value.ToString(),
+                            };
+                            danhSachHocSinh.Add(hOCSINH);
+                        }
+                        foreach (var hOCSINH in danhSachHocSinh)
+                        {
+                            string nextId = GetNextId();
+                            hOCSINH.MaHS = nextId;
+                            db.HOCSINHs.Add(hOCSINH);
+                            db.SaveChanges();
+
+                            DIEMDANH dd = new DIEMDANH();
+                            dd.MaHS = hOCSINH.MaHS;
+                            dd.NghiCoPhep = 0;
+                            dd.NghiKhongPhep = 0;
+                            dd.BoTiet = 0;
+                            dd.MaNH = "NH23|24";
+                            db.DIEMDANHs.Add(dd);
+                            db.SaveChanges();
+
+                            foreach (var item in lstMonHoc)
+                            {
+                                foreach (var item2 in lstHocKy)
+                                {
+                                    DIEM diem = new DIEM();
+                                    diem.MaHS = hOCSINH.MaHS;
+                                    diem.MaMH = item.MaMH;
+                                    diem.MaHK = item2.MaHky;
+                                    diem.MaNH = "NH23|24";
+                                    db.DIEMs.Add(diem);
+
+                                }
+                                BANGDIEMCANAM bdcn = new BANGDIEMCANAM();
+                                bdcn.MaHS = hOCSINH.MaHS;
+                                bdcn.MaMH = item.MaMH;
+                                bdcn.MaNH = "NH23|24";
+                                db.BANGDIEMCANAMs.Add(bdcn);
+                            }
+                            db.SaveChanges();
+                            foreach (var item2 in lstHocKy)
+                            {
+                                KETQUAHOCKY kqhk = new KETQUAHOCKY();
+                                kqhk.MaHS = hOCSINH.MaHS;
+                                kqhk.MaHK = item2.MaHky;
+                                kqhk.MaNH = "NH23|24";
+                                kqhk.Xeploai = "Chưa xét";
+                                kqhk.HocLuc = "Chưa xét";
+                                kqhk.HanhKiem = "Chưa xét";
+                                db.KETQUAHOCKies.Add(kqhk);
+
+                            }
+                            db.SaveChanges();
+                            foreach (var item in lstHanhKiem)
+                            {
+                                DANHGIAHANHKIEM dghk = new DANHGIAHANHKIEM();
+                                dghk.MaHS = hOCSINH.MaHS;
+                                dghk.MaHKiem = item.MaHKiem;
+                                dghk.MaNH = "NH23|24";
+                                db.DANHGIAHANHKIEMs.Add(dghk);
+                            }
+                            db.SaveChanges();
+                        }
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.Message = "Import không thành công: " + ex.Message;
+                }
+            }
+            else
+            {
+                ViewBag.Message = "Vui lòng chọn file Excel!";
+            }
+
+            return RedirectToAction("Index");
+        }
+
+
         private string GetNextId()
         {
             var allIds = db.HOCSINHs.Select(h => h.MaHS).ToList();
@@ -179,6 +326,23 @@ namespace QLPhoThong.Areas.Admin.Controllers
             string formattedId = "HS" + nextId.ToString();
 
             return formattedId;
+        }
+        public ActionResult DownloadFile()
+        {
+            string filePath = Server.MapPath("~/Areas/Admin/FileExcel/Biểu mẫu Thêm Học Sinh.xlsx");
+            if (System.IO.File.Exists(filePath))
+            {
+                byte[] fileBytes = System.IO.File.ReadAllBytes(filePath);
+
+                string fileName = "Biểu mẫu Thêm Học Sinh.xlsx";
+
+                // Trả về một FileResult để tải xuống
+                return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, fileName);
+            }
+            else
+            {
+                return HttpNotFound("File not found.");
+            }
         }
 
         // GET: Admin/HocSinh/Edit/5
@@ -272,6 +436,7 @@ namespace QLPhoThong.Areas.Admin.Controllers
                 var dghkList = db.DANHGIAHANHKIEMs.Where(d => d.MaHS == hOCSINH.MaHS).ToList();
                 var kqhkList = db.KETQUAHOCKies.Where(d => d.MaHS == hOCSINH.MaHS).ToList();
                 var diemdanh = db.DIEMDANHs.Where(d => d.MaHS == hOCSINH.MaHS).ToList();
+                var bdcn = db.BANGDIEMCANAMs.Where(d => d.MaHS == hOCSINH.MaHS).ToList();
                 foreach (var kqhk in kqhkList)
                 {
                     db.KETQUAHOCKies.Remove(kqhk);
@@ -287,6 +452,10 @@ namespace QLPhoThong.Areas.Admin.Controllers
                 foreach (var dd in diemdanh)
                 {
                     db.DIEMDANHs.Remove(dd);
+                }
+                foreach (var bangdiemcn in bdcn)
+                {
+                    db.BANGDIEMCANAMs.Remove(bangdiemcn);
                 }
                 if (!string.IsNullOrEmpty(hOCSINH.Thumb))
                 {

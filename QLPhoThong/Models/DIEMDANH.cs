@@ -20,7 +20,9 @@ namespace QLPhoThong.Models
         public int BoTiet { get; set; }
         public string GhiChu { get; set; }
         public int IDDiemDanh { get; set; }
+        public string MaNH { get; set; }
     
         public virtual HOCSINH HOCSINH { get; set; }
+        public virtual NAMHOC NAMHOC { get; set; }
     }
 }

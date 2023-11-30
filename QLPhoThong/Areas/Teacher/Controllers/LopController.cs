@@ -56,7 +56,7 @@ namespace QLPhoThong.Areas.Teacher.Controllers
         [HttpGet]
         public ActionResult SendSMSPartial(string id)
         {
-            var DiemDanh = db.DIEMDANHs.Where(pc => pc.MaHS == id);
+            var DiemDanh = db.DIEMDANHs.Where(pc => pc.MaHS == id && pc.MaNH == "NH23|24") ;
             return PartialView("SendSMSPartial", DiemDanh.Single());
         }
 
@@ -76,7 +76,7 @@ namespace QLPhoThong.Areas.Teacher.Controllers
                     $"| Bỏ tiết : {student.DIEMDANHs.First().BoTiet} " +
                     $"| Ghi chú : {student.DIEMDANHs.FirstOrDefault().GhiChu}" +
                     $"| Thời gian gửi SMS : {DateTime.Now.ToString("dddd, dd MMMM yyyy")}";
-                string phoneNumber = student.SDT;
+                string phoneNumber = "+84" + student.SDT;
                 SendSms(phoneNumber, smsMessage);
                 ViewBag.SuccessMessage = "Cập nhật điểm danh thành công!";
             }

@@ -2,7 +2,7 @@
 
 
 <div class="card-body">
-    <h4 style="text-align: center;">BẢNG ĐIỂM HỌC KỲ 2</h4>
+    <h4 style="text-align:center;">BẢNG ĐIỂM CỦA <b>@Model.FirstOrDefault().HOCSINH.HoVaTenDem @Model.FirstOrDefault().HOCSINH.TenHS</b> TRONG HỌC KỲ 2</h4>
     <div class="m-t-25">
         <div class="table-responsive">
             <table class="table table-bordered">
@@ -25,7 +25,14 @@
                             <td>@item.Diem15p</td>
                             <td>@item.Diem1Tiet</td>
                             <td>@item.DiemThi</td>
-                            <td>@String.Format("{0:N1}", item.DiemTB)</td>
+                            @if (item.DiemTB < 5)
+                            {
+                                <td style="color:red;"><b>@String.Format("{0:N1}", item.DiemTB)</b></td>
+                            }
+                            else
+                            {
+                                <td><b>@String.Format("{0:N1}", item.DiemTB)</b></td>
+                            }
                         </tr>
                     }
                 </tbody>

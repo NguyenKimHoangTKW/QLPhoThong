@@ -19,8 +19,9 @@ namespace QLPhoThong.Models
         {
             this.DANHGIAHANHKIEMs = new HashSet<DANHGIAHANHKIEM>();
             this.DIEMs = new HashSet<DIEM>();
-            this.DIEMDANHs = new HashSet<DIEMDANH>();
             this.KETQUAHOCKies = new HashSet<KETQUAHOCKY>();
+            this.DIEMDANHs = new HashSet<DIEMDANH>();
+            this.BANGDIEMCANAMs = new HashSet<BANGDIEMCANAM>();
         }
     
         public string MaHS { get; set; }
@@ -40,10 +41,12 @@ namespace QLPhoThong.Models
         public virtual DanToc DanToc { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DIEM> DIEMs { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DIEMDANH> DIEMDANHs { get; set; }
         public virtual LOP LOP { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<KETQUAHOCKY> KETQUAHOCKies { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DIEMDANH> DIEMDANHs { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<BANGDIEMCANAM> BANGDIEMCANAMs { get; set; }
     }
 }

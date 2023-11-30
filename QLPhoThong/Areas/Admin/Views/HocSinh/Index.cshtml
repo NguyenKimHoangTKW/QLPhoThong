@@ -16,6 +16,19 @@
 
 <button data-toggle="modal" data-target="#ThemHocSinh" data-url="@Url.Action("Create","HocSinh")" class="form-control">Thêm mới Học sinh</button>
 @Html.Partial("Create", new QLPhoThong.Models.HOCSINH())
+
+@using (Html.BeginForm("UploadExcel", "HocSinh", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-group">
+        <label for="file">Chọn file Excel:</label>
+        <input type="file" name="file" id="file" />
+        <input type="submit" value="Import" class="btn btn-default" />
+        <b>@ViewBag.Message</b>
+    </div>
+}
+<a href="@Url.Action("DownloadFile", "HocSinh")">Tải xuống file</a>
+
 <table class="table">
     <tr>
         <th>
@@ -64,7 +77,9 @@
             <td>
                 @i
             </td>
-
+            <td>
+                @item.MaHS
+            </td>
             <td>
                 @item.HoVaTenDem @item.TenHS
             </td>

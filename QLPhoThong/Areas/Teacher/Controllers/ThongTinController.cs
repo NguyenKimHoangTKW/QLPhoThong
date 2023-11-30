@@ -23,30 +23,56 @@ namespace QLPhoThong.Areas.Teacher.Controllers
         }
         public ActionResult BangdiemHK1Partial(string id)
         {
-            var danhSachLop = db.DIEMs.Where(pc => pc.MaHS == id && pc.MaHK == "1" && pc.MaNH == "NH23|24").ToList();
-            return PartialView(danhSachLop);
+            var bangdiem = db.DIEMs.Where(pc => pc.MaHS == id && pc.MaHK == "1" && pc.MaNH == "NH23|24").ToList();
+            return PartialView(bangdiem);
         }
         public ActionResult BangdiemHK2Partial(string id)
         {
-            var danhSachLop = db.DIEMs.Where(pc => pc.MaHS == id && pc.MaHK == "2" && pc.MaNH == "NH23|24").ToList();
-            return PartialView(danhSachLop);
+            var bangdiem = db.DIEMs.Where(pc => pc.MaHS == id && pc.MaHK == "2" && pc.MaNH == "NH23|24").ToList();
+            return PartialView(bangdiem);
+        }
+        public ActionResult BangDiemCaNamPartial(string id)
+        {
+            List<BANGDIEMCANAM> bangdiem = db.BANGDIEMCANAMs.Where(pc => pc.MaHS == id  && pc.MaNH == "NH23|24").ToList();
+            foreach(var item in bangdiem)
+            {
+                List<DIEM> diem = db.DIEMs.Where(pc => pc.MaHS == id && pc.MaNH == "NH23|24" && pc.MaMH == item.MaMH).ToList();
+                if(diem.Any(item1 => item1.DiemTB == null))
+                {
+                    item.DiemTBCN = null;
+                }
+                else
+                {
+                    float diemtbm = (float)(diem.Sum(d => d.DiemTB) / 2);
+                    string diemtbmFormatted = diemtbm.ToString("N1");
+                    float diemtbmRounded = float.Parse(diemtbmFormatted);
+                    item.DiemTBCN = diemtbmRounded;
+                }
+                db.Entry(item).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+            
+            return PartialView(bangdiem);
         }
         public ActionResult KetQuaHocKy1Partial(string id)
         {
             KETQUAHOCKY DanhSachKetQua = db.KETQUAHOCKies.Where(pc => pc.MaHS == id && pc.MaHK == "1" && pc.MaNH == "NH23|24").FirstOrDefault();
             List<DIEM> diem = db.DIEMs.Where(pc => pc.MaHS == id && pc.MaHK == "1" && pc.MaNH == "NH23|24").ToList();
-            foreach(var item in diem)
+            if (ModelState.IsValid)
             {
-                if(item.DiemTB != null)
+                if (diem.Any(item => item.DiemTB == null))
                 {
-                    var diemtb = diem.Sum(d => d.DiemTB);
-                    float diemtbm = (float)(diemtb / 10);
+                    DanhSachKetQua.TBMHK = null;
+                }
+                else
+                {
+                    float diemtbm = (float)(diem.Sum(d => d.DiemTB) / 10);
                     string diemtbmFormatted = diemtbm.ToString("N1");
                     float diemtbmRounded = float.Parse(diemtbmFormatted);
                     DanhSachKetQua.TBMHK = diemtbmRounded;
-                    db.Entry(DanhSachKetQua).State = EntityState.Modified;
-                    db.SaveChanges();
                 }
+                db.Entry(DanhSachKetQua).State = EntityState.Modified;
+                db.SaveChanges();
             }
             return PartialView(DanhSachKetQua);
         }
@@ -55,25 +81,28 @@ namespace QLPhoThong.Areas.Teacher.Controllers
         {
             KETQUAHOCKY DanhSachKetQua = db.KETQUAHOCKies.Where(pc => pc.MaHS == id && pc.MaHK == "2" && pc.MaNH == "NH23|24").FirstOrDefault();
             List<DIEM> diem = db.DIEMs.Where(pc => pc.MaHS == id && pc.MaHK == "2" && pc.MaNH == "NH23|24").ToList();
-            foreach (var item in diem)
+            if (ModelState.IsValid)
             {
-                if (item.DiemTB != null)
+                if (diem.Any(item => item.DiemTB == null))
                 {
-                    var diemtb = diem.Sum(d => d.DiemTB);
-                    float diemtbm = (float)(diemtb / 10);
+                    DanhSachKetQua.TBMHK = null;
+                }
+                else
+                {
+                    float diemtbm = (float)(diem.Sum(d => d.DiemTB) / 10);
                     string diemtbmFormatted = diemtbm.ToString("N1");
                     float diemtbmRounded = float.Parse(diemtbmFormatted);
                     DanhSachKetQua.TBMHK = diemtbmRounded;
-                    db.Entry(DanhSachKetQua).State = EntityState.Modified;
-                    db.SaveChanges();
                 }
+                db.Entry(DanhSachKetQua).State = EntityState.Modified;
+                db.SaveChanges();
             }
             return PartialView(DanhSachKetQua);
         }
         [HttpGet]
         public ActionResult DiemDanhPartial(string id)
         {
-            var DiemDanh = db.DIEMDANHs.Where(pc => pc.MaHS == id);
+            var DiemDanh = db.DIEMDANHs.Where(pc => pc.MaHS == id && pc.MaNH == "NH23|24");
             return PartialView(DiemDanh.Single());
         }
 

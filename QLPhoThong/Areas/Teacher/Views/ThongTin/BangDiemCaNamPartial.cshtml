@@ -1,0 +1,36 @@
+﻿@model IEnumerable<QLPhoThong.Models.BANGDIEMCANAM>
+
+
+<div class="card-body">
+    <h4 style="text-align:center;">BẢNG ĐIỂM CẢ NĂM CỦA <b>@Model.FirstOrDefault().HOCSINH.HoVaTenDem @Model.FirstOrDefault().HOCSINH.TenHS</b></h4>
+    <div class="m-t-25">
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">Tên Môn Học</th>
+                        <th scope="col">Điểm TBM Cả năm</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <th scope="row">@item.MONHOC.TenMH</th>
+                            @if (item.DiemTBCN < 5)
+                            {
+                                <td style="color:red;"><b>@String.Format("{0:N1}", item.DiemTBCN)</b></td>
+                            }
+                            else
+                            {
+                                <td><b>@String.Format("{0:N1}", item.DiemTBCN)</b></td>
+                            }
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+

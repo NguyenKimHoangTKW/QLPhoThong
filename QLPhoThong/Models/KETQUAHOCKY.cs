@@ -19,9 +19,11 @@ namespace QLPhoThong.Models
         public string MaHK { get; set; }
         public string MaNH { get; set; }
         public string Xeploai { get; set; }
+        public string HocLuc { get; set; }
+        public string HanhKiem { get; set; }
     
         public virtual HOCKY HOCKY { get; set; }
-        public virtual NAMHOC NAMHOC { get; set; }
         public virtual HOCSINH HOCSINH { get; set; }
+        public virtual NAMHOC NAMHOC { get; set; }
     }
 }
