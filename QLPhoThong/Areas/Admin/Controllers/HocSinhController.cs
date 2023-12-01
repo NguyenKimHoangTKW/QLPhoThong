@@ -329,14 +329,12 @@ namespace QLPhoThong.Areas.Admin.Controllers
         }
         public ActionResult DownloadFile()
         {
-            string filePath = Server.MapPath("~/Areas/Admin/FileExcel/Biểu mẫu Thêm Học Sinh.xlsx");
+            string filePath = Server.MapPath("~/Areas/Admin/FileExcel/BieuMauThemHocSinh.xlsx");
             if (System.IO.File.Exists(filePath))
             {
                 byte[] fileBytes = System.IO.File.ReadAllBytes(filePath);
 
                 string fileName = "Biểu mẫu Thêm Học Sinh.xlsx";
-
-                // Trả về một FileResult để tải xuống
                 return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, fileName);
             }
             else
