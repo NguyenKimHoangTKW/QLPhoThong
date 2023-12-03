@@ -10,7 +10,8 @@ using System.Web.Mvc;
 using QLPhoThong.Models;
 using OfficeOpenXml;
 using System.Globalization;
-
+using PagedList;
+using PagedList.Mvc;
 namespace QLPhoThong.Areas.Admin.Controllers
 {
     public class HocSinhController : Controller
@@ -18,11 +19,14 @@ namespace QLPhoThong.Areas.Admin.Controllers
         private diemhsEntities db = new diemhsEntities();
 
         // GET: Admin/HocSinh
-        public ActionResult Index()
+        public ActionResult Index(int? page, string search)
         {
-            var hOCSINHs = db.HOCSINHs.Include(h => h.DanToc).Include(h => h.LOP).OrderBy(h => h.TenHS);
+
+            var hOCSINHs = db.HOCSINHs.Include(h => h.DanToc).Include(h => h.LOP);
+
             ViewBag.idDanToc = new SelectList(db.DanTocs, "idDanToc", "TenDanToc");
             ViewBag.MaLop = new SelectList(db.LOPs.OrderBy(l => l.MaLop), "MaLop", "TenLop");
+
             return View(hOCSINHs.ToList());
         }
 

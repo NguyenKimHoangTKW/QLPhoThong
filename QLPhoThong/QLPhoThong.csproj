@@ -277,7 +277,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Admin\Images\ImagesStudent\1532169492-532-10-su-that-ve-mr-bean-thang-ngo-ngo-ngan---ban-than-cua-cuu-thu-tuong-anh-mr-bean--1--1532060582-width1252height1252-20231122161912736.jpeg" />
     <Content Include="Areas\Style\assets\css\app.min.css" />
     <Content Include="Areas\Style\assets\es6\app.js" />
     <Content Include="Areas\Style\assets\es6\constant\theme-constant.js" />
@@ -1234,6 +1233,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
+    <Folder Include="Areas\Admin\Images\ImagesStudent\" />
     <Folder Include="Areas\Admin\Images\ImagesTeacher\" />
     <Folder Include="Areas\Teacher\Data\" />
   </ItemGroup>
