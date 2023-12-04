@@ -113,6 +113,16 @@ namespace QLPhoThong.Areas.Admin.Controllers
                         db.DIEMDANHs.Add(dd);
                         db.SaveChanges();
 
+                        KETQUACANAM kqcn = new KETQUACANAM();
+                        kqcn.MaHS = hOCSINH.MaHS;
+                        kqcn.MaNH = "NH23|24";
+                        kqcn.HocLuc = "Chưa xét";
+                        kqcn.HanhKiem = "Chưa xét";
+                        kqcn.XepLoai = "Chưa xét";
+                        kqcn.TrangThai = "Chưa xét";
+                        db.KETQUACANAMs.Add(kqcn);
+                        db.SaveChanges();
+
                         foreach (var item in lstMonHoc)
                         {
                             foreach (var item2 in lstHocKy)
@@ -249,6 +259,16 @@ namespace QLPhoThong.Areas.Admin.Controllers
                             dd.BoTiet = 0;
                             dd.MaNH = "NH23|24";
                             db.DIEMDANHs.Add(dd);
+                            db.SaveChanges();
+
+                            KETQUACANAM kqcn = new KETQUACANAM();
+                            kqcn.MaHS = hOCSINH.MaHS;
+                            kqcn.MaNH = "NH23|24";
+                            kqcn.HocLuc = "Chưa xét";
+                            kqcn.HanhKiem = "Chưa xét";
+                            kqcn.XepLoai = "Chưa xét";
+                            kqcn.TrangThai = "Chưa xét";
+                            db.KETQUACANAMs.Add(kqcn);
                             db.SaveChanges();
 
                             foreach (var item in lstMonHoc)
@@ -439,6 +459,7 @@ namespace QLPhoThong.Areas.Admin.Controllers
                 var kqhkList = db.KETQUAHOCKies.Where(d => d.MaHS == hOCSINH.MaHS).ToList();
                 var diemdanh = db.DIEMDANHs.Where(d => d.MaHS == hOCSINH.MaHS).ToList();
                 var bdcn = db.BANGDIEMCANAMs.Where(d => d.MaHS == hOCSINH.MaHS).ToList();
+                var kqcn = db.KETQUACANAMs.Where(d => d.MaHS == hOCSINH.MaHS).ToList();
                 foreach (var kqhk in kqhkList)
                 {
                     db.KETQUAHOCKies.Remove(kqhk);
@@ -458,6 +479,10 @@ namespace QLPhoThong.Areas.Admin.Controllers
                 foreach (var bangdiemcn in bdcn)
                 {
                     db.BANGDIEMCANAMs.Remove(bangdiemcn);
+                }
+                foreach (var ketquacn in kqcn)
+                {
+                    db.KETQUACANAMs.Remove(ketquacn);
                 }
                 if (!string.IsNullOrEmpty(hOCSINH.Thumb))
                 {

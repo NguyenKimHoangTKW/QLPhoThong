@@ -26,13 +26,19 @@ namespace QLPhoThong.Areas.Teacher.Controllers
             return View(danhSachLop);
         }
 
-        public ActionResult DanhSachHocSinh(string id)
+        public ActionResult DanhSachHocSinh(string id, string manh)
         {
-            var danhSachLop = db.HOCSINHs.Where(pc => pc.MaLop == id).OrderBy(pc=>pc.TenHS).ToList();
+            var danhSachLop = (from hs in db.HOCSINHs
+                              from lcn in db.LOPCHUNHIEMs
+                              where hs.MaLop == lcn.MaLop
+                              where hs.MaLop == id
+                              where lcn.MaNH == manh
+                               select hs).OrderBy(h=>h.TenHS).ToList();
+            //  var danhSachLop = db.HOCSINHs.Where(pc => pc.MaLop == id).OrderBy(pc=>pc.TenHS).ToList();
             ViewBag.TongHocSinh = danhSachLop.Count;
             return View(danhSachLop);
         }
-        public ActionResult DanhSachHocSinhPhuTrachDay(string idlop, int idmh, string hocky = "1")
+        public ActionResult DanhSachHocSinhPhuTrachDay(string idlop, int idmh,string manh, string hocky = "1")
         {
             var danhSachLop = (from hs in db.HOCSINHs
                                from d in db.DIEMs
@@ -40,6 +46,7 @@ namespace QLPhoThong.Areas.Teacher.Controllers
                                where hs.MaLop == idlop
                                where d.MaHK == hocky
                                where d.MaMH == idmh
+                               where d.MaNH == manh
                                select d).OrderBy(l => l.HOCSINH.TenHS).ToList();
           
             ViewBag.TongHocSinh = danhSachLop.Count;
@@ -47,16 +54,16 @@ namespace QLPhoThong.Areas.Teacher.Controllers
             return View(danhSachLop);
         }
        
-        public ActionResult XemBangDiemHocSinh(string id)
+        public ActionResult XemBangDiemHocSinh(string id, string manh)
         {
-            var danhSachLop = db.DIEMs.FirstOrDefault(pc => pc.MaHS == id);
+            var danhSachLop = db.DIEMs.FirstOrDefault(pc => pc.MaHS == id && pc.MaNH == manh);
             return View(danhSachLop);
         }
 
         [HttpGet]
-        public ActionResult SendSMSPartial(string id)
+        public ActionResult SendSMSPartial(string id, string manh)
         {
-            var DiemDanh = db.DIEMDANHs.Where(pc => pc.MaHS == id && pc.MaNH == "NH23|24") ;
+            var DiemDanh = db.DIEMDANHs.Where(pc => pc.MaHS == id && pc.MaNH == manh) ;
             return PartialView("SendSMSPartial", DiemDanh.Single());
         }
 

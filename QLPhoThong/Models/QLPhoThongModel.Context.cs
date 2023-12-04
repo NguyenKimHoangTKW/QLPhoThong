@@ -33,7 +33,6 @@ namespace QLPhoThong.Models
         public virtual DbSet<HOCKY> HOCKies { get; set; }
         public virtual DbSet<NAMHOC> NAMHOCs { get; set; }
         public virtual DbSet<MONHOC> MONHOCs { get; set; }
-        public virtual DbSet<PHANCONG> PHANCONGs { get; set; }
         public virtual DbSet<DIEM> DIEMs { get; set; }
         public virtual DbSet<DANHMUCHANHKIEM> DANHMUCHANHKIEMs { get; set; }
         public virtual DbSet<HANHKIEM> HANHKIEMs { get; set; }
@@ -44,5 +43,7 @@ namespace QLPhoThong.Models
         public virtual DbSet<KETQUAHOCKY> KETQUAHOCKies { get; set; }
         public virtual DbSet<DIEMDANH> DIEMDANHs { get; set; }
         public virtual DbSet<BANGDIEMCANAM> BANGDIEMCANAMs { get; set; }
+        public virtual DbSet<PHANCONG> PHANCONGs { get; set; }
+        public virtual DbSet<KETQUACANAM> KETQUACANAMs { get; set; }
     }
 }

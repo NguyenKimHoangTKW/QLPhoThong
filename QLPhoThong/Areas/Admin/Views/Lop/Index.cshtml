@@ -1,4 +1,4 @@
-﻿@model List<QLPhoThong.Models.LOP>
+﻿﻿@model List<QLPhoThong.Models.LOP>
 
 @{
     ViewBag.Title = "Index";
@@ -28,25 +28,25 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model)
-{
-    i++;
-    <tr>
-        <td>
-            @i
-        </td>
-        <td>
-            @item.TenLop
-        </td>
-        <td>
-            @item.LopChuyen
-        </td>
-        <td>
-            <a href="/Admin/Lop/Details?id=@item.MaLop">Xem</a> |
-            <a href="/Admin/Lop/Edit?id=@item.MaLop">Sửa</a> |
-            <a href="/Admin/Lop/Delete?id=@item.MaLop">Xóa</a>
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        i++;
+        <tr>
+            <td>
+                @i
+            </td>
+            <td>
+                @item.TenLop
+            </td>
+            <td>
+                @item.LopChuyen
+            </td>
+            <td>
+                <a href="/Admin/Lop/Details?id=@item.MaLop">Xem</a> |
+                <a href="/Admin/Lop/Edit?id=@item.MaLop">Sửa</a> |
+                <a href="/Admin/Lop/Delete?id=@item.MaLop">Xóa</a>
+            </td>
+        </tr>
+    }
 
 </table>

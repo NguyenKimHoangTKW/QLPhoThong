@@ -1,0 +1,34 @@
+﻿@model QLPhoThong.Models.KETQUAHOCKY
+<p style="text-align:center;">Kết quả @Model.HOCKY.TenHky</p>
+<div class="m-t-25">
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">Điểm trung bình học kỳ 1</th>
+                    @if (Model.TBMHK == null)
+                    {
+                        <th scope="col">Chưa xét</th>
+                    }
+                 
+                    else
+                    {
+                        <th scope="col"><b>@String.Format("{0:N1}", Model.TBMHK)</b></th>
+                    }
+                </tr>
+                <tr>
+                    <th scope="col">Học lực học kỳ 1</th>
+                    <th scope="col">@Model.HocLuc</th>
+                </tr>
+                <tr>
+                    <th scope="col">Hạnh kiểm học kỳ 1</th>
+                    <th scope="col">@Model.HanhKiem</th>
+                </tr>
+                <tr>
+                    <th scope="col">Xếp loại học kỳ 1</th>
+                    <th scope="col">@Model.Xeploai</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>

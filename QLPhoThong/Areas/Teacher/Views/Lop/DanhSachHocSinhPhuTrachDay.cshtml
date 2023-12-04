@@ -15,6 +15,7 @@
             <div style="text-align: center;">
                 <h4>Danh sách học sinh lớp : <b>@Model.FirstOrDefault().HOCSINH.LOP.TenLop</b></h4>
                 <h4>Môn học : <b>@Model.FirstOrDefault().MONHOC.TenMH</b></h4>
+                <h4>Môn học : <b>@Model.FirstOrDefault().NAMHOC.TenNH</b></h4>
             </div>
             <h4>Lớp này có tổng : <b>@ViewBag.TongHocSinh</b> học sinh</h4>
             <div class="m-t-25">
@@ -40,6 +41,10 @@
                     {
                         <input type="hidden" name="idmh" value="@Request.QueryString["idmh"]" />
                     }
+                    if (!string.IsNullOrEmpty(Request.QueryString["manh"]))
+                    {
+                        <input type="hidden" name="manh" value="@Request.QueryString["manh"]" />
+                    }
                 }
                 <div class="table-responsive">
                     <table class="table table-bordered">
@@ -64,7 +69,7 @@
                                     <th scope="row">#@i</th>
                                     <td>@item.HOCSINH.HoVaTenDem @item.HOCSINH.TenHS</td>
                                     <td>@item.HOCSINH.GioiTinh</td>
-                                    @Html.Action("NhapDiem", "QuanLyDiem", new { id = item.MaBD })
+                                    @Html.Action("NhapDiem", "QuanLyDiem", new { id = item.MaBD , manh = item.MaNH})
                                 </tr>
                             }
                         </tbody>
@@ -102,10 +107,12 @@ else
             var selectedValue = $(this).val();
             var idlop = "@Request.QueryString["idlop"]";
             var idmh = "@Request.QueryString["idmh"]";
-            var newUrl = '@Url.Action("DanhSachHocSinhPhuTrachDay", "Lop", new { hocky = "REPLACEME", idlop = "REPLACEME_IDLOP", idmh = "REPLACEME_IDMH" })'
+            var manh = "@Request.QueryString["manh"]"
+            var newUrl = '@Url.Action("DanhSachHocSinhPhuTrachDay", "Lop", new { hocky = "REPLACEME", idlop = "REPLACEME_IDLOP", idmh = "REPLACEME_IDMH" , manh = "REPLACEME_MANH" })'
                 .replace("REPLACEME", selectedValue)
                 .replace("REPLACEME_IDLOP", idlop)
-                .replace("REPLACEME_IDMH", idmh);
+                .replace("REPLACEME_IDMH", idmh)
+                .replace("REPLACEME_MANH", manh)
             window.location.href = newUrl;
         });
     });

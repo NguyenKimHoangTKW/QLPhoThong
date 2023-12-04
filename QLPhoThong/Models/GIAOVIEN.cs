@@ -18,8 +18,8 @@ namespace QLPhoThong.Models
         public GIAOVIEN()
         {
             this.LOPCHUNHIEMs = new HashSet<LOPCHUNHIEM>();
-            this.PHANCONGs = new HashSet<PHANCONG>();
             this.Users = new HashSet<User>();
+            this.PHANCONGs = new HashSet<PHANCONG>();
         }
     
         public string MaGV { get; set; }
@@ -37,8 +37,8 @@ namespace QLPhoThong.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LOPCHUNHIEM> LOPCHUNHIEMs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PHANCONG> PHANCONGs { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<User> Users { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PHANCONG> PHANCONGs { get; set; }
     }
 }

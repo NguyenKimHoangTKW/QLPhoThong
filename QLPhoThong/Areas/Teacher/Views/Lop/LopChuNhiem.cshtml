@@ -29,7 +29,7 @@
                                     <th scope="row">#@i</th>
                                     <td>@lop.LOP.TenLop</td>
                                     <td>
-                                        <a href="@Url.Action("DanhSachHocSinh","Lop", new {id = lop.MaLop})">
+                                        <a href="@Url.Action("DanhSachHocSinh","Lop", new {id = lop.MaLop, manh = lop.MaNH})">
                                             <button class="btn btn-success btn-tone m-r-5">Xem chi tiết</button>
                                         </a>
                                     </td>

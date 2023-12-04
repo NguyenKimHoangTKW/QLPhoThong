@@ -22,6 +22,7 @@ namespace QLPhoThong.Models
             this.KETQUAHOCKies = new HashSet<KETQUAHOCKY>();
             this.DIEMDANHs = new HashSet<DIEMDANH>();
             this.BANGDIEMCANAMs = new HashSet<BANGDIEMCANAM>();
+            this.KETQUACANAMs = new HashSet<KETQUACANAM>();
         }
     
         public string MaHS { get; set; }
@@ -48,5 +49,7 @@ namespace QLPhoThong.Models
         public virtual ICollection<DIEMDANH> DIEMDANHs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BANGDIEMCANAM> BANGDIEMCANAMs { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<KETQUACANAM> KETQUACANAMs { get; set; }
     }
 }

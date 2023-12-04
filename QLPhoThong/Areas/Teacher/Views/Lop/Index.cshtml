@@ -10,7 +10,7 @@
 {
     <div class="card" style="margin-top:75px;">
         <div class="card-body">
-            <h4>Danh sách lớp được phân công dạy</h4>
+            <h4>Danh sách lớp được phân công dạy trong <b>@Model.FirstOrDefault().NAMHOC.TenNH</b></h4>
             <div class="m-t-25">
                 <div class="table-responsive">
                     <table class="table">
@@ -31,7 +31,7 @@
                                     <td>@lop.LOP.TenLop</td>
                                     <td>@lop.MONHOC.TenMH</td>
                                     <td>
-                                        <a href="@Url.Action("DanhSachHocSinhPhuTrachDay","Lop", new { idlop = lop.MaLop, idmh = lop.MaMH})">
+                                        <a href="@Url.Action("DanhSachHocSinhPhuTrachDay","Lop", new { idlop = lop.MaLop, idmh = lop.MaMH, manh = lop.MaNH})">
                                             <button class="btn btn-success btn-tone m-r-5">Xem chi tiết</button>
                                         </a>
                                     </td>

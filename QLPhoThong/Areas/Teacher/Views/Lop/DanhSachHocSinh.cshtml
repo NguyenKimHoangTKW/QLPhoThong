@@ -12,8 +12,9 @@
             <div style="text-align:center;">
                 <h4>Danh sách học sinh chủ nhiệm</h4>
                 <h4>Lớp : <b>@Model.FirstOrDefault().LOP.TenLop</b></h4>
+                <h4><b>@Model.FirstOrDefault().DIEMs.FirstOrDefault().NAMHOC.TenNH</b></h4>
             </div>
-            <h4>Lớp này có tổng <b style="color:red;">@ViewBag.TongHocSinh</b> học sinh</h4>
+            <h4>Học sinh : <b style="color:red;">@ViewBag.TongHocSinh</b></h4>
             <div class="m-t-25">
                 <div class="table-responsive">
                     <table class="table table-bordered">
@@ -37,7 +38,7 @@
                                     <td>@string.Format("{0:dd-MM-yyyy}", item.NgaySinh)</td>
                                     <td>@item.GioiTinh</td>
                                     <td>
-                                        <a href="@Url.Action("XemBangDiemHocSinh", "Lop", new { id = item.MaHS })">
+                                        <a href="@Url.Action("XemBangDiemHocSinh", "Lop", new { id = item.MaHS , manh = item.DIEMs.FirstOrDefault().MaNH })">
                                             <button class="btn btn-info btn-tone m-r-5">Xem chi tiết</button>
                                         </a>
                                     </td>

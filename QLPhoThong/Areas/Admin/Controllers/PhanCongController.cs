@@ -82,6 +82,7 @@ namespace QLPhoThong.Areas.Admin.Controllers
         public ActionResult Create()
         {
             ViewBag.MaGV = new SelectList(db.GIAOVIENs, "MaGV", "TenGV");
+            ViewBag.MaNH = new SelectList(db.NAMHOCs, "MaNH", "TenNH");
             ViewBag.MaLop = new SelectList(db.LOPs, "MaLop", "TenLop");
             ViewBag.MaMH = new SelectList(db.MONHOCs, "MaMH", "TenMH");
             return View();
@@ -92,7 +93,7 @@ namespace QLPhoThong.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "MaPhanCong,MaMH,MaGV,MaLop")] PHANCONG pHANCONG)
+        public ActionResult Create(PHANCONG pHANCONG)
         {
             if (ModelState.IsValid)
             {
@@ -104,6 +105,7 @@ namespace QLPhoThong.Areas.Admin.Controllers
             }
 
             ViewBag.MaGV = new SelectList(db.GIAOVIENs, "MaGV", "TenGV", pHANCONG.MaGV);
+            ViewBag.MaNH = new SelectList(db.NAMHOCs, "MaNH", "TenNH", pHANCONG.NAMHOC);
             ViewBag.MaLop = new SelectList(db.LOPs, "MaLop", "TenLop", pHANCONG.MaLop);
             ViewBag.MaMH = new SelectList(db.MONHOCs, "MaMH", "TenMH", pHANCONG.MaMH);
             return View(pHANCONG);
@@ -143,6 +145,7 @@ namespace QLPhoThong.Areas.Admin.Controllers
             }
             ViewBag.MaGV = new SelectList(db.GIAOVIENs, "MaGV", "TenGV", pHANCONG.MaGV);
             ViewBag.MaLop = new SelectList(db.LOPs, "MaLop", "TenLop", pHANCONG.MaLop);
+            ViewBag.MaNH = new SelectList(db.NAMHOCs, "MaNH", "TenNH", pHANCONG.NAMHOC);
             ViewBag.MaMH = new SelectList(db.MONHOCs, "MaMH", "TenMH", pHANCONG.MaMH);
             return View(pHANCONG);
         }
@@ -162,6 +165,7 @@ namespace QLPhoThong.Areas.Admin.Controllers
             }
             ViewBag.MaGV = new SelectList(db.GIAOVIENs, "MaGV", "TenGV", pHANCONG.MaGV);
             ViewBag.MaLop = new SelectList(db.LOPs, "MaLop", "TenLop", pHANCONG.MaLop);
+            ViewBag.MaNH = new SelectList(db.NAMHOCs, "MaNH", "TenNH", pHANCONG.NAMHOC);
             ViewBag.MaMH = new SelectList(db.MONHOCs, "MaMH", "TenMH", pHANCONG.MaMH);
             return View(pHANCONG);
         }

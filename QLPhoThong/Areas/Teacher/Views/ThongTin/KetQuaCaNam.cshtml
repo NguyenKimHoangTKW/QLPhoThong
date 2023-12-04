@@ -1,0 +1,41 @@
+﻿@model QLPhoThong.Models.KETQUACANAM
+<h4 style="text-align:center;">KẾT QUẢ HỌC TẬP CẢ NĂM <b>@Model.HOCSINH.HoVaTenDem @Model.HOCSINH.TenHS </b></h4>
+<div class="m-t-25">
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">Điểm trung bình cả năm</th>
+                    @if (Model.TBMCN == null)
+                    {
+                        <th scope="col">Chưa xét</th>
+                    }
+                    else if (Model.TBMCN < 5)
+                    {
+                        <th scope="col" style="color:red;"><b>@String.Format("{0:N1}", Model.TBMCN)</b></th>
+                    }
+                    else
+                    {
+                        <th scope="col"><b>@String.Format("{0:N1}", Model.TBMCN)</b></th>
+                    }
+                </tr>
+                <tr>
+                    <th scope="col">Học lực cả năm</th>
+                    <th scope="col">@Model.HocLuc</th>
+                </tr>
+                <tr>
+                    <th scope="col">Hạnh kiểm cả năm</th>
+                    <th scope="col">@Model.HanhKiem</th>
+                </tr>
+                <tr>
+                    <th scope="col">Xếp loại cả năm</th>
+                    <th scope="col">@Model.XepLoai</th>
+                </tr>
+                <tr>
+                    <th scope="col">Kết Quả</th>
+                    <th scope="col">@Model.TrangThai</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>

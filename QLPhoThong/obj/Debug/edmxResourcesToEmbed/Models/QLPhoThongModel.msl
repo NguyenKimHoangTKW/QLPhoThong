@@ -74,16 +74,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="PHANCONGs">
-      <EntityTypeMapping TypeName="diemhsModel.PHANCONG">
-        <MappingFragment StoreEntitySet="PHANCONG">
-          <ScalarProperty Name="MaLop" ColumnName="MaLop" />
-          <ScalarProperty Name="MaGV" ColumnName="MaGV" />
-          <ScalarProperty Name="MaMH" ColumnName="MaMH" />
-          <ScalarProperty Name="MaPhanCong" ColumnName="MaPhanCong" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="DIEMs">
       <EntityTypeMapping TypeName="diemhsModel.DIEM">
         <MappingFragment StoreEntitySet="DIEM">
@@ -205,6 +195,30 @@
           <ScalarProperty Name="DiemTBCN" ColumnName="DiemTBCN" />
           <ScalarProperty Name="MaNH" ColumnName="MaNH" />
           <ScalarProperty Name="MaMH" ColumnName="MaMH" />
+          <ScalarProperty Name="MaHS" ColumnName="MaHS" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PHANCONGs">
+      <EntityTypeMapping TypeName="diemhsModel.PHANCONG">
+        <MappingFragment StoreEntitySet="PHANCONG">
+          <ScalarProperty Name="MaNH" ColumnName="MaNH" />
+          <ScalarProperty Name="MaLop" ColumnName="MaLop" />
+          <ScalarProperty Name="MaGV" ColumnName="MaGV" />
+          <ScalarProperty Name="MaMH" ColumnName="MaMH" />
+          <ScalarProperty Name="MaPhanCong" ColumnName="MaPhanCong" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="KETQUACANAMs">
+      <EntityTypeMapping TypeName="diemhsModel.KETQUACANAM">
+        <MappingFragment StoreEntitySet="KETQUACANAM">
+          <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
+          <ScalarProperty Name="XepLoai" ColumnName="XepLoai" />
+          <ScalarProperty Name="HanhKiem" ColumnName="HanhKiem" />
+          <ScalarProperty Name="HocLuc" ColumnName="HocLuc" />
+          <ScalarProperty Name="TBMCN" ColumnName="TBMCN" />
+          <ScalarProperty Name="MaNH" ColumnName="MaNH" />
           <ScalarProperty Name="MaHS" ColumnName="MaHS" />
         </MappingFragment>
       </EntityTypeMapping>

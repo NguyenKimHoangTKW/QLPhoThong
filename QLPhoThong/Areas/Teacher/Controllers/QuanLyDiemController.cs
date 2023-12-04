@@ -69,9 +69,9 @@ namespace QLPhoThong.Areas.Teacher.Controllers
             }
         }
         [HttpGet]
-        public ActionResult NhapDiem(int id)
+        public ActionResult NhapDiem(int id, string manh)
         {
-            DIEM diem = db.DIEMs.Where(d => d.MaBD == id).FirstOrDefault();
+            DIEM diem = db.DIEMs.Where(d => d.MaBD == id && d.MaNH == manh).FirstOrDefault();
             return PartialView("NhapDiem", diem);
         }
     }

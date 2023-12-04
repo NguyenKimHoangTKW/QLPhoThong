@@ -18,9 +18,10 @@
         <thead>
             <tr>
                 <th scope="col">Mã phân công</th>
-                <th scope="col">Mã môn học</th>
-                <th scope="col">Mã giáo viên</th>
-                <th scope="col">Mã lớp</th>
+                <th scope="col">Môn học</th>
+                <th scope="col">Tên giáo viên</th>
+                <th scope="col">Lớp phân công</th>
+                <th scope="col">Năm học</th>
                 <th scope="col">#</th>
 
             </tr>
@@ -31,11 +32,11 @@
                 foreach (var item in Model)
                 {
                     <tr>
-                        <th scope="row">@Html.DisplayFor(modelItem => item.MaPhanCong)</th>
-                        <td>@Html.DisplayFor(modelItem => item.MaMH)</td>
-                        <td>@Html.DisplayFor(modelItem => item.MaGV)</td>
-                        <td>@Html.DisplayFor(modelItem => item.MaLop)</td>
-
+                        <th scope="row">@item.MaPhanCong</th>
+                        <td>@item.MONHOC.TenMH</td>
+                        <td>@item.GIAOVIEN.TenGV</td>
+                        <td>@item.LOP.TenLop</td>
+                        <td>@item.NAMHOC.TenNH</td>
                         <td>
                             @Html.ActionLink("Sửa", "Edit",
                             routeValues: new { id = item.MaPhanCong },

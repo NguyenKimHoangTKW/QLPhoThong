@@ -18,9 +18,11 @@ namespace QLPhoThong.Models
         public int MaMH { get; set; }
         public string MaGV { get; set; }
         public string MaLop { get; set; }
+        public string MaNH { get; set; }
     
+        public virtual GIAOVIEN GIAOVIEN { get; set; }
         public virtual LOP LOP { get; set; }
         public virtual MONHOC MONHOC { get; set; }
-        public virtual GIAOVIEN GIAOVIEN { get; set; }
+        public virtual NAMHOC NAMHOC { get; set; }
     }
 }

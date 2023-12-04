@@ -21,22 +21,22 @@ namespace QLPhoThong.Areas.Teacher.Controllers
             var thongtin = db.LOPCHUNHIEMs.Where(pc => pc.MaLop == id);
             return PartialView(thongtin.Single());
         }
-        public ActionResult BangdiemHK1Partial(string id)
+        public ActionResult BangdiemHK1Partial(string id, string manh)
         {
-            var bangdiem = db.DIEMs.Where(pc => pc.MaHS == id && pc.MaHK == "1" && pc.MaNH == "NH23|24").ToList();
+            var bangdiem = db.DIEMs.Where(pc => pc.MaHS == id && pc.MaHK == "1" && pc.MaNH == manh).ToList();
             return PartialView(bangdiem);
         }
-        public ActionResult BangdiemHK2Partial(string id)
+        public ActionResult BangdiemHK2Partial(string id, string manh)
         {
-            var bangdiem = db.DIEMs.Where(pc => pc.MaHS == id && pc.MaHK == "2" && pc.MaNH == "NH23|24").ToList();
+            var bangdiem = db.DIEMs.Where(pc => pc.MaHS == id && pc.MaHK == "2" && pc.MaNH == manh).ToList();
             return PartialView(bangdiem);
         }
-        public ActionResult BangDiemCaNamPartial(string id)
+        public ActionResult BangDiemCaNamPartial(string id, string manh)
         {
-            List<BANGDIEMCANAM> bangdiem = db.BANGDIEMCANAMs.Where(pc => pc.MaHS == id  && pc.MaNH == "NH23|24").ToList();
+            List<BANGDIEMCANAM> bangdiem = db.BANGDIEMCANAMs.Where(pc => pc.MaHS == id  && pc.MaNH == manh).ToList();
             foreach(var item in bangdiem)
             {
-                List<DIEM> diem = db.DIEMs.Where(pc => pc.MaHS == id && pc.MaNH == "NH23|24" && pc.MaMH == item.MaMH).ToList();
+                List<DIEM> diem = db.DIEMs.Where(pc => pc.MaHS == id && pc.MaNH == manh && pc.MaMH == item.MaMH).ToList();
                 if(diem.Any(item1 => item1.DiemTB == null))
                 {
                     item.DiemTBCN = null;
@@ -54,10 +54,10 @@ namespace QLPhoThong.Areas.Teacher.Controllers
             
             return PartialView(bangdiem);
         }
-        public ActionResult KetQuaHocKy1Partial(string id)
+        public ActionResult KetQuaHocKy1Partial(string id, string manh)
         {
-            KETQUAHOCKY DanhSachKetQua = db.KETQUAHOCKies.Where(pc => pc.MaHS == id && pc.MaHK == "1" && pc.MaNH == "NH23|24").FirstOrDefault();
-            List<DIEM> diem = db.DIEMs.Where(pc => pc.MaHS == id && pc.MaHK == "1" && pc.MaNH == "NH23|24").ToList();
+            KETQUAHOCKY DanhSachKetQua = db.KETQUAHOCKies.Where(pc => pc.MaHS == id && pc.MaHK == "1" && pc.MaNH == manh).FirstOrDefault();
+            List<DIEM> diem = db.DIEMs.Where(pc => pc.MaHS == id && pc.MaHK == "1" && pc.MaNH == manh).ToList();
             if (ModelState.IsValid)
             {
                 if (diem.Any(item => item.DiemTB == null))
@@ -77,10 +77,10 @@ namespace QLPhoThong.Areas.Teacher.Controllers
             return PartialView(DanhSachKetQua);
         }
 
-        public ActionResult KetQuaHocKy2Partial(string id)
+        public ActionResult KetQuaHocKy2Partial(string id, string manh)
         {
-            KETQUAHOCKY DanhSachKetQua = db.KETQUAHOCKies.Where(pc => pc.MaHS == id && pc.MaHK == "2" && pc.MaNH == "NH23|24").FirstOrDefault();
-            List<DIEM> diem = db.DIEMs.Where(pc => pc.MaHS == id && pc.MaHK == "2" && pc.MaNH == "NH23|24").ToList();
+            KETQUAHOCKY DanhSachKetQua = db.KETQUAHOCKies.Where(pc => pc.MaHS == id && pc.MaHK == "2" && pc.MaNH == manh).FirstOrDefault();
+            List<DIEM> diem = db.DIEMs.Where(pc => pc.MaHS == id && pc.MaHK == "2" && pc.MaNH == manh).ToList();
             if (ModelState.IsValid)
             {
                 if (diem.Any(item => item.DiemTB == null))
@@ -99,10 +99,16 @@ namespace QLPhoThong.Areas.Teacher.Controllers
             }
             return PartialView(DanhSachKetQua);
         }
-        [HttpGet]
-        public ActionResult DiemDanhPartial(string id)
+
+        public ActionResult KetQuaCaNam(string id, string manh)
         {
-            var DiemDanh = db.DIEMDANHs.Where(pc => pc.MaHS == id && pc.MaNH == "NH23|24");
+            var KetQuaCaNam = db.KETQUACANAMs.Where(pc => pc.MaHS == id && pc.MaNH == manh);
+            return PartialView(KetQuaCaNam.Single());
+        }
+        [HttpGet]
+        public ActionResult DiemDanhPartial(string id, string manh)
+        {
+            var DiemDanh = db.DIEMDANHs.Where(pc => pc.MaHS == id && pc.MaNH == manh);
             return PartialView(DiemDanh.Single());
         }
 

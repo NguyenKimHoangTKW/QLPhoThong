@@ -232,6 +232,9 @@
     <Compile Include="Models\HOCSINH.cs">
       <DependentUpon>QLPhoThongModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\KETQUACANAM.cs">
+      <DependentUpon>QLPhoThongModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\KETQUAHOCKY.cs">
       <DependentUpon>QLPhoThongModel.tt</DependentUpon>
     </Compile>
@@ -1181,6 +1184,7 @@
     <Content Include="Areas\Teacher\Views\Lop\ThongTin.cshtml" />
     <Content Include="Areas\Teacher\Views\ThongTin\BangDiemCaNamPartial.cshtml" />
     <Content Include="Areas\Admin\FileExcel\BieuMauThemHocSinh.xlsx" />
+    <Content Include="Areas\Teacher\Views\ThongTin\KetQuaCaNam.cshtml" />
     <None Include="Scripts\jquery-3.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.1.js" />
     <Content Include="Scripts\jquery-3.7.1.min.js" />
@@ -1229,6 +1233,14 @@
     <Content Include="Views\Shared\_NavPartialView.cshtml" />
     <Content Include="Views\Shared\_FooterPartiaView.cshtml" />
     <Content Include="Views\Login\Login.cshtml" />
+    <Content Include="Views\Home\BangDiem.cshtml" />
+    <Content Include="Views\Home\BangdiemHK1Partial.cshtml" />
+    <Content Include="Views\Home\BangdiemHK2Partial.cshtml" />
+    <Content Include="Views\Home\KetQuaHK1Partial.cshtml" />
+    <Content Include="Views\Home\KetQuaHK2Partial.cshtml" />
+    <Content Include="Views\Home\BangdiemCaNam.cshtml" />
+    <Content Include="Views\Home\KetQuaCaNam.cshtml" />
+    <Content Include="Views\Home\DiemDanhPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -112,6 +112,19 @@
     <Property Name="idDanToc" Type="int" Nullable="false" />
     <Property Name="Thumb" Type="nvarchar(max)" />
   </EntityType>
+  <EntityType Name="KETQUACANAM">
+    <Key>
+      <PropertyRef Name="MaHS" />
+      <PropertyRef Name="MaNH" />
+    </Key>
+    <Property Name="MaHS" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="MaNH" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="TBMCN" Type="float" />
+    <Property Name="HocLuc" Type="nvarchar" MaxLength="20" />
+    <Property Name="HanhKiem" Type="nvarchar" MaxLength="20" />
+    <Property Name="XepLoai" Type="nvarchar" MaxLength="20" />
+    <Property Name="TrangThai" Type="nvarchar" MaxLength="50" />
+  </EntityType>
   <EntityType Name="KETQUAHOCKY">
     <Key>
       <PropertyRef Name="MaHS" />
@@ -166,6 +179,7 @@
     <Property Name="MaMH" Type="int" Nullable="false" />
     <Property Name="MaGV" Type="nvarchar" MaxLength="20" Nullable="false" />
     <Property Name="MaLop" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="MaNH" Type="nvarchar" MaxLength="20" Nullable="false" />
   </EntityType>
   <EntityType Name="sysdiagrams">
     <Key>
@@ -387,6 +401,30 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_KETQUACANAM_HOCSINH">
+    <End Role="HOCSINH" Type="Self.HOCSINH" Multiplicity="1" />
+    <End Role="KETQUACANAM" Type="Self.KETQUACANAM" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="HOCSINH">
+        <PropertyRef Name="MaHS" />
+      </Principal>
+      <Dependent Role="KETQUACANAM">
+        <PropertyRef Name="MaHS" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_KETQUACANAM_NAMHOC">
+    <End Role="NAMHOC" Type="Self.NAMHOC" Multiplicity="1" />
+    <End Role="KETQUACANAM" Type="Self.KETQUACANAM" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NAMHOC">
+        <PropertyRef Name="MaNH" />
+      </Principal>
+      <Dependent Role="KETQUACANAM">
+        <PropertyRef Name="MaNH" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_KETQUAHOCKY_HOCKY">
     <End Role="HOCKY" Type="Self.HOCKY" Multiplicity="1" />
     <End Role="KETQUAHOCKY" Type="Self.KETQUAHOCKY" Multiplicity="*" />
@@ -495,6 +533,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_PHANCONG_NAMHOC">
+    <End Role="NAMHOC" Type="Self.NAMHOC" Multiplicity="1" />
+    <End Role="PHANCONG" Type="Self.PHANCONG" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NAMHOC">
+        <PropertyRef Name="MaNH" />
+      </Principal>
+      <Dependent Role="PHANCONG">
+        <PropertyRef Name="MaNH" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_User_GIAOVIEN">
     <End Role="GIAOVIEN" Type="Self.GIAOVIEN" Multiplicity="1" />
     <End Role="User" Type="Self.User" Multiplicity="*" />
@@ -530,6 +580,7 @@
     <EntitySet Name="HANHKIEM" EntityType="Self.HANHKIEM" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="HOCKY" EntityType="Self.HOCKY" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="HOCSINH" EntityType="Self.HOCSINH" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="KETQUACANAM" EntityType="Self.KETQUACANAM" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="KETQUAHOCKY" EntityType="Self.KETQUAHOCKY" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="LOP" EntityType="Self.LOP" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="LOPCHUNHIEM" EntityType="Self.LOPCHUNHIEM" Schema="dbo" store:Type="Tables" />
@@ -603,6 +654,14 @@
       <End Role="LOP" EntitySet="LOP" />
       <End Role="HOCSINH" EntitySet="HOCSINH" />
     </AssociationSet>
+    <AssociationSet Name="FK_KETQUACANAM_HOCSINH" Association="Self.FK_KETQUACANAM_HOCSINH">
+      <End Role="HOCSINH" EntitySet="HOCSINH" />
+      <End Role="KETQUACANAM" EntitySet="KETQUACANAM" />
+    </AssociationSet>
+    <AssociationSet Name="FK_KETQUACANAM_NAMHOC" Association="Self.FK_KETQUACANAM_NAMHOC">
+      <End Role="NAMHOC" EntitySet="NAMHOC" />
+      <End Role="KETQUACANAM" EntitySet="KETQUACANAM" />
+    </AssociationSet>
     <AssociationSet Name="FK_KETQUAHOCKY_HOCKY" Association="Self.FK_KETQUAHOCKY_HOCKY">
       <End Role="HOCKY" EntitySet="HOCKY" />
       <End Role="KETQUAHOCKY" EntitySet="KETQUAHOCKY" />
@@ -637,6 +696,10 @@
     </AssociationSet>
     <AssociationSet Name="FK_PHANCONG_MONHOC" Association="Self.FK_PHANCONG_MONHOC">
       <End Role="MONHOC" EntitySet="MONHOC" />
+      <End Role="PHANCONG" EntitySet="PHANCONG" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PHANCONG_NAMHOC" Association="Self.FK_PHANCONG_NAMHOC">
+      <End Role="NAMHOC" EntitySet="NAMHOC" />
       <End Role="PHANCONG" EntitySet="PHANCONG" />
     </AssociationSet>
     <AssociationSet Name="FK_User_GIAOVIEN" Association="Self.FK_User_GIAOVIEN">

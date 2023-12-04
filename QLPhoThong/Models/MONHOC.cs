@@ -17,19 +17,19 @@ namespace QLPhoThong.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public MONHOC()
         {
-            this.PHANCONGs = new HashSet<PHANCONG>();
             this.DIEMs = new HashSet<DIEM>();
             this.BANGDIEMCANAMs = new HashSet<BANGDIEMCANAM>();
+            this.PHANCONGs = new HashSet<PHANCONG>();
         }
     
         public int MaMH { get; set; }
         public string TenMH { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PHANCONG> PHANCONGs { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DIEM> DIEMs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BANGDIEMCANAM> BANGDIEMCANAMs { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PHANCONG> PHANCONGs { get; set; }
     }
 }

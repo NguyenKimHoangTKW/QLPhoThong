@@ -45,6 +45,8 @@
                         </div>
                     </div>
                 }
+                <a href="@Url.Action("DownloadFile", "HocSinh")">Tải xuống file</a>
+
             </div>
         </div>
         <div class="table-responsive">
@@ -89,9 +91,11 @@
                                     <i class="anticon anticon-edit"></i>
                                 </button>
                                 @Html.Partial("Edit", item)
+                            <a href="@Url.Action("Delete","HocSinh", new {id = item.MaHS})">
                                 <button class="btn btn-icon btn-hover btn-sm btn-rounded">
                                     <i class="anticon anticon-delete"></i>
                                 </button>
+                            </a>
                             </td>
                         </tr>
                     }
