@@ -6,10 +6,12 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using QLPhoThong.App_Start;
 using QLPhoThong.Models;
 
 namespace QLPhoThong.Areas.Admin.Controllers
 {
+    [AdminAuthorize]
     public class DanhMucHanhKiemController : Controller
     {
         private diemhsEntities db = new diemhsEntities();

@@ -22,12 +22,21 @@ namespace QLPhoThong.Controllers
 
             return View();
         }
-
+        public ActionResult Error()
+        {
+            return View();
+        }
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
 
             return View();
+        }
+
+        [HttpGet]
+        public ActionResult SearchByPhoneNumber()
+        {
+                return PartialView();
         }
 
         [HttpPost]
@@ -40,26 +49,21 @@ namespace QLPhoThong.Controllers
                           where hs.SDT == phoneNumber
                           where d.MaNH == namhoc
                           select d;
-            if (!string.IsNullOrEmpty(phoneNumber))
+            if (string.IsNullOrEmpty(phoneNumber))
             {
-               ViewBag.ThongBao = "Vui lòng nhập số điện thoại";
+                TempData["SweetAlertMessage"] = "Vui lòng nhập số điện thoại";
+                TempData["SweetAlertType"] = "error";
             }
-            if (hocSinh.Any())
+            else if (hocSinh.Any())
             {
                 return RedirectToAction("BangDiem","Home", new {id = hocSinh.FirstOrDefault().MaHS, manh = hocSinh.FirstOrDefault().MaNH});
             }
             else
             {
-                ViewBag.ThongBao = "Không tìm thấy học sinh phù hợp";
+                TempData["SweetAlertMessage"] = "Không tìm thấy học sinh phù hợp";
+                TempData["SweetAlertType"] = "error";
             }
-            if (Request.UrlReferrer != null)
-            {
-                return Redirect(Request.UrlReferrer.ToString());
-            }
-            else
-            {
-                return View();
-            }
+            return RedirectToAction("Index", "Home");
         }
 
         public ActionResult BangDiem(string id, string manh)
@@ -208,5 +212,8 @@ namespace QLPhoThong.Controllers
             var DiemDanh = db.DIEMDANHs.Where(pc => pc.MaHS == id && pc.MaNH == manh).FirstOrDefault();
             return PartialView(DiemDanh);
         }
+
+
+        
     }
 }

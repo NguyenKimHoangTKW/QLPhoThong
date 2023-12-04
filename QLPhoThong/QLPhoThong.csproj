@@ -175,6 +175,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\AdminAuthorize.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -358,7 +359,10 @@
     <Content Include="Areas\Style\assets\images\others\product-3.jpg" />
     <Content Include="Areas\Style\assets\images\others\sign-up-1.jpg" />
     <Content Include="Areas\Style\assets\images\others\sign-up-2.png" />
+    <Content Include="Areas\Style\assets\images\others\ThemeSLL2.jpg" />
     <Content Include="Areas\Style\assets\images\others\ThemeSoLienLac.jpg" />
+    <Content Include="Areas\Style\assets\images\others\ThemeSoLienLac1.jpg" />
+    <Content Include="Areas\Style\assets\images\others\ThemeSoLienLac2.jpg" />
     <Content Include="Areas\Style\assets\images\others\thumb-1.jpg" />
     <Content Include="Areas\Style\assets\images\others\thumb-10.jpg" />
     <Content Include="Areas\Style\assets\images\others\thumb-11.jpg" />
@@ -1241,6 +1245,8 @@
     <Content Include="Views\Home\BangdiemCaNam.cshtml" />
     <Content Include="Views\Home\KetQuaCaNam.cshtml" />
     <Content Include="Views\Home\DiemDanhPartial.cshtml" />
+    <Content Include="Views\Home\SearchByPhoneNumber.cshtml" />
+    <Content Include="Views\Home\Error.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

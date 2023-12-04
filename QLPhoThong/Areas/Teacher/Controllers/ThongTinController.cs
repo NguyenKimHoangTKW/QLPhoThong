@@ -1,4 +1,5 @@
-﻿using QLPhoThong.Models;
+﻿using QLPhoThong.App_Start;
+using QLPhoThong.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -8,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 namespace QLPhoThong.Areas.Teacher.Controllers
 {
+
     public class ThongTinController : Controller
     {
         private diemhsEntities db = new diemhsEntities();

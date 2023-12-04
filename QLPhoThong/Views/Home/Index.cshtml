@@ -24,20 +24,6 @@
                 <span style="font-family: arial;">sổ li&ecirc;n lạc (SLL) gi&uacute;p phụ huynh tra cứu th&ocirc;ng tin trong HBĐT của con m&igrave;nh.</span>
             </p>
             <p class="MsoNormal" style="font-family: tahoma, arial, verdana, sans-serif;"><span style="font-family: arial;">Để tra cứu th&ocirc;ng tin học sinh bạn c&oacute; thể sử dụng c&aacute;c c&ocirc;ng cụ:</span></p>
-            <p class="MsoNormal" style="font-family: tahoma, arial, verdana, sans-serif;"><span style="font-family: arial;">- <a href="http://vnedu.vn/so-lien-lac/">Tra cứu tr&ecirc;n web</a></span></p>
-            <p class="MsoNormal" style="font-family: tahoma, arial, verdana, sans-serif;"><span style="font-family: arial;">- C&agrave;i đặt ứng dụng&nbsp;<strong><a href="https://play.google.com/store/apps/details?id=com.vnptit.vnedu.parent">vnEdu&nbsp;Connect</a>:</strong>&nbsp;&nbsp;</span></p>
-            <p>
-                <table style="width: 100%;">
-                    <tr>
-                        <td align="center">
-                            <a href="https://play.google.com/store/apps/details?id=com.vnptit.vnedu.parent"><img src="/css/Images/googleplay.jpg" alt="" width="229" height="80" /></a>
-                        </td>
-                        <td align="center">
-                            <a href="https://itunes.apple.com/us/app/vnedu-connect/id1448464007"><img src="/css/Images/ios.jpg" alt="Thiết bị IOS" width="226" height="80" /></a>
-                        </td>
-                    </tr>
-                </table>
-            </p>
 
             <p class="MsoNormal" style="font-family: tahoma, arial, verdana, sans-serif;"><strong><span style="font-family: arial;"><span style="mso-fareast-font-family: 'Times New Roman';">&nbsp;</span></span></strong></p>
         </div>
@@ -60,7 +46,7 @@
             <div>
                 <strong style="font-family: tahoma,arial,verdana,sans-serif; font-size: 12px;">1. Tra cứu tr&ecirc;n website:</strong>
                 <ul style="color: #000000; font-family: tahoma, arial, verdana, sans-serif; font-size: 12px;">
-                    <li>Mở tr&igrave;nh duyệt website (FireFox, Chrome) truy cập v&agrave;o địa chỉ: https://vnedu.vn/so-lien-lac/.</li>
+                    <li>Mở tr&igrave;nh duyệt website (FireFox, Chrome) truy cập v&agrave;o địa chỉ: //.</li>
                 </ul>
                 <ul style="color: #000000; font-family: tahoma, arial, verdana, sans-serif; font-size: 12px;">
                     <li>L&agrave;m theo c&aacute;c bước như trong h&igrave;nh minh họa dưới đ&acirc;y:</li>
@@ -71,14 +57,14 @@
     <div class="clear"></div>
     <div class="item photo">
         <div class="item-content">
-            <img class="picture" src="/css/Images/huongdan.png">
-        </div>
+            <img class="picture" src="~/Areas/Style/assets/images/others/ThemeSLL2.jpg">
+            </div>
     </div>
     <div class="clear"></div>
     <div class="item text">
         <div class="item-content">
             <ul>
-                <li>Bấm n&uacute;t&nbsp;<b>X&aacute;c nhận</b>.</li>
+                <li>Bấm nút <b>Tra cứu</b>.</li>
             </ul>
         </div>
     </div>
@@ -108,3 +94,16 @@
 
 </div>
 <div class="clear"></div>
+<script>
+    @if (TempData["SweetAlertMessage"] != null)
+    {
+        <text>
+        Swal.fire({
+            title: '@TempData["SweetAlertMessage"]',
+            icon: '@TempData["SweetAlertType"]',
+            showConfirmButton: false,
+            timer: 2000
+        });
+        </text>
+    }
+</script>
