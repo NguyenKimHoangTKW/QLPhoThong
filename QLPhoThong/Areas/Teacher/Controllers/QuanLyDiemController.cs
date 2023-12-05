@@ -1,5 +1,4 @@
-﻿using QLPhoThong.App_Start;
-using QLPhoThong.Models;
+﻿using QLPhoThong.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;

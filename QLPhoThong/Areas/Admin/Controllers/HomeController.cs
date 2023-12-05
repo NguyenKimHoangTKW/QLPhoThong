@@ -1,5 +1,4 @@
-﻿using QLPhoThong.App_Start;
-using QLPhoThong.Models;
+﻿using QLPhoThong.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +7,6 @@ using System.Web.Mvc;
 
 namespace QLPhoThong.Areas.Admin.Controllers
 {
-    [AdminAuthorize]
     public class HomeController : Controller
     {
         private diemhsEntities db = new diemhsEntities();

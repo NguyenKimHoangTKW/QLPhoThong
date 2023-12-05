@@ -12,11 +12,9 @@ using OfficeOpenXml;
 using System.Globalization;
 using PagedList;
 using PagedList.Mvc;
-using QLPhoThong.App_Start;
 
 namespace QLPhoThong.Areas.Admin.Controllers
 {
-    [AdminAuthorize]
     public class HocSinhController : Controller
     {
         private diemhsEntities db = new diemhsEntities();

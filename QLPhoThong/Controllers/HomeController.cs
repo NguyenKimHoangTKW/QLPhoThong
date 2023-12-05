@@ -98,6 +98,7 @@ namespace QLPhoThong.Controllers
                 if (diem.Any(item => item.DiemTB == null))
                 {
                     DanhSachKetQua.TBMHK = null;
+                    DanhSachKetQua.HocLuc = "Chưa xét";
                 }
                 else
                 {
@@ -105,8 +106,34 @@ namespace QLPhoThong.Controllers
                     string diemtbmFormatted = diemtbm.ToString("N1");
                     float diemtbmRounded = float.Parse(diemtbmFormatted);
                     DanhSachKetQua.TBMHK = diemtbmRounded;
+                    double diemToan = diem.FirstOrDefault(d => d.MaMH == 1)?.DiemTB ?? 0;
+                    double diemVan = diem.FirstOrDefault(d => d.MaMH == 2)?.DiemTB ?? 0;
+                    if (diemToan >= 8 && diem.All(item => item.DiemTB >= 6.5) && (diem.Sum(d => d.DiemTB) / 10) >= 8 || diemVan >= 8 && diem.All(item => item.DiemTB >= 6.5) && (diem.Sum(d => d.DiemTB) / 10) >= 8)
+                    {
+                        DanhSachKetQua.HocLuc = "Giỏi";
+                    }
+                    else if (diemToan >= 6.5 && diem.All(item => item.DiemTB >= 5) && (diem.Sum(d => d.DiemTB) / 10) >= 6.5 || diemVan >= 6.5 && diem.All(item => item.DiemTB >= 5) && (diem.Sum(d => d.DiemTB) / 10) >= 6.5)
+                    {
+                        DanhSachKetQua.HocLuc = "Khá";
+                    }
+                    else if (diemToan >= 5 && diem.All(item => item.DiemTB >= 3.5) && (diem.Sum(d => d.DiemTB) / 10) >= 5 || diemVan >= 5 && diem.All(item => item.DiemTB >= 3.5) && (diem.Sum(d => d.DiemTB) / 10) >= 5)
+                    {
+                        DanhSachKetQua.HocLuc = "Trung Bình";
+                    }
+                    else if (diemToan >= 3.5 && diem.All(item => item.DiemTB >= 2) && (diem.Sum(d => d.DiemTB) / 10) >= 3.5 || diemVan >= 3.5 && diem.All(item => item.DiemTB >= 2) && (diem.Sum(d => d.DiemTB) / 10) >= 3.5)
+                    {
+                        DanhSachKetQua.HocLuc = "Yếu";
+                    }
+                    else if (diemToan >= 0.5 && diem.All(item => item.DiemTB >= 0) && (diem.Sum(d => d.DiemTB) / 10) >= 0 || diemVan >= 0.5 && diem.All(item => item.DiemTB >= 0) && (diem.Sum(d => d.DiemTB) / 10) >= 0)
+                    {
+                        DanhSachKetQua.HocLuc = "Kém";
+                    }
+                    else
+                    {
+                        DanhSachKetQua.HocLuc = "Chưa xét";
+                    }
+                    db.Entry(DanhSachKetQua).State = EntityState.Modified;
                 }
-                db.Entry(DanhSachKetQua).State = EntityState.Modified;
                 db.SaveChanges();
             }
             return PartialView(DanhSachKetQua);
@@ -120,6 +147,7 @@ namespace QLPhoThong.Controllers
                 if (diem.Any(item => item.DiemTB == null))
                 {
                     DanhSachKetQua.TBMHK = null;
+                    DanhSachKetQua.HocLuc = "Chưa xét";
                 }
                 else
                 {
@@ -127,8 +155,34 @@ namespace QLPhoThong.Controllers
                     string diemtbmFormatted = diemtbm.ToString("N1");
                     float diemtbmRounded = float.Parse(diemtbmFormatted);
                     DanhSachKetQua.TBMHK = diemtbmRounded;
+                    double diemToan = diem.FirstOrDefault(d => d.MaMH == 1)?.DiemTB ?? 0;
+                    double diemVan = diem.FirstOrDefault(d => d.MaMH == 2)?.DiemTB ?? 0;
+                    if (diemToan >= 8 && diem.All(item => item.DiemTB >= 6.5) && (diem.Sum(d => d.DiemTB) / 10) >= 8 || diemVan >= 8 && diem.All(item => item.DiemTB >= 6.5) && (diem.Sum(d => d.DiemTB) / 10) >= 8)
+                    {
+                        DanhSachKetQua.HocLuc = "Giỏi";
+                    }
+                    else if (diemToan >= 6.5 && diem.All(item => item.DiemTB >= 5) && (diem.Sum(d => d.DiemTB) / 10) >= 6.5 || diemVan >= 6.5 && diem.All(item => item.DiemTB >= 5) && (diem.Sum(d => d.DiemTB) / 10) >= 6.5)
+                    {
+                        DanhSachKetQua.HocLuc = "Khá";
+                    }
+                    else if (diemToan >= 5 && diem.All(item => item.DiemTB >= 3.5) && (diem.Sum(d => d.DiemTB) / 10) >= 5 || diemVan >= 5 && diem.All(item => item.DiemTB >= 3.5) && (diem.Sum(d => d.DiemTB) / 10) >= 5)
+                    {
+                        DanhSachKetQua.HocLuc = "Trung Bình";
+                    }
+                    else if (diemToan >= 3.5 && diem.All(item => item.DiemTB >= 2) && (diem.Sum(d => d.DiemTB) / 10) >= 3.5 || diemVan >= 3.5 && diem.All(item => item.DiemTB >= 2) && (diem.Sum(d => d.DiemTB) / 10) >= 3.5)
+                    {
+                        DanhSachKetQua.HocLuc = "Yếu";
+                    }
+                    else if (diemToan >= 0.5 && diem.All(item => item.DiemTB >= 0) && (diem.Sum(d => d.DiemTB) / 10) >= 0 || diemVan >= 0.5 && diem.All(item => item.DiemTB >= 0) && (diem.Sum(d => d.DiemTB) / 10) >= 0)
+                    {
+                        DanhSachKetQua.HocLuc = "Kém";
+                    }
+                    else
+                    {
+                        DanhSachKetQua.HocLuc = "Chưa xét";
+                    }
+                    db.Entry(DanhSachKetQua).State = EntityState.Modified;
                 }
-                db.Entry(DanhSachKetQua).State = EntityState.Modified;
                 db.SaveChanges();
             }
             return PartialView(DanhSachKetQua);

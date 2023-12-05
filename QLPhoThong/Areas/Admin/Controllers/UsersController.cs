@@ -11,12 +11,10 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.UI;
 using PagedList;
-using QLPhoThong.App_Start;
 using QLPhoThong.Models;
 
 namespace QLPhoThong.Areas.Admin.Controllers
 {
-    [AdminAuthorize]
     public class UsersController : Controller
     {
         private diemhsEntities db = new diemhsEntities();

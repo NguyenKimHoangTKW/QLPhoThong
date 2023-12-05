@@ -9,11 +9,9 @@ using System.Web;
 using System.Web.Mvc;
 using QLPhoThong.Models;
 using OfficeOpenXml;
-using QLPhoThong.App_Start;
 
 namespace QLPhoThong.Areas.Admin.Controllers
 {
-    [AdminAuthorize]
     public class GiaoVienController : Controller
     {
         private diemhsEntities db = new diemhsEntities();

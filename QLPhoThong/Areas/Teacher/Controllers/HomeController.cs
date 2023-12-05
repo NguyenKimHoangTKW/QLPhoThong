@@ -7,7 +7,7 @@ using System.Web.Mvc;
 
 namespace QLPhoThong.Areas.Teacher.Controllers
 {
-
+    [TeacherAuthorize]
     public class HomeController : Controller
     {
         // GET: Teacher/Home
