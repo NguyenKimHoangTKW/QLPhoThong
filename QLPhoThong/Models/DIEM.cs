@@ -19,6 +19,7 @@ namespace QLPhoThong.Models
         public Nullable<double> Diem15p { get; set; }
         public Nullable<double> Diem1Tiet { get; set; }
         public Nullable<double> DiemThi { get; set; }
+        public string DanhGiaCuaGV { get; set; }
         public string MaHS { get; set; }
         public int MaMH { get; set; }
         public string MaHK { get; set; }
@@ -26,8 +27,8 @@ namespace QLPhoThong.Models
         public string MaNH { get; set; }
     
         public virtual HOCKY HOCKY { get; set; }
+        public virtual HOCSINH HOCSINH { get; set; }
         public virtual MONHOC MONHOC { get; set; }
         public virtual NAMHOC NAMHOC { get; set; }
-        public virtual HOCSINH HOCSINH { get; set; }
     }
 }

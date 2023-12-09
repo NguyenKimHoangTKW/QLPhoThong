@@ -1,0 +1,15 @@
+﻿@model QLPhoThong.Models.KETQUAHOCKY
+
+@using (Html.BeginForm("NhanXetHanhKiem", "Lop", FormMethod.Post, new { id = "diemForm" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.MaHS)
+    @Html.HiddenFor(model => model.TBMHK)
+    @Html.HiddenFor(model => model.MaHK)
+    @Html.HiddenFor(model => model.MaNH)
+    @Html.HiddenFor(model => model.Xeploai)
+    @Html.HiddenFor(model => model.HocLuc)
+    <td><input type="text" class="form-control" name="HanhKiem" value="@Model.HanhKiem" placeholder="Nhập hạnh kiểm ..." oninput="validateInput(this)"></td>
+    <button type="submit" class="btn btn-primary" id="btnLuu" style="display: none;">Lưu</button>
+
+}

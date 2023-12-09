@@ -1,0 +1,53 @@
+﻿@model QLPhoThong.Models.PHANCONG
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">Thông tin phân công</h4>
+        <div class="table-responsive">
+            <table class="product-info-table m-t-20">
+                <tbody>
+                    <tr>
+                        <td>Mã phân công:</td>
+                        <td class="text-dark font-weight-semibold">@Html.DisplayFor(model => model.MaPhanCong)</td>
+                    </tr>
+                    <tr>
+                        <td>Tên môn học:</td>
+                        <td>@Html.DisplayFor(model => model.MONHOC.TenMH)</td>
+                    </tr>
+                    <tr>
+                        <td>Tên giáo viên:</td>
+                        <td>@Html.DisplayFor(model => model.GIAOVIEN.TenGV)</td>
+                    </tr>
+                    <tr>
+                        <td>Tên lớp:</td>
+                        <td>@Html.DisplayFor(model => model.LOP.TenLop)</td>
+                    </tr>
+                    <!--không đụng-->
+                    <tr>
+                        <td>Status:</td>
+                        <td>
+                            <span class="badge badge-pill badge-cyan">In Stock</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+

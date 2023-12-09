@@ -1,0 +1,24 @@
+﻿@model IEnumerable<QLPhoThong.Models.BANGDIEMCANAM>
+<p style="text-align:center;">Bảng điểm cả năm</p>
+<div class="m-t-25">
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">Tên Môn Học</th>
+                    <th scope="col">Điểm TBM Cả năm</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <th scope="row">@item.MONHOC.TenMH</th>
+                        <td><b>@String.Format("{0:N1}", item.DiemTBCN)</b></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+

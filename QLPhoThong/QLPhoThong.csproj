@@ -1189,6 +1189,10 @@
     <Content Include="Areas\Teacher\Views\ThongTin\BangDiemCaNamPartial.cshtml" />
     <Content Include="Areas\Admin\FileExcel\BieuMauThemHocSinh.xlsx" />
     <Content Include="Areas\Teacher\Views\ThongTin\KetQuaCaNam.cshtml" />
+    <Content Include="Areas\Teacher\Views\Lop\DanhGiaHanhKiem.cshtml" />
+    <Content Include="Areas\Teacher\Views\Lop\DiemDanhbyDanhGiaHanhKiem.cshtml" />
+    <Content Include="Areas\Teacher\Views\Lop\XemNhanXetGVBMByDanhGiaHanhKiem.cshtml" />
+    <Content Include="Areas\Teacher\Views\Lop\NhanXetHanhKiem.cshtml" />
     <None Include="Scripts\jquery-3.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.1.js" />
     <Content Include="Scripts\jquery-3.7.1.min.js" />

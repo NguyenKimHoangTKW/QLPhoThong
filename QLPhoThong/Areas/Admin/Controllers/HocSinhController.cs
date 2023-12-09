@@ -208,7 +208,19 @@ namespace QLPhoThong.Areas.Admin.Controllers
                 return 0;
             }
         }
+        private string MapNamHoc(string tennamhoc)
+        {
+            var namhoc = db.NAMHOCs.FirstOrDefault(l => l.TenNH == tennamhoc);
 
+            if (namhoc != null)
+            {
+                return namhoc.MaNH;
+            }
+            else
+            {
+                return "";
+            }
+        }
         [HttpPost]
         public ActionResult UploadExcel(HttpPostedFileBase file)
         {
@@ -220,9 +232,9 @@ namespace QLPhoThong.Areas.Admin.Controllers
                     List<HOCKY> lstHocKy = LayHocKy();
                     List<HANHKIEM> lstHanhKiem = LayHanhKiem();
                     List<DIEMDANH> lstDiemDanh = LayDiemDanh();
-
                     using (var package = new ExcelPackage(file.InputStream))
                     {
+                        string namhoc = "";
                         ExcelWorksheet worksheet = package.Workbook.Worksheets[0];
                         List<HOCSINH> danhSachHocSinh = new List<HOCSINH>();
                         for (int row = 3; row <= worksheet.Dimension.End.Row; row++)
@@ -231,6 +243,8 @@ namespace QLPhoThong.Areas.Admin.Controllers
                             string maLop = MapTenLopToMaLop(tenLop);
                             string tenDanToc = worksheet.Cells[row, 10].Value.ToString();
                             int idDanToc = MapTenDanTocToIdDanToc(tenDanToc);
+                            string tennamhoc = worksheet.Cells[row, 12].Value.ToString();
+                            namhoc = MapNamHoc(tennamhoc);
                             HOCSINH hOCSINH = new HOCSINH
                             {
                                 HoVaTenDem = worksheet.Cells[row, 2].Value.ToString(),
@@ -258,17 +272,13 @@ namespace QLPhoThong.Areas.Admin.Controllers
                             dd.NghiCoPhep = 0;
                             dd.NghiKhongPhep = 0;
                             dd.BoTiet = 0;
-                            dd.MaNH = "NH23|24";
+                            dd.MaNH = namhoc;
                             db.DIEMDANHs.Add(dd);
                             db.SaveChanges();
 
                             KETQUACANAM kqcn = new KETQUACANAM();
                             kqcn.MaHS = hOCSINH.MaHS;
-                            kqcn.MaNH = "NH23|24";
-                            kqcn.HocLuc = "Chưa xét";
-                            kqcn.HanhKiem = "Chưa xét";
-                            kqcn.XepLoai = "Chưa xét";
-                            kqcn.TrangThai = "Chưa xét";
+                            kqcn.MaNH = namhoc;
                             db.KETQUACANAMs.Add(kqcn);
                             db.SaveChanges();
 
@@ -280,14 +290,14 @@ namespace QLPhoThong.Areas.Admin.Controllers
                                     diem.MaHS = hOCSINH.MaHS;
                                     diem.MaMH = item.MaMH;
                                     diem.MaHK = item2.MaHky;
-                                    diem.MaNH = "NH23|24";
+                                    diem.MaNH = namhoc;
                                     db.DIEMs.Add(diem);
 
                                 }
                                 BANGDIEMCANAM bdcn = new BANGDIEMCANAM();
                                 bdcn.MaHS = hOCSINH.MaHS;
                                 bdcn.MaMH = item.MaMH;
-                                bdcn.MaNH = "NH23|24";
+                                bdcn.MaNH = namhoc;
                                 db.BANGDIEMCANAMs.Add(bdcn);
                             }
                             db.SaveChanges();
@@ -296,10 +306,7 @@ namespace QLPhoThong.Areas.Admin.Controllers
                                 KETQUAHOCKY kqhk = new KETQUAHOCKY();
                                 kqhk.MaHS = hOCSINH.MaHS;
                                 kqhk.MaHK = item2.MaHky;
-                                kqhk.MaNH = "NH23|24";
-                                kqhk.Xeploai = "Chưa xét";
-                                kqhk.HocLuc = "Chưa xét";
-                                kqhk.HanhKiem = "Chưa xét";
+                                kqhk.MaNH = namhoc;
                                 db.KETQUAHOCKies.Add(kqhk);
 
                             }
@@ -309,7 +316,7 @@ namespace QLPhoThong.Areas.Admin.Controllers
                                 DANHGIAHANHKIEM dghk = new DANHGIAHANHKIEM();
                                 dghk.MaHS = hOCSINH.MaHS;
                                 dghk.MaHKiem = item.MaHKiem;
-                                dghk.MaNH = "NH23|24";
+                                dghk.MaNH = namhoc;
                                 db.DANHGIAHANHKIEMs.Add(dghk);
                             }
                             db.SaveChanges();

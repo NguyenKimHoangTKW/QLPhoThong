@@ -1,0 +1,43 @@
+﻿@model QLPhoThong.Models.HANHKIEM
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>HANHKIEM</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TenHKiem)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TenHKiem)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DiemToiDa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DiemToiDa)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DANHMUCHANHKIEM.TenDMHK)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DANHMUCHANHKIEM.TenDMHK)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.MaHKiem }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

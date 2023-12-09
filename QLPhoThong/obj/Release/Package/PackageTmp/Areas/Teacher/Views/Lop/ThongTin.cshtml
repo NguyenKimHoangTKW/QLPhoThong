@@ -1,0 +1,81 @@
+﻿@model QLPhoThong.Models.HOCSINH
+
+<div class="modal fade bd-example-modal-lg" id="ThongTin-@Model.MaHS" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="tab-pane fade show active" id="tab-account">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">THÔNG TIN HỌC SINH</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="media align-items-center">
+                            <div class="avatar avatar-image  m-h-10 m-r-15" style="height: 80px; width: 80px">
+                                <img src="~/Areas/Admin/Images/ImagesStudent/@Model.Thumb" />
+                            </div>
+                            <div class="m-l-20 m-r-20">
+                                <h5 class="m-b-5 font-size-18">ẢNH THẺ</h5>
+                                <p class="opacity-07 font-size-13 m-b-0">
+                                    Recommended Dimensions: <br>
+                                    120x120 Max fil size: 5MB
+                                </p>
+                            </div>
+                            <div>
+                                <button class="btn btn-tone btn-primary">Upload</button>
+                            </div>
+                        </div>
+                        <hr class="m-v-25">
+                        <form>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label class="font-weight-semibold" for="userName">Họ và tên đệm :</label>
+                                    <input type="text" class="form-control" id="userName" placeholder="User Name" value="@Model.HoVaTenDem" readonly="False">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label class="font-weight-semibold" for="userName">Tên:</label>
+                                    <input type="text" class="form-control" id="userName" placeholder="User Name" value="@Model.TenHS" readonly="False">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-4">
+                                    <label class="font-weight-semibold" for="phoneNumber">Số điện thoại :</label>
+                                    <input type="text" class="form-control" id="phoneNumber" placeholder="Phone Number" value="@Model.SDT" readonly="False">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label class="font-weight-semibold" for="dob">Ngày sinh :</label>
+                                    <input type="text" class="form-control" id="dob" placeholder="Date of Birth" value="@string.Format("{0:dd-MM-yyyy}",Model.NgaySinh)" readonly="False">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label class="font-weight-semibold" for="language">Dân tộc</label>
+                                    <input type="text" class="form-control" id="dob" placeholder="Date of Birth" value="@Model.DanToc.TenDanToc" readonly="False">
+                                </div>
+                            </div>
+                        </form>
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Địa chỉ</h4>
+                            </div>
+                            <div class="card-body">
+                                <form>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-12">
+                                            <label class="font-weight-semibold" for="fullAddress">Địa chỉ:</label>
+                                            <textarea type="text" class="form-control" id="fullAddress" readonly="False">@Model.DiaChi</textarea>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label class="font-weight-semibold" for="stateCity">Giới tính</label>
+                                            <input type="text" class="form-control" id="stateCity" value="@Model.GioiTinh" readonly="False">
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label class="font-weight-semibold" for="language">Trạng thái</label>
+                                            <input type="text" class="form-control" id="stateCity" value="@Model.TrangThai" readonly="False">
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+            </div>
+        </div>
+    </div>

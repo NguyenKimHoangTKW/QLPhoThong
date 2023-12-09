@@ -1,0 +1,80 @@
+﻿@model IEnumerable<QLPhoThong.Models.HOCSINH>
+@{
+    ViewBag.Title = "Danh sách học sinh của lớp";
+    Layout = "~/Areas/Teacher/Views/Shared/_TeacherLayout.cshtml";
+    int i = 0;
+}
+@{ var user = Session["User"] as QLPhoThong.Models.User;}
+@if (Model.Any())
+{
+    <div class="card" style="margin-top:75px;">
+        <div class="card-body">
+            <div style="text-align:center;">
+                <h4>Danh sách học sinh chủ nhiệm</h4>
+                <h4>Lớp : <b>@Model.FirstOrDefault().LOP.TenLop</b></h4>
+                <h4><b>@Model.FirstOrDefault().DIEMs.FirstOrDefault().NAMHOC.TenNH</b></h4>
+            </div>
+            <h4>Học sinh : <b style="color:red;">@ViewBag.TongHocSinh</b></h4>
+            <div class="m-t-25">
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th scope="col">STT</th>
+                                <th scope="col">Tên Học sinh</th>
+                                <th scope="col">Ngày sinh</th>
+                                <th scope="col">Giới tính</th>
+                                <th scope="col">Bảng điểm</th>
+                                <th scope="col">Hồ sơ</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                i++;
+                                <tr>
+                                    <th scope="row">#@i</th>
+                                    <td>@item.HoVaTenDem @item.TenHS</td>
+                                    <td>@string.Format("{0:dd-MM-yyyy}", item.NgaySinh)</td>
+                                    <td>@item.GioiTinh</td>
+                                    <td>
+                                        <a href="@Url.Action("XemBangDiemHocSinh", "Lop", new { id = item.MaHS , manh = item.DIEMs.FirstOrDefault().MaNH })">
+                                            <button class="btn btn-info btn-tone m-r-5">Xem chi tiết</button>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-info btn-tone m-r-5" data-toggle="modal" data-target="@("#ThongTin-" + item.MaHS)" data-url="@Url.Action("ThongTin", "Lop", new { id = item.MaHS })">Xem chi tiết</button>
+                                        @Html.Partial("ThongTin", item)
+                                    </td>
+                                </tr>
+                            }
+
+
+                        </tbody>
+                    </table>
+                    <a href="@Url.Action("LopChuNhiem", "Lop", new { id = user.MaGV })">Quay lại danh sách học sinh</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+}
+else
+{
+    <div class="card" style="margin-top: 75px;">
+        <div class="card-body">
+            <div style="text-align: center;">
+            </div>
+            <div class="m-t-25">
+                <div class="table-responsive">
+                    <table class="table table-hover e-commerce-table">
+                        <div class="alert alert-success" style="text-align:center">
+                            <b>LỚP NÀY HIỆN TẠI CHƯA CÓ HỌC SINH</b>
+                        </div>
+                    </table>
+                </div>
+                <a href="@Url.Action("LopChuNhiem", "Lop", new { id = user.MaGV })">Quay lại danh sách học sinh</a>
+            </div>
+        </div>
+    </div>
+}

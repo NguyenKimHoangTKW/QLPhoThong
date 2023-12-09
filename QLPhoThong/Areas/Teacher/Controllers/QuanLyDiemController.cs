@@ -60,14 +60,7 @@ namespace QLPhoThong.Areas.Teacher.Controllers
 
                 }
             }
-            if (Request.UrlReferrer != null)
-            {
-                return Redirect(Request.UrlReferrer.ToString());
-            }
-            else
-            {
-                return View();
-            }
+            return Json(JsonRequestBehavior.AllowGet);
         }
         [HttpGet]
         public ActionResult NhapDiem(int id, string manh)

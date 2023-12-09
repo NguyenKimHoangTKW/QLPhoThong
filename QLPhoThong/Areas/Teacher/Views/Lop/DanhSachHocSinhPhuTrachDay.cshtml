@@ -58,6 +58,7 @@
                                 <th scope="col">Điểm 1 tiết</th>
                                 <th scope="col">Điểm thi</th>
                                 <th scope="col">Điểm TBM</th>
+                                <th scope="col">Nhận xét</th>
                             </tr>
                         </thead>
 
@@ -69,9 +70,33 @@
                                     <th scope="row">#@i</th>
                                     <td>@item.HOCSINH.HoVaTenDem @item.HOCSINH.TenHS</td>
                                     <td>@item.HOCSINH.GioiTinh</td>
-                                    @Html.Action("NhapDiem", "QuanLyDiem", new { id = item.MaBD , manh = item.MaNH})
+                                    @using (Html.BeginForm("NhapDiem", "QuanLyDiem", FormMethod.Post, new { @class = "diemForm", id = "diemForm" + i }))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        <input type="hidden" name="MaBD" value="@item.MaBD" />
+                                        <input type="hidden" name="MaHS" value="@item.MaHS" />
+                                        <input type="hidden" name="MaMH" value="@item.MaMH" />
+                                        <input type="hidden" name="MaHK" value="@item.MaHK" />
+                                        <input type="hidden" name="MaNH" value="@item.MaNH" />
+
+                                        <td><input type="text" class="form-control" name="DiemMieng" value="@item.DiemMieng" placeholder="Nhập điểm ..." oninput="validateInput(this)"></td>
+                                        <td><input type="text" class="form-control" name="Diem15p" value="@item.Diem15p" placeholder="Nhập điểm ..." oninput="validateInput(this)"></td>
+                                        <td><input type="text" class="form-control" name="Diem1Tiet" value="@item.Diem1Tiet" placeholder="Nhập điểm ..." oninput="validateInput(this)"></td>
+                                        <td><input type="text" class="form-control" name="DiemThi" value="@item.DiemThi" placeholder="Nhập điểm ..." oninput="validateInput(this)"></td>
+                                        if (item.DiemTB < 5)
+                                        {
+                                            <th scope="row" style="text-align:center; color:red;">@String.Format("{0:N1}", item.DiemTB)</th>
+                                        }
+                                        else
+                                        {
+                                            <th scope="row" style="text-align:center;">@String.Format("{0:N1}", item.DiemTB)</th>
+                                        }
+                                        <td><input type="text" class="form-control" name="DanhGiaCuaGV" value="@item.DanhGiaCuaGV" placeholder="Nhập nhận xét ..."></td>
+                                        <button type="button" class="btn btn-primary btnLuu" style="display: none;">Lưu</button>
+                                    }
                                 </tr>
                             }
+
                         </tbody>
                     </table>
                 </div>
@@ -101,6 +126,8 @@ else
         </div>
     </div>
 }
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
 <script>
     $(document).ready(function () {
         $('#hocky').change(function () {
@@ -115,6 +142,50 @@ else
                 .replace("REPLACEME_MANH", manh)
             window.location.href = newUrl;
         });
+
+
     });
 
+    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('.diemForm').forEach(function (form) {
+            form.addEventListener('keyup', function (e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    form.querySelector('.btnLuu').click();
+                }
+            });
+        });
+
+        document.addEventListener('click', function (e) {
+            var diemForms = document.querySelectorAll('.diemForm');
+            diemForms.forEach(function (form) {
+                if (!form.contains(e.target)) {
+                    e.preventDefault();
+                    saveData(form);
+                }
+            });
+        });
+    });
+
+    function saveData(form) {
+        $.ajax({
+            url: $(form).attr('action'),
+            type: 'POST',
+            data: $(form).serialize(),
+            success: function (data) {
+                console.log('Dữ liệu đã được lưu thành công');
+            },
+            error: function (error) {
+                console.error('Lỗi khi lưu dữ liệu:', error);
+            }
+        });
+    }
+
+    function validateInput(input) {
+        var value = input.value;
+
+        if (isNaN(value) || parseFloat(value) < 0 || parseFloat(value) > 10) {
+            input.value = '';
+        }
+    }
 </script>

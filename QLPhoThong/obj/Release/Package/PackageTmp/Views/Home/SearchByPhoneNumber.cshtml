@@ -1,0 +1,65 @@
+﻿<div class="rightPanel">
+    <div class="panelContent">
+        <div class="sll-form-seach">
+            <div class="header_form ">Tra cứu kết quả học tập</div>
+            <div class="sll-box-search" style="overflow: hidden;">
+                <form method="post" action="@Url.Action("SearchByPhoneNumber", "Home")" id="form-search-solienlac">
+                    <input type="hidden" name="csrf" id="csrf" value="d63d290d43e65d740568db1ac3b4d98a" />
+                    <div class="input-group vnedu-search">
+                        <strong style="color:white">Nhập số điện thoại</strong>
+                        <input type="text" id="keyword" name="phoneNumber" class="form-control" placeholder="Nhập số điện thoại">
+                        
+                    </div>
+                    <div class="input-group vnedu-search">
+                        <strong style="color:white">Chọn năm học</strong>
+                        <select name="namhoc" class="form-control">
+                            <option value="NH23|24">Năm học 2023 - 2024</option>
+                        </select>
+                    </div>
+                    <span class="input-group-btn" style="text-align:right">
+                        <input type="submit" value="Tra cứu" id="submit" class="btn btn-success">
+                    </span>
+
+                </form>
+                <script type="text/javascript">
+                     var grecaptchaId;
+                     var onloadCallback = function () {
+                         grecaptchaId = grecaptcha.render('html_element', {
+                             'sitekey': '6LdpUDQlAAAAAPXLqchka1WLgJW6hKswpPSx8-IX',
+                         });
+                     };
+                     $('.vnedu-search .key')
+                         .keypress(function () {
+                             vneduSearchClose(this);
+                         })
+                         .focusout(function () {
+                             vneduSearchClose(this);
+                         })
+                         .blur(function () {
+                             vneduSearchClose(this);
+                         });
+
+                     function vneduSearchClose(obj) {
+                         if ($(obj).val() != '') {
+                             $('.vnedu-search .close').css('display', 'inline-block')
+                         } else {
+                             $('.vnedu-search .close').css('display', 'none');
+                         }
+                     }
+
+                     $("#keyword").focus(function () {
+                         $("#form-search-solienlac #submit").addClass('btn-info');
+                     });
+                     $("#keyword").blur(function () {
+                         $("#form-search-solienlac #submit").removeClass('btn-info');
+                     });
+                </script>
+                <div class="label" style="display: block; font-size: 11px; margin-top: 5px; text-align: right">
+                </div>
+            </div>
+            <div class="result-search">
+                <ul id="sll-list-item"></ul>
+            </div>
+        </div>
+    </div>
+</div>

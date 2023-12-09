@@ -1,0 +1,22 @@
+﻿@model QLPhoThong.Models.DIEMDANH
+<p style="text-align:center;">Điểm danh</p>
+<div class="m-t-25">
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">Nghỉ có phép</th>
+                    <th scope="col">Nghỉ không phép</th>
+                    <th scope="col">Bỏ tiết</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@Model.NghiCoPhep</td>
+                    <td>@Model.NghiKhongPhep</td>
+                    <td>@Model.BoTiet</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

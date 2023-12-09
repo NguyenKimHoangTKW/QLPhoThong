@@ -53,7 +53,57 @@ namespace QLPhoThong.Areas.Teacher.Controllers
             ViewBag.hocky = new SelectList(db.HOCKies, "MaHky", "TenHky");
             return View(danhSachLop);
         }
-       
+        public ActionResult DanhGiaHanhKiem( string idlop,string manh, string hocky = "1")
+        {
+            var danhSachLop = (from hs in db.HOCSINHs
+                               from kqhk in db.KETQUAHOCKies
+                               where hs.MaHS == kqhk.MaHS
+                               where hs.MaLop == idlop
+                               where kqhk.MaHK == hocky
+                               where kqhk.MaNH ==manh
+                               select kqhk
+                               ).OrderBy(l => l.HOCSINH.TenHS).ToList();
+
+            ViewBag.TongHocSinh = danhSachLop.Count;
+            ViewBag.hocky = new SelectList(db.HOCKies, "MaHky", "TenHky");
+            return View(danhSachLop);
+        }
+
+        public ActionResult DiemDanhbyDanhGiaHanhKiem(string mahs, string manh)
+        {
+            var danhSachLop = db.DIEMDANHs.Where(dd => dd.MaHS == mahs && dd.MaNH == manh).FirstOrDefault();
+            return PartialView(danhSachLop);
+        }
+        public ActionResult XemNhanXetGVBMByDanhGiaHanhKiem(string mahs, string manh, string hocky)
+        {
+            var danhSachLop = db.DIEMs.Where(dd => dd.MaHS == mahs && dd.MaNH == manh && dd.MaHK == hocky).ToList();
+            return PartialView("XemNhanXetGVBMByDanhGiaHanhKiem", danhSachLop);
+        }
+        [HttpGet]
+        public ActionResult NhanXetHanhKiem(string mahs, string manh, string hocky)
+        {
+            var danhSachLop = db.KETQUAHOCKies.Where(dd => dd.MaHS == mahs && dd.MaNH == manh && dd.MaHK == hocky).FirstOrDefault();
+            return PartialView("NhanXetHanhKiem", danhSachLop);
+        }
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public ActionResult NhanXetHanhKiem(KETQUAHOCKY kqhk)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(kqhk).State = EntityState.Modified;
+                db.SaveChanges();          
+            }
+            if (Request.UrlReferrer != null)
+            {
+                return Redirect(Request.UrlReferrer.ToString());
+            }
+            else
+            {
+                return View();
+            }
+        }
         public ActionResult XemBangDiemHocSinh(string id, string manh)
         {
             var danhSachLop = db.DIEMs.FirstOrDefault(pc => pc.MaHS == id && pc.MaNH == manh);

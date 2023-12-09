@@ -1,0 +1,21 @@
+﻿@model QLPhoThong.Models.DIEM
+@{
+    ViewBag.Title = "BangDiem";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Areas/Style/assets/css/app.min.css" rel="stylesheet" />
+<div class="card">
+    <div class="card-body">
+        <div style="text-align:center;">
+            <h4>Bảng điểm của học sinh <b>@Model.HOCSINH.HoVaTenDem @Model.HOCSINH.TenHS</b></h4>
+            <h4><b>@Model.NAMHOC.TenNH</b></h4>
+        </div>
+        @Html.Action("BangdiemHK1Partial", "Home", new { id = Model.MaHS, manh = Model.MaNH })
+        @Html.Action("KetQuaHK1Partial", "Home", new { id = Model.MaHS, manh = Model.MaNH })
+        @Html.Action("BangdiemHK2Partial", "Home", new { id = Model.MaHS, manh = Model.MaNH })
+        @Html.Action("KetQuaHK2Partial", "Home", new { id = Model.MaHS, manh = Model.MaNH })
+        @Html.Action("BangdiemCaNam", "Home", new { id = Model.MaHS, manh = Model.MaNH })
+        @Html.Action("KetQuaCaNam", "Home", new { id = Model.MaHS, manh = Model.MaNH })
+        @Html.Action("DiemDanhPartial", "Home", new { id = Model.MaHS, manh = Model.MaNH })
+    </div>
+</div>

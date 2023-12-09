@@ -1,0 +1,32 @@
+﻿@model IEnumerable<QLPhoThong.Models.DIEM>
+<p style="text-align:center;">Bảng điểm @Model.FirstOrDefault().HOCKY.TenHky</p>
+<div class="m-t-25">
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">Tên môn học</th>
+                    <th scope="col">Điểm miệng</th>
+                    <th scope="col">Điểm 15 phút</th>
+                    <th scope="col">Điểm 1 tiết</th>
+                    <th scope="col">Điểm Thi</th>
+                    <th scope="col">Điểm TBM</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach(var item in Model)
+            {
+                <tr>
+                    <th scope="row">@item.MONHOC.TenMH</th>
+                    <td>@item.DiemMieng</td>
+                    <td>@item.Diem15p</td>
+                    <td>@item.Diem1Tiet</td>
+                    <td>@item.DiemThi</td>
+                    <td><b>@item.DiemTB</b></td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+</div>
+

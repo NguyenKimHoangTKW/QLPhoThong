@@ -1,0 +1,206 @@
+﻿@model IEnumerable<QLPhoThong.Models.HOCSINH>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    int i = 0;
+
+}
+<div class="card" style="margin-top:60px">
+    <div class="card-body">
+        <div class="row m-b-30">
+            <div class="col-lg-8">
+                <div class="d-md-flex">
+                    <div class="m-b-10 m-r-15">
+                        <h4 for="file">Lọc dữ liệu theo lớp</h4>
+                        <select id="classFilter" class="custom-select" style="min-width: 180px;">
+                            <option value="all" selected>Tất cả</option>
+                            @foreach (var item in ViewBag.MaLop)
+                            {
+                                <option value="@item.Text">Lớp @item.Text</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="m-b-10">
+                        <h4 for="file">Tìm kiếm học sinh</h4>
+                        <input type="text" id="searchInput" placeholder="Nhập tên học sinh cần tìm ..." class="form-control" style="width: 230px;" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 text-right">
+                <button class="btn btn-primary" data-toggle="modal" data-target="#ThemHocSinh" data-url="@Url.Action("Create","HocSinh")">
+                    <i class="anticon anticon-plus-circle m-r-5"></i>
+                    <span>Thêm mới học sinh</span>
+                </button>
+                @Html.Partial("Create", new QLPhoThong.Models.HOCSINH())
+                @using (Html.BeginForm("UploadExcel", "HocSinh", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    <div style="margin-top:20px">
+                        <h4 for="file">Thêm học sinh bằng Excel</h4>
+                        <div class="border-top-0">
+                            <div style="margin-right:50px">
+                                <label for="file">Chọn file Excel:</label>
+                                <input type="file" name="file" id="file" />
+                            </div>
+                            <input type="submit" value="Tải File lên" class="btn btn-default" style="margin-top:-55px" />
+                        </div>
+                    </div>
+                }
+                <a href="@Url.Action("DownloadFile", "HocSinh")">Tải xuống file</a>
+
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-hover e-commerce-table">
+                <thead>
+                    <tr>
+                        <th>STT</th>
+                        <th>Họ và Tên</th>
+                        <th>Lớp</th>
+                        <th>Ngày sinh</th>
+                        <th>Giới tính</th>
+                        <th>Số điện thoại</th>
+                        <th>Địa chỉ</th>
+                        <th>Dân tộc</th>
+                        <th>Trạng thái học</th>
+                        <th>#</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        i++;
+                        <tr>
+                            <td>
+                                #@i
+                            </td>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <img class="img-fluid rounded" src="~/Areas/Admin/Images/ImagesStudent/@item.Thumb" style="max-width: 60px" alt="">
+                                    <h6 class="m-b-0 m-l-10">@item.HoVaTenDem @item.TenHS</h6>
+                                </div>
+                            </td>
+                            <td>@item.LOP.TenLop</td>
+                            <td>@string.Format("{0:dd-MM-yyyy}", item.NgaySinh)</td>
+                            <td>@item.GioiTinh</td>
+                            <td>@item.SDT</td>
+                            <td>@Html.Raw(item.DiaChi)</td>
+                            <td>@item.DanToc.TenDanToc</td>
+                            <td>@item.TrangThai</td>
+                            <td class="text-right">
+                                <button class="btn btn-icon btn-hover btn-sm btn-rounded pull-right" data-toggle="modal" data-target="@("#Edit-"+item.MaHS)" data-url="@Url.Action("Edit","HocSinh", new {id = item.MaHS})">
+                                    <i class="anticon anticon-edit"></i>
+                                </button>
+                                @Html.Partial("Edit", item)
+                            <a href="@Url.Action("Delete","HocSinh", new {id = item.MaHS})">
+                                <button class="btn btn-icon btn-hover btn-sm btn-rounded">
+                                    <i class="anticon anticon-delete"></i>
+                                </button>
+                            </a>
+                            </td>
+                        </tr>
+                    }
+
+
+                </tbody>
+            </table>
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-end" id="pagination">
+                    
+                </ul>
+            </nav>
+        </div>
+
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+<script>
+    var itemsPerPage = 10; // Số lượng mục trên mỗi trang
+    var currentPage = 1; // Trang hiện tại
+
+    function paginate() {
+        var visibleRows = $('.e-commerce-table tbody tr:visible');
+        var totalItems = visibleRows.length;
+        var totalPages = Math.ceil(totalItems / itemsPerPage);
+
+        $('#pagination').empty();
+
+        // Thêm nút Previous
+        $('#pagination').append('<li class="page-item disabled"><a class="page-link" href="#" tabindex="-1">Previous</a></li>');
+
+        // Thêm các nút trang
+        for (var i = 1; i <= totalPages; i++) {
+            $('#pagination').append('<li class="page-item"><a class="page-link" href="#" data-page="' + i + '">' + i + '</a></li>');
+        }
+
+        // Thêm nút Next
+        $('#pagination').append('<li class="page-item"><a class="page-link" href="#">Next</a></li>');
+
+        $('#pagination li').on('click', function () {
+            var clickedPage = $(this).find('a').data('page');
+
+            if (clickedPage === 'Previous' && currentPage > 1) {
+                currentPage--;
+            } else if (clickedPage === 'Next' && currentPage < totalPages) {
+                currentPage++;
+            } else if (typeof clickedPage === 'number') {
+                currentPage = clickedPage;
+            }
+
+            updatePagination();
+        });
+
+        updatePagination();
+    }
+
+    function updatePagination() {
+        var startIndex = (currentPage - 1) * itemsPerPage;
+        var endIndex = startIndex + itemsPerPage;
+
+        $('.e-commerce-table tbody tr:visible').hide().slice(startIndex, endIndex).show();
+
+        $('#pagination li').removeClass('active');
+        $('#pagination li').eq(currentPage).addClass('active');
+
+        if (currentPage === 1) {
+            $('#pagination li:first-child').addClass('disabled');
+        } else {
+            $('#pagination li:first-child').removeClass('disabled');
+        }
+
+        if (currentPage === Math.ceil($('.e-commerce-table tbody tr:visible').length / itemsPerPage)) {
+            $('#pagination li:last-child').addClass('disabled');
+        } else {
+            $('#pagination li:last-child').removeClass('disabled');
+        }
+    }
+
+    function searchAndFilter() {
+        var searchText = $('#searchInput').val().toLowerCase();
+        var selectedClass = $('#classFilter').val().toLowerCase();
+
+        $('.e-commerce-table tbody tr').each(function () {
+            var rowData = $(this).text().toLowerCase();
+            var rowClass = $(this).find('td:nth-child(3)').text().toLowerCase();
+
+            var nameCondition = rowData.includes(searchText);
+            var classCondition = selectedClass === 'all' || rowClass.includes(selectedClass);
+
+            // Hiển thị dòng dữ liệu nếu thỏa cả hai điều kiện
+            var isVisible = nameCondition && classCondition;
+            $(this).toggle(isVisible);
+        });
+
+        currentPage = 1; // Đặt lại trang về 1 sau khi thay đổi dữ liệu
+
+        paginate(); // Cập nhật phân trang sau khi tìm kiếm và lọc
+    }
+
+    $(document).ready(function () {
+        paginate(); // Thực hiện phân trang khi trang được tải
+
+        $('#searchInput, #classFilter').on('input', function () {
+            searchAndFilter();
+        });
+    });
+</script>

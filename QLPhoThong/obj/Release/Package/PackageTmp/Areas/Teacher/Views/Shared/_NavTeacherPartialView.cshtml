@@ -1,0 +1,33 @@
+﻿<div class="side-nav">
+    <div class="side-nav-inner">
+        <ul class="side-nav-menu scrollable">
+
+
+            @{ var user = Session["User"] as QLPhoThong.Models.User;}
+           
+                    <li class="nav-item dropdown">
+                        <a class="dropdown-toggle" href="@Url.Action("LopChuNhiem","Lop", new {id = user.MaGV})">
+                            <span class="icon-holder">
+                                <i class="anticon anticon-solution"></i>
+                            </span>
+                            <span class="title">Lớp chủ nhiệm</span>
+                            <span class="arrow">
+                                <i class="arrow-icon"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="dropdown-toggle" href="@Url.Action("Index","Lop", new {id = user.MaGV})">
+                            <span class="icon-holder">
+                                <i class="anticon anticon-team"></i>
+                            </span>
+                            <span class="title">Lớp phụ trách dạy</span>
+                            <span class="arrow">
+                                <i class="arrow-icon"></i>
+                            </span>
+                        </a>
+                   
+                    </li>
+        </ul>
+    </div>
+</div>

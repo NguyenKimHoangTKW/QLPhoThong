@@ -1,0 +1,106 @@
+﻿@model QLPhoThong.Models.HOCSINH
+
+
+@using (Html.BeginForm("Create", "HocSinh", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="modal fade bd-example-modal-lg" id="ThemHocSinh" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title" id="exampleModalLongTitle">THÊM MỚI HỌC SINH</h2>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="form-validation">
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label control-label">Họ học sinh</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" name="HoVaTenDem" placeholder="Nhập họ và tên đệm ..." required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label control-label">Tên học sinh</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" name="TenHS" placeholder="Nhập tên ..." required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label control-label">Ngày sinh</label>
+                            <div class="col-sm-10">
+                                <div class="input-affix m-b-10">
+                                    <i class="prefix-icon anticon anticon-calendar"></i>
+                                    <input type="text" class="form-control datepicker-input" name="NgaySinh" placeholder="Pick a date" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label control-label">Số điện thoại</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" name="SoDienThoai" placeholder="Nhập số điện thoại ..." required oninput="validateInput(this)">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label control-label">Giới tính</label>
+                            <div class="col-sm-10">
+                                <input id="radio1" name="GioiTinh" type="radio" checked="" value="Nam">
+                                <label for="radio1">Nam</label>
+                                <input id="radio1" name="GioiTinh" type="radio" value="Nữ">
+                                <label for="radio1">Nữ</label>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label control-label">Địa chỉ</label>
+                            <div class="col-sm-10">
+                                <textarea class="form-control" name="Diachi"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label control-label">Trạng thái</label>
+                            <div class="col-sm-10">
+                                <select class="form-control" id="TrangThai" name="TrangThai">
+                                    <option value="Đang Học">Đang Học</option>
+                                    <option value="Chuyển Trường">Chuyển Trường</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label control-label">Chọn lớp</label>
+                            <div class="col-sm-10">
+                                @Html.DropDownListFor(model => model.MaLop, ViewBag.MaLop as SelectList, "- Chọn Lớp -", new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label control-label">Dân tộc</label>
+                            <div class="col-sm-10">
+                                @Html.DropDownListFor(model => model.idDanToc, ViewBag.idDanToc as SelectList, "- Chọn Dân tộc -", new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label control-label">Ảnh đại diện</label>
+                            <div class="col-sm-10">
+                                <input type="file" class="form-control" name="Thumb" required>
+                            </div>
+                        </div>
+                        <div class="form-group text-right">
+                            <button class="btn btn-primary">Lưu</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<script>
+    function validateInput(input) {
+        var value = input.value;
+        if (!/^[0-9]+$/.test(value) || value.length > 12) {
+            input.value = input.value.slice(0, 12);
+        }
+    }
+</script>

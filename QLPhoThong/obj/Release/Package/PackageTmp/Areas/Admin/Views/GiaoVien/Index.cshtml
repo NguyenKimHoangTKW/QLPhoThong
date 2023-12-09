@@ -1,0 +1,104 @@
+﻿@model IEnumerable<QLPhoThong.Models.GIAOVIEN>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    int i = 0;
+}
+
+<h2>Index</h2>
+
+
+
+<p style="margin-top:75px;">
+    <button data-toggle="modal" data-target="#ThemGiaoVien" data-url="@Url.Action("Create","GiaoVien")">Thêm mới giáo viên</button>
+    @Html.Partial("Create", new QLPhoThong.Models.GIAOVIEN())
+</p>
+
+<table class="table">
+    <tr>
+        <th>
+            STT
+        </th>
+        <th>
+            Mã Giáo Viên
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TenGV)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NgaySinh)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SDT)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Diachi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GioiTinh)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Gmail)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TrangThai)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Thumb)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.DanToc.TenDanToc)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        i++;
+        <tr>
+            <td>
+                @i
+            </td>
+            <td>
+                @item.MaGV
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TenGV)
+            </td>
+            <td>
+                @string.Format("{0:dd-MM-yyyy}", item.NgaySinh)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SDT)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Diachi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GioiTinh)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Gmail)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TrangThai)
+            </td>
+            <td>
+                <img src="~/Areas/Admin/Images/ImagesTeacher/@item.Thumb" width="80px" height="50px" />
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.DanToc.TenDanToc)
+            </td>
+            <td>
+                <button data-toggle="modal" data-target="@("#Edit-"+item.MaGV)" data-url="@Url.Action("Edit","GiaoVien", new {id = item.MaGV})">Sửa giáo viên</button>
+                @Html.Partial("Edit", item) |
+                @Html.ActionLink("Details", "Details", new { id = item.MaGV }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.MaGV })
+            </td>
+        </tr>
+    }
+
+</table>

@@ -1,0 +1,27 @@
+﻿@model QLPhoThong.Models.DIEM
+@{
+    ViewBag.Title = "Bảng điểm học sinh";
+    Layout = "~/Areas/Teacher/Views/Shared/_TeacherLayout.cshtml";
+}
+
+<div class="card" style=" margin-top:75px">
+    <div style="text-align:center">
+        <h4>Bảng điểm của học sinh : <b>@Model.HOCSINH.HoVaTenDem @Model.HOCSINH.TenHS</b></h4>
+        <h4>Niên khóa : <b>@Model.NAMHOC.TenNH</b></h4>
+    </div>
+    <div style="text-align:right;">
+        <button class="btn btn-info btn-tone m-r-5" data-toggle="modal" data-target="@("#DiemDanh-"+Model.MaHS)" data-url="@Url.Action("SendSMSPartial","Lop", new {id = Model.MaHS, manh = Model.MaNH})" style="width:180px;">Gửi SMS Điểm danh</button>
+    </div>
+
+    @Html.Action("BangdiemHK1Partial", "ThongTin", new { id = Model.MaHS, manh = Model.MaNH })
+    @Html.Action("BangdiemHK2Partial", "ThongTin", new { id = Model.MaHS, manh = Model.MaNH })
+    @Html.Action("SendSMSPartial", "Lop", new { id = Model.MaHS, manh = Model.MaNH })
+    @Html.Action("BangDiemCaNamPartial", "ThongTin", new { id = Model.MaHS, manh = Model.MaNH })
+    @Html.Action("KetQuaCaNam", "ThongTin", new { id = Model.MaHS, manh = Model.MaNH })
+    @Html.Action("DiemDanhPartial", "ThongTin", new { id = Model.MaHS, manh = Model.MaNH })
+    <a href="@Url.Action("DanhSachHocSinh","Lop", new {id = Model.HOCSINH.MaLop, manh = Model.MaNH})">Quay lại danh sách học sinh</a>
+</div>
+
+
+
+

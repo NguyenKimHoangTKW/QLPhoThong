@@ -1,0 +1,24 @@
+﻿@model IEnumerable<QLPhoThong.Models.DIEM>
+
+<div class="modal fade" id="XemNhanXet-@Model.FirstOrDefault().MaHS" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">ĐÁNH GIÁ, NHẬN XÉT CỦA GVBM</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                 @foreach (var item in Model)
+                 {
+                     <p style="font-size:15px">@item.MONHOC.TenMH</p>
+                     <input type="text" value="@item.DanhGiaCuaGV" readonly="False" class="form-control" style="font-weight:bold"/>
+                 }
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">ĐÓNG</button>
+            </div>
+        </div>
+    </div>
+</div>

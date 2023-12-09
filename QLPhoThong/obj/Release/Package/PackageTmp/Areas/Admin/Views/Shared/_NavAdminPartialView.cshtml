@@ -1,0 +1,125 @@
+﻿<div class="side-nav">
+    <div class="side-nav-inner">
+        <ul class="side-nav-menu scrollable">
+            <li class="nav-item dropdown open">
+                <a class="dropdown-toggle" href="javascript:void(0);">
+                    <span class="icon-holder">
+                        <i class="anticon anticon-dashboard"></i>
+                    </span>
+                    <span class="title">Dashboard</span>
+                </a>
+
+            </li>
+            <li class="nav-item dropdown">
+                <a class="dropdown-toggle" href="@Url.Action("Index", "GiaoVien")">
+                    <span class="icon-holder">
+                        <i class="anticon anticon-solution"></i>
+                    </span>
+                    <span class="title">Quản lý giáo viên</span>
+                </a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="dropdown-toggle" href="javascript:void(0);">
+                    <span class="icon-holder">
+                        <i class="anticon anticon-team"></i>
+                    </span>
+                    <span class="title">Quản lý học sinh</span>
+                    <span class="arrow">
+                        <i class="arrow-icon"></i>
+                    </span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a href="@Url.Action("Index", "HocSinh")">Danh sách học sinh</a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("ChuyenLopHocSinh", "HocSinh")">Chuyển lớp cho học sinh</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="dropdown-toggle" href="@Url.Action("Index", "MonHoc")">
+                    <span class="icon-holder">
+                        <i class="anticon anticon-hdd"></i>
+                    </span>
+                    <span class="title">Quản lý môn học</span>
+                </a>
+            </li>
+
+            <li class="nav-item dropdown">
+                <a class="dropdown-toggle" href="@Url.Action("Index", "Lop")">
+                    <span class="icon-holder">
+                        <i class="anticon anticon-table"></i>
+                    </span>
+                    <span class="title">Quản lý lớp</span>
+              
+                </a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="dropdown-toggle" href="@Url.Action("Index", "LopChuNhiem")">
+                    <span class="icon-holder">
+                        <i class="anticon anticon-wallet"></i>
+                    </span>
+                    <span class="title">Quản lý Chủ nhiệm lớp</span>
+         
+                </a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="dropdown-toggle" href="@Url.Action("Index", "PhanCong")">
+                    <span class="icon-holder">
+                        <i class="anticon anticon-usergroup-add"></i>
+                    </span>
+                    <span class="title">Quản lý phân công</span>
+                </a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="dropdown-toggle" href="@Url.Action("Index", "HocKy")">
+                    <span class="icon-holder">
+                        <i class="fas fa-user"></i>
+                    </span>
+                    <span class="title">Quản lý học kỳ</span>
+                </a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="dropdown-toggle" href="javascript:void(0);">
+                    <span class="icon-holder">
+                        <i class="fas fa-user-cog"></i>
+                    </span>
+                    <span class="title">Quản lý Users</span>
+                    <span class="arrow">
+                        <i class="arrow-icon"></i>
+                    </span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a href="@Url.Action("Index", "Users")">Thông tin Users</a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Index", "TitleUsers")">Phân quyền Users</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="nav-item dropdown">
+                <a class="dropdown-toggle" href="javascript:void(0);">
+                    <span class="icon-holder">
+                        <i class="fas fa-user-cog"></i>
+                    </span>
+                    <span class="title">Quản lý Hạnh Kiểm</span>
+                    <span class="arrow">
+                        <i class="arrow-icon"></i>
+                    </span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a href="@Url.Action("Index", "DanhMucHanhKiem")">Danh mục hạnh kiểm</a>
+                    </li>
+                    <li>
+                        <a href="/">Phân quyền Users</a>
+                    </li>
+                </ul>
+            </li>
+
+        </ul>
+    </div>
+</div>

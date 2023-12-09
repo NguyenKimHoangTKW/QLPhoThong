@@ -1,0 +1,66 @@
+﻿@model IEnumerable<QLPhoThong.Models.DIEM>
+@{
+    ViewBag.Title = "Bảng điểm học sinh phụ trách dạy";
+    Layout = "~/Areas/Teacher/Views/Shared/_TeacherLayout.cshtml";
+}
+   
+<div class="card" style="margin-top: 75px;">
+    @if (Model.Any())
+    {
+        <div style="text-align: center;">
+            <h4>Bảng điểm của học sinh : <b>@Model.FirstOrDefault().HOCSINH.TenHS</b></h4>
+            <h4>Môn Học : <b>@Model.FirstOrDefault().MONHOC.TenMH</b></h4>
+            <h4>Niên khóa : <b>@Model.FirstOrDefault().NAMHOC.TenNH</b></h4>
+        </div>
+        <div class="card-body">
+            @foreach (var item in Model)
+            {
+                <h4>Bảng điểm @item.HOCKY.TenHky</h4>
+                <div class="m-t-25">
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Điểm miệng</th>
+                                    <th scope="col">Điểm 15 phút</th>
+                                    <th scope="col">Điểm 1 tiết</th>
+                                    <th scope="col">Điểm Thi</th>
+                                    <th scope="col">Điểm TBM</th>
+                                    <th scope="col" rowspan="1">Nhập điểm</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th>@item.DiemMieng</th>
+                                    <th>@item.Diem15p</th>
+                                    <th>@item.Diem1Tiet</th>
+                                    <th>@item.DiemThi</th>
+                                    <th>@String.Format("{0:N1}", item.DiemTB)</th>
+                                    <th>
+                                        <button class="btn btn-warning" data-toggle="modal" data-target="@("#EditDiem-"+item.MaBD)" data-url="@Url.Action("NhapDiem","QuanLyDiem", new {id = item.MaBD})">Nhập Điểm</button>
+                                        @Html.Partial("NhapDiem", item)
+                                    </th>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            }
+        </div>
+        
+
+    }
+
+<script>
+    @if (TempData["SweetAlertMessage"] != null)
+    {
+        <text>
+        Swal.fire({
+            title: '@TempData["SweetAlertMessage"]',
+            icon: '@TempData["SweetAlertType"]',
+            showConfirmButton: false,
+            timer: 2000 
+        });
+        </text>
+    }
+</script>   
