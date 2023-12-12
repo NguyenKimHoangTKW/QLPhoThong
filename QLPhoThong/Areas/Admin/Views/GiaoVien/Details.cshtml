@@ -11,88 +11,78 @@
     <h4>GIAOVIEN</h4>
     <hr />
     <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.TenGV)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TenGV)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.NgaySinh)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.NgaySinh)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.SDT)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.SDT)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Diachi)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Diachi)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.GioiTinh)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.GioiTinh)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Gmail)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Gmail)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TrangThai)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TrangThai)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Thumb)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Thumb)
-        </dd>
-
-        
-
-        <dt>
-            @Html.DisplayNameFor(model => model.MONHOC.TenMH)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.MONHOC.TenMH)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DanToc.TenDanToc)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DanToc.TenDanToc)
-        </dd>
-
+        <div class="card" style=" margin-top: 75px;">
+            <div class="card-body">
+                <h4 class="card-title">XÓA GIÁO VIÊN</h4>
+                <h2 style="color:red">@ViewBag.ThongBao</h2>
+                <div class="table-responsive">
+                    <table class="product-info-table m-t-20">
+                        <tbody>
+                            <tr>
+                                <td>Tên giáo viên:</td>
+                                <td>
+                                    @Html.DisplayFor(model => model.TenGV)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Ngày sinh:</td>
+                                <td>
+                                    @Html.DisplayFor(model => model.NgaySinh)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Số điện thoại:</td>
+                                <td>
+                                    @Html.DisplayFor(model => model.SDT)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Địa chỉ:</td>
+                                <td>
+                                    @Html.DisplayFor(model => model.Diachi)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Giới tính:</td>
+                                <td>
+                                    @Html.DisplayFor(model => model.GioiTinh)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Gmail:</td>
+                                <td>
+                                    @Html.DisplayFor(model => model.Gmail)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Trạng thái:</td>
+                                <td>
+                                    @Html.DisplayFor(model => model.TrangThai)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Hình ảnh:</td>
+                                <td>
+                                    <img src="~/Areas/Admin/Images/ImagesTeacher/@Model.Thumb" style="max-width: 60px" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Tên học sinh:</td>
+                                <td>
+                                    @Html.DisplayFor(model => model.TenGV)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Tên dân tộc:</td>
+                                <td>
+                                    @Html.DisplayFor(model => model.DanToc.TenDanToc)
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </dl>
 </div>
 <p>

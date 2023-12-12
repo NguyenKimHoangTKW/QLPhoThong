@@ -4,94 +4,85 @@
     ViewBag.Title = "Delete";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
-
-<h2>Delete</h2>
-
-<h3>Are you sure you want to delete this?</h3>
 <div>
-    <h4>HOCSINH</h4>
-    <hr />
     <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.TenHS)
-        </dt>
+        <div class="card" style=" margin-top: 75px;">
+            <div class="card-body">
+                <h4 class="card-title">XÓA HỌC SINH</h4>
+                <h2 style="color:red">@ViewBag.ThongBao</h2>
+                <div class="table-responsive">
+                    <table class="product-info-table m-t-20">
+                        <tbody>
+                            <tr>
+                                <td>Tên học sinh:</td>
+                                <td>
+                                    @Html.DisplayFor(model => model.TenHS)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Ngày sinh:</td>
+                                <td>
+                                    @Html.DisplayFor(model => model.NgaySinh)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Địa chỉ:</td>
+                                <td>
+                                    @Html.DisplayFor(model => model.DiaChi)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Số điện thoại:</td>
+                                <td>
+                                    @Html.DisplayFor(model => model.SDT)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Giới tính:</td>
+                                <td>
+                                    @Html.DisplayFor(model => model.GioiTinh)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Trạng thái:</td>
+                                <td>
+                                    @Html.DisplayFor(model => model.TrangThai)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Hình ảnh:</td>
+                                <td>
+                                    <img src="~/Areas/Admin/Images/ImagesStudent/@Model.Thumb" style="max-width: 60px" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Dân tộc:</td>
+                                <td>
+                                    @Html.DisplayFor(model => model.DanToc.TenDanToc)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Tên lớp:</td>
+                                <td>
+                                    @Html.DisplayFor(model => model.LOP.TenLop)
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.TenHS)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.NgaySinh)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.NgaySinh)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DiaChi)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DiaChi)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.SDT)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.SDT)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.GioiTinh)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.GioiTinh)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TrangThai)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TrangThai)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Thumb)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Thumb)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DanToc.TenDanToc)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DanToc.TenDanToc)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.LOP.TenLop)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.LOP.TenLop)
-        </dd>
-
-    </dl>
+</dl>
 
     @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            <input type="submit" value="Delete" class="btn btn-danger btn-tone m-r-5" />
+            <button class="btn btn-danger btn-tone m-r-5">
+                @Html.ActionLink("Back to List", "Index")
+            </button>
         </div>
     }
 </div>
