@@ -18,7 +18,6 @@ namespace QLPhoThong.Models
         public Nullable<double> TBMHK { get; set; }
         public string MaHK { get; set; }
         public string MaNH { get; set; }
-        public string Xeploai { get; set; }
         public string HocLuc { get; set; }
         public string HanhKiem { get; set; }
     

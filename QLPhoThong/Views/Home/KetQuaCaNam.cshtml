@@ -18,19 +18,48 @@
                 </tr>
                 <tr>
                     <th scope="col">Học lực cả năm</th>
-                    <th scope="col">@Model.HocLuc</th>
+                    @if (Model.HocLuc == null)
+                    {
+                        <th scope="col">Chưa xét</th>
+                    }
+                    else
+                    {
+                        <th scope="col">@Model.HocLuc</th>
+                    }
+
                 </tr>
                 <tr>
                     <th scope="col">Hạnh kiểm cả năm</th>
-                    <th scope="col">@Model.HanhKiem</th>
+                    @if (Model.HanhKiem == null)
+                    {
+                        <th scope="col">Chưa xét</th>
+                    }
+                    else
+                    {
+                        <th scope="col">@Model.HanhKiem</th>
+                    }
                 </tr>
                 <tr>
                     <th scope="col">Xếp loại cả năm</th>
-                    <th scope="col">@Model.XepLoai</th>
+                    @if (Model.XepLoai == null)
+                    {
+                        <th scope="col">Chưa xét</th>
+                    }
+                    else
+                    {
+                        <th scope="col">@Model.XepLoai</th>
+                    }
                 </tr>
                 <tr>
                     <th scope="col">Kết quả cả năm</th>
-                    <th scope="col">@Model.TrangThai</th>
+                    @if (Model.TrangThai == null)
+                    {
+                        <th scope="col">Chưa xét</th>
+                    }
+                    else
+                    {
+                        <th scope="col">@Model.TrangThai</th>
+                    }
                 </tr>
             </thead>
         </table>

@@ -1,4 +1,5 @@
-﻿using QLPhoThong.Models;
+﻿using QLPhoThong.App_Start;
+using QLPhoThong.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -8,7 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 namespace QLPhoThong.Areas.Teacher.Controllers
 {
-
+    [TeacherAuthorize]
     public class ThongTinController : Controller
     {
         private diemhsEntities db = new diemhsEntities();
@@ -157,18 +158,22 @@ namespace QLPhoThong.Areas.Teacher.Controllers
 
         public ActionResult KetQuaCaNam(string id, string manh)
         {
+
             KETQUACANAM DanhSachKetQua = db.KETQUACANAMs.Where(pc => pc.MaHS == id && pc.MaNH == manh).FirstOrDefault();
             List<BANGDIEMCANAM> diem = db.BANGDIEMCANAMs.Where(pc => pc.MaHS == id && pc.MaNH == manh).ToList();
+            List<KETQUAHOCKY> ketquahocky = db.KETQUAHOCKies.Where(pc => pc.MaHS == id && pc.MaNH == manh).ToList();
             if (ModelState.IsValid)
             {
                 if (diem.Any(item => item.DiemTBCN == null))
                 {
                     DanhSachKetQua.TBMCN = null;
-                    DanhSachKetQua.HocLuc = "Chưa xét";
+                    DanhSachKetQua.HocLuc = null;
                 }
                 else
                 {
-                    float diemtbm = (float)(diem.Sum(d => d.DiemTBCN) / 10);
+                    double diemtbhk1 = ketquahocky.FirstOrDefault(d => d.MaHK == "1")?.TBMHK ?? 0;
+                    double diemtbhk2 = ketquahocky.FirstOrDefault(d => d.MaHK == "2")?.TBMHK ?? 0;
+                    double diemtbm = (diemtbhk1 + (2 * diemtbhk2)) / 3;
                     string diemtbmFormatted = diemtbm.ToString("N1");
                     float diemtbmRounded = float.Parse(diemtbmFormatted);
                     DanhSachKetQua.TBMCN = diemtbmRounded;
@@ -197,10 +202,49 @@ namespace QLPhoThong.Areas.Teacher.Controllers
                     }
                     else
                     {
-                        DanhSachKetQua.HocLuc = "Chưa xét";
+                        DanhSachKetQua.HocLuc = null;
                     }
                     db.Entry(DanhSachKetQua).State = EntityState.Modified;
                 }
+                db.SaveChanges();
+
+                if (DanhSachKetQua.HocLuc == "Giỏi" && DanhSachKetQua.HanhKiem == "Tốt")
+                {
+                    DanhSachKetQua.XepLoai = "Học sinh giỏi";
+
+                }
+                else if (DanhSachKetQua.HocLuc == "Giỏi" && DanhSachKetQua.HanhKiem == "Khá" || DanhSachKetQua.HocLuc == "Khá" && DanhSachKetQua.HanhKiem == "Khá" || DanhSachKetQua.HocLuc == "Khá" && DanhSachKetQua.HanhKiem == "Tốt")
+                {
+                    DanhSachKetQua.XepLoai = "Học sinh tiên tiến";
+                }
+                else if (DanhSachKetQua.HocLuc == "Giỏi" && DanhSachKetQua.HanhKiem == "Trung Bình" || DanhSachKetQua.HocLuc == "Khá" && DanhSachKetQua.HanhKiem == "Trung bình" || DanhSachKetQua.HocLuc == "Trung Bình" && DanhSachKetQua.HanhKiem == "Trung Bình" || DanhSachKetQua.HocLuc == "Trung Bình" && DanhSachKetQua.HanhKiem == "Tốt" || DanhSachKetQua.HocLuc == "Trung Bình" && DanhSachKetQua.HanhKiem == "Khá")
+                {
+                    DanhSachKetQua.XepLoai = "Học sinh trung bình";
+                }
+                else if (DanhSachKetQua.HocLuc == "Giỏi" && DanhSachKetQua.HanhKiem == "Yếu" || DanhSachKetQua.HocLuc == "Khá" && DanhSachKetQua.HanhKiem == "Yếu" || DanhSachKetQua.HocLuc == "Trung Bình" && DanhSachKetQua.HanhKiem == "Yếu" || DanhSachKetQua.HocLuc == "Yếu" && DanhSachKetQua.HanhKiem == "Yếu" || DanhSachKetQua.HocLuc == "Kém" && DanhSachKetQua.HanhKiem == "Yếu" || DanhSachKetQua.HocLuc == "Yếu" && DanhSachKetQua.HanhKiem == "Tốt" || DanhSachKetQua.HocLuc == "Kém" && DanhSachKetQua.HanhKiem == "Tốt")
+                {
+                    DanhSachKetQua.XepLoai = "Học sinh Yếu";
+                }
+                else
+                {
+                    DanhSachKetQua.XepLoai = null;
+                }
+                db.Entry(DanhSachKetQua).State = EntityState.Modified;
+                db.SaveChanges();
+
+                if (DanhSachKetQua.XepLoai == "Học sinh giỏi" || DanhSachKetQua.XepLoai == "Học sinh tiên tiến" || DanhSachKetQua.XepLoai == "Học sinh trung bình")
+                {
+                    DanhSachKetQua.TrangThai = "Lên lớp thẳng";
+                }
+                else if (DanhSachKetQua.XepLoai == "Học sinh Yếu")
+                {
+                    DanhSachKetQua.TrangThai = "Ở lại lớp";
+                }
+                else
+                {
+                    DanhSachKetQua.TrangThai = null;
+                }
+                db.Entry(DanhSachKetQua).State = EntityState.Modified;
                 db.SaveChanges();
             }
             return PartialView(DanhSachKetQua);

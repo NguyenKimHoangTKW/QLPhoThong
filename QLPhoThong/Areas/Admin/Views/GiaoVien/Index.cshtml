@@ -1,104 +1,172 @@
 ﻿@model IEnumerable<QLPhoThong.Models.GIAOVIEN>
-
 @{
     ViewBag.Title = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
     int i = 0;
+
 }
+<div class="card" style="margin-top:60px">
+    <div class="card-body">
+        <div class="row m-b-30">
+            <div class="col-lg-8">
+                <div class="d-md-flex">
+                    <div class="m-b-10 m-r-15">
+                    </div>
+                    <div class="m-b-10">
+                        <h4 for="file">Tìm kiếm giáo viên</h4>
+                        <input type="text" id="searchInput" placeholder="Nhập tên giáo viên cần tìm ..." class="form-control" style="width: 230px;" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 text-right">
+                <button class="btn btn-primary" data-toggle="modal" data-target="#ThemGiaoVien" data-url="@Url.Action("Create","GiaoVien")">
+                    <i class="anticon anticon-plus-circle m-r-5"></i>
+                    <span>Thêm mới giáo viên</span>
+                </button>
+                @Html.Partial("Create", new QLPhoThong.Models.GIAOVIEN())
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-hover e-commerce-table">
+                <thead>
+                    <tr>
+                        <th>STT</th>
+                        <th>Họ và Tên</th>
+                        <th>Ngày sinh</th>
+                        <th>Giới tính</th>
+                        <th>Số điện thoại</th>
+                        <th>Địa chỉ</th>
+                        <th>Dân tộc</th>
+                        <th>Gmail</th>
+                        <th>Trạng thái dạy</th>
+                        <th>#</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        i++;
+                        <tr>
+                            <td>
+                                #@i
+                            </td>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <img class="img-fluid rounded" src="~/Areas/Admin/Images/ImagesTeacher/@item.Thumb" style="max-width: 60px" alt="">
+                                    <h6 class="m-b-0 m-l-10">@item.TenGV</h6>
+                                </div>
+                            </td>
+                            <td>@string.Format("{0:dd-MM-yyyy}", item.NgaySinh)</td>
+                            <td>@item.GioiTinh</td>
+                            <td>@item.SDT</td>
+                            <td>@Html.Raw(item.Diachi)</td>
+                            <td>@item.DanToc.TenDanToc</td>
+                            <td>@item.Gmail</td>
+                            <td>@item.TrangThai</td>
+                            <td class="text-right">
+                                <button class="btn btn-icon btn-hover btn-sm btn-rounded pull-right" data-toggle="modal" data-target="@("#Edit-"+item.MaGV)" data-url="@Url.Action("Edit","GiaoVien", new {id = item.MaGV})">
+                                    <i class="anticon anticon-edit"></i>
+                                </button>
+                                @Html.Partial("Edit", item)
+                                <a href="@Url.Action("Delete","GiaoVien", new {id = item.MaGV})">
+                                    <button class="btn btn-icon btn-hover btn-sm btn-rounded">
+                                        <i class="anticon anticon-delete"></i>
+                                    </button>
+                                </a>
+                            </td>
+                        </tr>
+                    }
 
-<h2>Index</h2>
 
+                </tbody>
+            </table>
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-end" id="pagination">
+                </ul>
+            </nav>
+        </div>
 
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
-<p style="margin-top:75px;">
-    <button data-toggle="modal" data-target="#ThemGiaoVien" data-url="@Url.Action("Create","GiaoVien")">Thêm mới giáo viên</button>
-    @Html.Partial("Create", new QLPhoThong.Models.GIAOVIEN())
-</p>
+<script>
+    var itemsPerPage = 10; // Số lượng mục trên mỗi trang
+    var currentPage = 1; // Trang hiện tại
 
-<table class="table">
-    <tr>
-        <th>
-            STT
-        </th>
-        <th>
-            Mã Giáo Viên
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TenGV)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NgaySinh)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SDT)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Diachi)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.GioiTinh)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Gmail)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TrangThai)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Thumb)
-        </th>
+    function paginate() {
+        var visibleRows = $('.e-commerce-table tbody tr:visible');
+        var totalItems = visibleRows.length;
+        var totalPages = Math.ceil(totalItems / itemsPerPage);
 
-        <th>
-            @Html.DisplayNameFor(model => model.DanToc.TenDanToc)
-        </th>
-        <th></th>
-    </tr>
+        $('#pagination').empty();
 
-    @foreach (var item in Model)
-    {
-        i++;
-        <tr>
-            <td>
-                @i
-            </td>
-            <td>
-                @item.MaGV
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TenGV)
-            </td>
-            <td>
-                @string.Format("{0:dd-MM-yyyy}", item.NgaySinh)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SDT)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Diachi)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.GioiTinh)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Gmail)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TrangThai)
-            </td>
-            <td>
-                <img src="~/Areas/Admin/Images/ImagesTeacher/@item.Thumb" width="80px" height="50px" />
-            </td>
+        $('#pagination').append('<li class="page-item disabled"><a class="page-link" href="#" tabindex="-1">Previous</a></li>');
 
-            <td>
-                @Html.DisplayFor(modelItem => item.DanToc.TenDanToc)
-            </td>
-            <td>
-                <button data-toggle="modal" data-target="@("#Edit-"+item.MaGV)" data-url="@Url.Action("Edit","GiaoVien", new {id = item.MaGV})">Sửa giáo viên</button>
-                @Html.Partial("Edit", item) |
-                @Html.ActionLink("Details", "Details", new { id = item.MaGV }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.MaGV })
-            </td>
-        </tr>
+        for (var i = 1; i <= totalPages; i++) {
+            $('#pagination').append('<li class="page-item"><a class="page-link" href="#" data-page="' + i + '">' + i + '</a></li>');
+        }
+
+        // Thêm nút Next
+        $('#pagination').append('<li class="page-item"><a class="page-link" href="#">Next</a></li>');
+
+        $('#pagination li').on('click', function () {
+            var clickedPage = $(this).find('a').data('page');
+
+            if (clickedPage === 'Previous' && currentPage > 1) {
+                currentPage--;
+            } else if (clickedPage === 'Next' && currentPage < totalPages) {
+                currentPage++;
+            } else if (typeof clickedPage === 'number') {
+                currentPage = clickedPage;
+            }
+
+            updatePagination();
+        });
+
+        updatePagination();
     }
 
-</table>
+    function updatePagination() {
+        var startIndex = (currentPage - 1) * itemsPerPage;
+        var endIndex = startIndex + itemsPerPage;
+
+        $('.e-commerce-table tbody tr:visible').hide().slice(startIndex, endIndex).show();
+
+        $('#pagination li').removeClass('active');
+        $('#pagination li').eq(currentPage).addClass('active');
+
+        if (currentPage === 1) {
+            $('#pagination li:first-child').addClass('disabled');
+        } else {
+            $('#pagination li:first-child').removeClass('disabled');
+        }
+
+        if (currentPage === Math.ceil($('.e-commerce-table tbody tr:visible').length / itemsPerPage)) {
+            $('#pagination li:last-child').addClass('disabled');
+        } else {
+            $('#pagination li:last-child').removeClass('disabled');
+        }
+    }
+
+    function searchAndFilter() {
+        var searchText = $('#searchInput').val().toLowerCase();
+
+        $('.e-commerce-table tbody tr').each(function () {
+            var rowData = $(this).text().toLowerCase();
+            var nameCondition = rowData.includes(searchText);
+            $(this).toggle(nameCondition);
+        });
+
+        currentPage = 1; 
+        paginate(); 
+    }
+
+    $(document).ready(function () {
+        paginate();
+
+        $('#searchInput').on('input', function () {
+            searchAndFilter();
+        });
+    });
+</script>

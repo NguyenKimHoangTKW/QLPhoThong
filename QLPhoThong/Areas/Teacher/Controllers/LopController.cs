@@ -1,4 +1,5 @@
-﻿using QLPhoThong.Models;
+﻿using QLPhoThong.App_Start;
+using QLPhoThong.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -10,6 +11,7 @@ using Twilio;
 using Twilio.Rest.Api.V2010.Account;
 namespace QLPhoThong.Areas.Teacher.Controllers
 {
+    [TeacherAuthorize]
     public class LopController : Controller
     {
         private diemhsEntities db = new diemhsEntities();
@@ -28,14 +30,91 @@ namespace QLPhoThong.Areas.Teacher.Controllers
 
         public ActionResult DanhSachHocSinh(string id, string manh)
         {
+            var user = Session["User"] as QLPhoThong.Models.User;
             var danhSachLop = (from hs in db.HOCSINHs
                               from lcn in db.LOPCHUNHIEMs
                               where hs.MaLop == lcn.MaLop
                               where hs.MaLop == id
                               where lcn.MaNH == manh
                                select hs).OrderBy(h=>h.TenHS).ToList();
-            //  var danhSachLop = db.HOCSINHs.Where(pc => pc.MaLop == id).OrderBy(pc=>pc.TenHS).ToList();
+            List<KETQUACANAM> kqcnHSG = (from hs in db.HOCSINHs
+                                      from ketquacn in db.KETQUACANAMs
+                                      from lcn in db.LOPCHUNHIEMs
+                                      where lcn.MaLop == hs.MaLop
+                                      where hs.MaHS == ketquacn.MaHS
+                                      where lcn.MaNH == manh
+                                      where hs.MaLop == id
+                                      where lcn.MaGV == user.MaGV
+                                      where ketquacn.XepLoai == "Học sinh giỏi"
+                                      select ketquacn
+                                      ).ToList();
+
+            List<KETQUACANAM> kqcnHSTT = (from hs in db.HOCSINHs
+                                         from ketquacn in db.KETQUACANAMs
+                                         from lcn in db.LOPCHUNHIEMs
+                                         where lcn.MaLop == hs.MaLop
+                                         where hs.MaHS == ketquacn.MaHS
+                                         where lcn.MaNH == manh
+                                         where hs.MaLop == id
+                                         where lcn.MaGV == user.MaGV
+                                         where ketquacn.XepLoai == "Học sinh tiên tiến"
+                                          select ketquacn
+                                      ).ToList();
+
+            List<KETQUACANAM> kqcnHSTB = (from hs in db.HOCSINHs
+                                          from ketquacn in db.KETQUACANAMs
+                                          from lcn in db.LOPCHUNHIEMs
+                                          where lcn.MaLop == hs.MaLop
+                                          where hs.MaHS == ketquacn.MaHS
+                                          where lcn.MaNH == manh
+                                          where hs.MaLop == id
+                                          where lcn.MaGV == user.MaGV
+                                          where ketquacn.XepLoai == "Học sinh trung bình"
+                                          select ketquacn
+                                      ).ToList();
+            List<KETQUACANAM> kqcnHSYeu = (from hs in db.HOCSINHs
+                                          from ketquacn in db.KETQUACANAMs
+                                          from lcn in db.LOPCHUNHIEMs
+                                          where lcn.MaLop == hs.MaLop
+                                          where hs.MaHS == ketquacn.MaHS
+                                          where lcn.MaNH == manh
+                                          where hs.MaLop == id
+                                          where lcn.MaGV == user.MaGV
+                                          where ketquacn.XepLoai == "Học sinh Yếu"
+                                           select ketquacn
+                                      ).ToList();
+
+            List<KETQUACANAM> kqcnHSLL = (from hs in db.HOCSINHs
+                                           from ketquacn in db.KETQUACANAMs
+                                           from lcn in db.LOPCHUNHIEMs
+                                           where lcn.MaLop == hs.MaLop
+                                           where hs.MaHS == ketquacn.MaHS
+                                           where lcn.MaNH == manh
+                                           where hs.MaLop == id
+                                           where lcn.MaGV == user.MaGV
+                                           where ketquacn.TrangThai == "Lên lớp thẳng"
+                                          select ketquacn
+                                      ).ToList();
+
+            List<KETQUACANAM> kqcnHSOLL = (from hs in db.HOCSINHs
+                                          from ketquacn in db.KETQUACANAMs
+                                          from lcn in db.LOPCHUNHIEMs
+                                          where lcn.MaLop == hs.MaLop
+                                          where hs.MaHS == ketquacn.MaHS
+                                          where lcn.MaNH == manh
+                                          where hs.MaLop == id
+                                          where lcn.MaGV == user.MaGV
+                                          where ketquacn.TrangThai == "Ở lại lớp"
+                                           select ketquacn
+                                      ).ToList();
             ViewBag.TongHocSinh = danhSachLop.Count;
+            ViewBag.TongHocSinhHSGioi = kqcnHSG.Count;
+            ViewBag.TongHocSinhHSTienTien = kqcnHSTT.Count;
+            ViewBag.TongHocSinhHSTrungBinh = kqcnHSTB.Count;
+            ViewBag.TongHocSinhHSYeu = kqcnHSYeu.Count;
+
+            ViewBag.TongHocSinhLenLop = kqcnHSLL.Count;
+            ViewBag.TongHocSinhOLaiLop = kqcnHSOLL.Count;
             return View(danhSachLop);
         }
         public ActionResult DanhSachHocSinhPhuTrachDay(string idlop, int idmh,string manh, string hocky = "1")
@@ -49,7 +128,18 @@ namespace QLPhoThong.Areas.Teacher.Controllers
                                where d.MaNH == manh
                                select d).OrderBy(l => l.HOCSINH.TenHS).ToList();
           
+            List<DIEM> diemduoiTB = (from hs in db.HOCSINHs
+                                     from d in db.DIEMs
+                                     where d.MaHS == hs.MaHS
+                                     where hs.MaLop == idlop
+                                     where d.MaHK == hocky
+                                     where d.MaMH == idmh
+                                     where d.DiemTB < 5
+                                     where d.MaNH == manh
+                                     select d).ToList();
             ViewBag.TongHocSinh = danhSachLop.Count;
+
+            ViewBag.TongHocSinhDuoiTB = diemduoiTB.Count;
             ViewBag.hocky = new SelectList(db.HOCKies, "MaHky", "TenHky");
             return View(danhSachLop);
         }
@@ -68,7 +158,19 @@ namespace QLPhoThong.Areas.Teacher.Controllers
             ViewBag.hocky = new SelectList(db.HOCKies, "MaHky", "TenHky");
             return View(danhSachLop);
         }
+        public ActionResult DanhGiaHanhKiemCaNam(string idlop, string manh)
+        {
+            var danhSachLop = (from hs in db.HOCSINHs
+                               from kqhk in db.KETQUACANAMs
+                               where hs.MaHS == kqhk.MaHS
+                               where hs.MaLop == idlop
+                               where kqhk.MaNH == manh
+                               select kqhk
+                               ).OrderBy(l => l.HOCSINH.TenHS).ToList();
 
+            ViewBag.TongHocSinh = danhSachLop.Count;
+            return View(danhSachLop);
+        }
         public ActionResult DiemDanhbyDanhGiaHanhKiem(string mahs, string manh)
         {
             var danhSachLop = db.DIEMDANHs.Where(dd => dd.MaHS == mahs && dd.MaNH == manh).FirstOrDefault();
@@ -94,6 +196,26 @@ namespace QLPhoThong.Areas.Teacher.Controllers
             {
                 db.Entry(kqhk).State = EntityState.Modified;
                 db.SaveChanges();          
+            }
+            if (Request.UrlReferrer != null)
+            {
+                return Redirect(Request.UrlReferrer.ToString());
+            }
+            else
+            {
+                return View();
+            }
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public ActionResult NhanXetHanhKiemCaNam(KETQUACANAM kqcn)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(kqcn).State = EntityState.Modified;
+                db.SaveChanges();
             }
             if (Request.UrlReferrer != null)
             {

@@ -175,14 +175,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\AdminAuthorize.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\TeacherAuthorize.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
-    <Compile Include="Areas\Admin\Controllers\DanhMucHanhKiemController.cs" />
     <Compile Include="Areas\Admin\Controllers\GiaoVienController.cs" />
-    <Compile Include="Areas\Admin\Controllers\HanhKiemController.cs" />
     <Compile Include="Areas\Admin\Controllers\HocKyController.cs" />
     <Compile Include="Areas\Admin\Controllers\HocSinhController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
@@ -195,7 +194,6 @@
     <Compile Include="Areas\Teacher\Controllers\HomeController.cs" />
     <Compile Include="Areas\Teacher\Controllers\LopController.cs" />
     <Compile Include="Areas\Teacher\Controllers\QuanLyDiemController.cs" />
-    <Compile Include="Areas\Teacher\Controllers\QuanLyHanhKiemController.cs" />
     <Compile Include="Areas\Teacher\Controllers\ThongTinController.cs" />
     <Compile Include="Areas\Teacher\TeacherAreaRegistration.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -204,12 +202,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\BANGDIEMCANAM.cs">
-      <DependentUpon>QLPhoThongModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\DANHGIAHANHKIEM.cs">
-      <DependentUpon>QLPhoThongModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\DANHMUCHANHKIEM.cs">
       <DependentUpon>QLPhoThongModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DanToc.cs">
@@ -222,9 +214,6 @@
       <DependentUpon>QLPhoThongModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\GIAOVIEN.cs">
-      <DependentUpon>QLPhoThongModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\HANHKIEM.cs">
       <DependentUpon>QLPhoThongModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\HOCKY.cs">
@@ -1163,11 +1152,6 @@
     <Content Include="Areas\Teacher\Views\ThongTin\BangdiemHK2Partial.cshtml" />
     <Content Include="Areas\Teacher\Views\QuanLyDiem\XemDiemHocSinhPhuTrachDay.cshtml" />
     <Content Include="Areas\Teacher\Views\QuanLyDiem\NhapDiem.cshtml" />
-    <Content Include="Areas\Admin\Views\DanhMucHanhKiem\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\DanhMucHanhKiem\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\DanhMucHanhKiem\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\DanhMucHanhKiem\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\DanhMucHanhKiem\Index.cshtml" />
     <Content Include="Areas\Admin\Views\HanhKiem\Create.cshtml" />
     <Content Include="Areas\Admin\Views\HanhKiem\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\HanhKiem\Details.cshtml" />
@@ -1193,6 +1177,7 @@
     <Content Include="Areas\Teacher\Views\Lop\DiemDanhbyDanhGiaHanhKiem.cshtml" />
     <Content Include="Areas\Teacher\Views\Lop\XemNhanXetGVBMByDanhGiaHanhKiem.cshtml" />
     <Content Include="Areas\Teacher\Views\Lop\NhanXetHanhKiem.cshtml" />
+    <Content Include="Areas\Teacher\Views\Lop\DanhGiaHanhKiemCaNam.cshtml" />
     <None Include="Scripts\jquery-3.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.1.js" />
     <Content Include="Scripts\jquery-3.7.1.min.js" />

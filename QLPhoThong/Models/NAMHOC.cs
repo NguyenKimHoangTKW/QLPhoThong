@@ -17,25 +17,20 @@ namespace QLPhoThong.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public NAMHOC()
         {
-            this.DANHGIAHANHKIEMs = new HashSet<DANHGIAHANHKIEM>();
             this.LOPCHUNHIEMs = new HashSet<LOPCHUNHIEM>();
-            this.KETQUAHOCKies = new HashSet<KETQUAHOCKY>();
             this.DIEMDANHs = new HashSet<DIEMDANH>();
             this.BANGDIEMCANAMs = new HashSet<BANGDIEMCANAM>();
             this.PHANCONGs = new HashSet<PHANCONG>();
             this.KETQUACANAMs = new HashSet<KETQUACANAM>();
             this.DIEMs = new HashSet<DIEM>();
+            this.KETQUAHOCKies = new HashSet<KETQUAHOCKY>();
         }
     
         public string MaNH { get; set; }
         public string TenNH { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DANHGIAHANHKIEM> DANHGIAHANHKIEMs { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LOPCHUNHIEM> LOPCHUNHIEMs { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<KETQUAHOCKY> KETQUAHOCKies { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DIEMDANH> DIEMDANHs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -46,5 +41,7 @@ namespace QLPhoThong.Models
         public virtual ICollection<KETQUACANAM> KETQUACANAMs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DIEM> DIEMs { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<KETQUAHOCKY> KETQUAHOCKies { get; set; }
     }
 }

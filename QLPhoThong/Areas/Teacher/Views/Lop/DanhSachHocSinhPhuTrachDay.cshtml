@@ -18,6 +18,7 @@
                 <h4>Môn học : <b>@Model.FirstOrDefault().NAMHOC.TenNH</b></h4>
             </div>
             <h4>Lớp này có tổng : <b>@ViewBag.TongHocSinh</b> học sinh</h4>
+            <h4>Có : <b style="color:red;">@ViewBag.TongHocSinhDuoiTB</b> học sinh > 5</h4>
             <div class="m-t-25">
 
                 @using (Html.BeginForm("DanhSachHocSinhPhuTrachDay", "Lop", FormMethod.Get, new { id = "myForm" }))
@@ -127,41 +128,35 @@ else
     </div>
 }
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-
 <script>
     $(document).ready(function () {
         $('#hocky').change(function () {
             var selectedValue = $(this).val();
-            var idlop = "@Request.QueryString["idlop"]";
-            var idmh = "@Request.QueryString["idmh"]";
-            var manh = "@Request.QueryString["manh"]"
-            var newUrl = '@Url.Action("DanhSachHocSinhPhuTrachDay", "Lop", new { hocky = "REPLACEME", idlop = "REPLACEME_IDLOP", idmh = "REPLACEME_IDMH" , manh = "REPLACEME_MANH" })'
-                .replace("REPLACEME", selectedValue)
-                .replace("REPLACEME_IDLOP", idlop)
-                .replace("REPLACEME_IDMH", idmh)
-                .replace("REPLACEME_MANH", manh)
+            var idlop = $("#myForm input[name='idlop']").val();
+            var idmh = $("#myForm input[name='idmh']").val();
+            var manh = $("#myForm input[name='manh']").val();
+
+            var newUrl = '@Url.Action("DanhSachHocSinhPhuTrachDay", "Lop")' +
+                '?hocky=' + encodeURIComponent(selectedValue) +
+                '&idlop=' + encodeURIComponent(idlop) +
+                '&idmh=' + encodeURIComponent(idmh) +
+                '&manh=' + encodeURIComponent(manh);
+
             window.location.href = newUrl;
         });
 
-
-    });
-
-    document.addEventListener('DOMContentLoaded', function () {
-        document.querySelectorAll('.diemForm').forEach(function (form) {
-            form.addEventListener('keyup', function (e) {
-                if (e.key === 'Enter') {
-                    e.preventDefault();
-                    form.querySelector('.btnLuu').click();
-                }
-            });
+        $('.diemForm').on('keyup', function (e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                saveData(this);
+            }
         });
 
-        document.addEventListener('click', function (e) {
-            var diemForms = document.querySelectorAll('.diemForm');
-            diemForms.forEach(function (form) {
-                if (!form.contains(e.target)) {
-                    e.preventDefault();
-                    saveData(form);
+        $(document).on('click', function (e) {
+            var diemForms = $('.diemForm');
+            diemForms.each(function () {
+                if (!$(this).is(e.target) && !$(this).has(e.target).length) {
+                    saveData(this);
                 }
             });
         });

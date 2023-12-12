@@ -12,9 +12,11 @@ using OfficeOpenXml;
 using System.Globalization;
 using PagedList;
 using PagedList.Mvc;
+using QLPhoThong.App_Start;
 
 namespace QLPhoThong.Areas.Admin.Controllers
 {
+    [AdminAuthorize]
     public class HocSinhController : Controller
     {
         private diemhsEntities db = new diemhsEntities();
@@ -59,11 +61,6 @@ namespace QLPhoThong.Areas.Admin.Controllers
             List<MONHOC> lstMonHoc = db.MONHOCs.ToList();
             return lstMonHoc;
         }
-        public List<HANHKIEM> LayHanhKiem()
-        {
-            List<HANHKIEM> lstHanhKiem = db.HANHKIEMs.ToList();
-            return lstHanhKiem;
-        }
         public List<HOCKY> LayHocKy()
         {
             List<HOCKY> lstHocKy = db.HOCKies.ToList();
@@ -88,7 +85,6 @@ namespace QLPhoThong.Areas.Admin.Controllers
                 {
                     List<MONHOC> lstMonHoc = LayMonHoc();
                     List<HOCKY> lstHocKy = LayHocKy();
-                    List<HANHKIEM> lstHanhKiem = LayHanhKiem();
                     List<DIEMDANH> lstDiemDanh = LayDiemDanh();
                     var sdt = f["SoDienThoai"];
                     hOCSINH.SDT ="+84" + sdt;
@@ -117,10 +113,6 @@ namespace QLPhoThong.Areas.Admin.Controllers
                         KETQUACANAM kqcn = new KETQUACANAM();
                         kqcn.MaHS = hOCSINH.MaHS;
                         kqcn.MaNH = "NH23|24";
-                        kqcn.HocLuc = "Chưa xét";
-                        kqcn.HanhKiem = "Chưa xét";
-                        kqcn.XepLoai = "Chưa xét";
-                        kqcn.TrangThai = "Chưa xét";
                         db.KETQUACANAMs.Add(kqcn);
                         db.SaveChanges();
 
@@ -149,22 +141,11 @@ namespace QLPhoThong.Areas.Admin.Controllers
                             kqhk.MaHS = hOCSINH.MaHS;
                             kqhk.MaHK = item2.MaHky;
                             kqhk.MaNH = "NH23|24";
-                            kqhk.Xeploai = "Chưa xét";
-                            kqhk.HocLuc = "Chưa xét";
-                            kqhk.HanhKiem = "Chưa xét";
                             db.KETQUAHOCKies.Add(kqhk);
 
                         }
                         db.SaveChanges();
-                        foreach (var item in lstHanhKiem)
-                        {
-                            DANHGIAHANHKIEM dghk = new DANHGIAHANHKIEM();
-                            dghk.MaHS = hOCSINH.MaHS;
-                            dghk.MaHKiem = item.MaHKiem;
-                            dghk.MaNH = "NH23|24";
-                            db.DANHGIAHANHKIEMs.Add(dghk);
-                        }
-                        db.SaveChanges();
+                  
                         return RedirectToAction("Index");
                     }
                 }
@@ -230,7 +211,6 @@ namespace QLPhoThong.Areas.Admin.Controllers
                 {
                     List<MONHOC> lstMonHoc = LayMonHoc();
                     List<HOCKY> lstHocKy = LayHocKy();
-                    List<HANHKIEM> lstHanhKiem = LayHanhKiem();
                     List<DIEMDANH> lstDiemDanh = LayDiemDanh();
                     using (var package = new ExcelPackage(file.InputStream))
                     {
@@ -309,15 +289,6 @@ namespace QLPhoThong.Areas.Admin.Controllers
                                 kqhk.MaNH = namhoc;
                                 db.KETQUAHOCKies.Add(kqhk);
 
-                            }
-                            db.SaveChanges();
-                            foreach (var item in lstHanhKiem)
-                            {
-                                DANHGIAHANHKIEM dghk = new DANHGIAHANHKIEM();
-                                dghk.MaHS = hOCSINH.MaHS;
-                                dghk.MaHKiem = item.MaHKiem;
-                                dghk.MaNH = namhoc;
-                                db.DANHGIAHANHKIEMs.Add(dghk);
                             }
                             db.SaveChanges();
                         }
@@ -463,7 +434,6 @@ namespace QLPhoThong.Areas.Admin.Controllers
             if (hOCSINH != null)
             {
                 var diemList = db.DIEMs.Where(d => d.MaHS == hOCSINH.MaHS).ToList();
-                var dghkList = db.DANHGIAHANHKIEMs.Where(d => d.MaHS == hOCSINH.MaHS).ToList();
                 var kqhkList = db.KETQUAHOCKies.Where(d => d.MaHS == hOCSINH.MaHS).ToList();
                 var diemdanh = db.DIEMDANHs.Where(d => d.MaHS == hOCSINH.MaHS).ToList();
                 var bdcn = db.BANGDIEMCANAMs.Where(d => d.MaHS == hOCSINH.MaHS).ToList();
@@ -475,10 +445,6 @@ namespace QLPhoThong.Areas.Admin.Controllers
                 foreach (var diem in diemList)
                 {
                     db.DIEMs.Remove(diem);
-                }
-                foreach (var dghk in dghkList)
-                {
-                    db.DANHGIAHANHKIEMs.Remove(dghk);
                 }
                 foreach (var dd in diemdanh)
                 {

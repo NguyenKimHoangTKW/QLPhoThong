@@ -17,12 +17,11 @@ namespace QLPhoThong.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public HOCSINH()
         {
-            this.DANHGIAHANHKIEMs = new HashSet<DANHGIAHANHKIEM>();
-            this.KETQUAHOCKies = new HashSet<KETQUAHOCKY>();
             this.DIEMDANHs = new HashSet<DIEMDANH>();
             this.BANGDIEMCANAMs = new HashSet<BANGDIEMCANAM>();
             this.KETQUACANAMs = new HashSet<KETQUACANAM>();
             this.DIEMs = new HashSet<DIEM>();
+            this.KETQUAHOCKies = new HashSet<KETQUAHOCKY>();
         }
     
         public string MaHS { get; set; }
@@ -37,12 +36,8 @@ namespace QLPhoThong.Models
         public int idDanToc { get; set; }
         public string Thumb { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DANHGIAHANHKIEM> DANHGIAHANHKIEMs { get; set; }
         public virtual DanToc DanToc { get; set; }
         public virtual LOP LOP { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<KETQUAHOCKY> KETQUAHOCKies { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DIEMDANH> DIEMDANHs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -51,5 +46,7 @@ namespace QLPhoThong.Models
         public virtual ICollection<KETQUACANAM> KETQUACANAMs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DIEM> DIEMs { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<KETQUAHOCKY> KETQUAHOCKies { get; set; }
     }
 }

@@ -19,7 +19,8 @@
                                 <th scope="col">STT</th>
                                 <th scope="col">Tên Lớp</th>
                                 <th scope="col">Chi tiết lớp</th>
-                                <th scope="col">Đánh giá hạnh kiểm</th>
+                                <th scope="col">Đánh giá hạnh kiểm học kỳ</th>
+                                <th scope="col">Đánh giá hạnh kiểm cả năm</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -36,6 +37,12 @@
                                     </td>
                                     <td>
                                         <a href="@Url.Action("DanhGiaHanhKiem","Lop", new {idlop = lop.MaLop, manh = lop.MaNH})">
+                                            <button class="btn btn-success btn-tone m-r-5">Đánh giá</button>
+                                        </a>
+                                    </td>
+
+                                    <td>
+                                        <a href="@Url.Action("DanhGiaHanhKiemCaNam","Lop", new {idlop = lop.MaLop, manh = lop.MaNH})">
                                             <button class="btn btn-success btn-tone m-r-5">Đánh giá</button>
                                         </a>
                                     </td>
