@@ -181,6 +181,16 @@ namespace QLPhoThong.Areas.Teacher.Controllers
             var danhSachLop = db.DIEMs.Where(dd => dd.MaHS == mahs && dd.MaNH == manh && dd.MaHK == hocky).ToList();
             return PartialView("XemNhanXetGVBMByDanhGiaHanhKiem", danhSachLop);
         }
+        public ActionResult XemNhanXetGVBMByDanhGiaHanhKiem1(string mahs, string manh)
+        {
+            var danhSachLop = db.DIEMs.Where(dd => dd.MaHS == mahs && dd.MaNH == manh && dd.MaHK == "1").ToList();
+            return PartialView("XemNhanXetGVBMByDanhGiaHanhKiem1", danhSachLop);
+        }
+        public ActionResult XemNhanXetGVBMByDanhGiaHanhKiem2(string mahs, string manh)
+        {
+            var danhSachLop = db.DIEMs.Where(dd => dd.MaHS == mahs && dd.MaNH == manh && dd.MaHK == "2").ToList();
+            return PartialView("XemNhanXetGVBMByDanhGiaHanhKiem2", danhSachLop);
+        }
         [HttpGet]
         public ActionResult NhanXetHanhKiem(string mahs, string manh, string hocky)
         {

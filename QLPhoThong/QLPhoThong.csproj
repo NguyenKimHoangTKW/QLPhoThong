@@ -270,6 +270,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\Admin\Images\ImagesTeacher\282752735_1201681610371099_1655896913207248297_n-20231213123238924.jpg" />
+    <Content Include="Areas\Admin\Images\ImagesTeacher\toànbu-20231212223938195.jpg" />
     <Content Include="Areas\Style\assets\css\app.min.css" />
     <Content Include="Areas\Style\assets\es6\app.js" />
     <Content Include="Areas\Style\assets\es6\constant\theme-constant.js" />
@@ -315,6 +317,7 @@
     <Content Include="Areas\Style\assets\images\logo\logo-fold.png" />
     <Content Include="Areas\Style\assets\images\logo\logo-white.png" />
     <Content Include="Areas\Style\assets\images\logo\logo.png" />
+    <Content Include="Areas\Style\assets\images\logo\logoSLL.ico" />
     <Content Include="Areas\Style\assets\images\others\adobe-thumb.png" />
     <Content Include="Areas\Style\assets\images\others\amazon-thumb.png" />
     <Content Include="Areas\Style\assets\images\others\cambridge-thumb.png" />
@@ -1171,13 +1174,15 @@
     <Content Include="Areas\Admin\Views\HocSinh\CapNhatChuyenLopPartial.cshtml" />
     <Content Include="Areas\Teacher\Views\Lop\ThongTin.cshtml" />
     <Content Include="Areas\Teacher\Views\ThongTin\BangDiemCaNamPartial.cshtml" />
-    <Content Include="Areas\Admin\FileExcel\BieuMauThemHocSinh.xlsx" />
     <Content Include="Areas\Teacher\Views\ThongTin\KetQuaCaNam.cshtml" />
     <Content Include="Areas\Teacher\Views\Lop\DanhGiaHanhKiem.cshtml" />
     <Content Include="Areas\Teacher\Views\Lop\DiemDanhbyDanhGiaHanhKiem.cshtml" />
     <Content Include="Areas\Teacher\Views\Lop\XemNhanXetGVBMByDanhGiaHanhKiem.cshtml" />
     <Content Include="Areas\Teacher\Views\Lop\NhanXetHanhKiem.cshtml" />
     <Content Include="Areas\Teacher\Views\Lop\DanhGiaHanhKiemCaNam.cshtml" />
+    <Content Include="Areas\Teacher\Views\Lop\XemNhanXetGVBMByDanhGiaHanhKiem1.cshtml" />
+    <Content Include="Areas\Teacher\Views\Lop\XemNhanXetGVBMByDanhGiaHanhKiem2.cshtml" />
+    <Content Include="Areas\Admin\FileExcel\Biểu mẫu Thêm Học Sinh.xlsx" />
     <None Include="Scripts\jquery-3.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.1.js" />
     <Content Include="Scripts\jquery-3.7.1.min.js" />
@@ -1241,7 +1246,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\Images\ImagesStudent\" />
-    <Folder Include="Areas\Admin\Images\ImagesTeacher\" />
     <Folder Include="Areas\Teacher\Data\" />
   </ItemGroup>
   <ItemGroup>

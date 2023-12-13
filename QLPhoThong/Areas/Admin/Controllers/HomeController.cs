@@ -17,7 +17,7 @@ namespace QLPhoThong.Areas.Admin.Controllers
         public ActionResult Index()
         {
             IList<HOCSINH> liststudent = db.HOCSINHs.ToList();
-            IList<MONHOC> listgiaovien = db.MONHOCs.ToList();
+            IList<GIAOVIEN> listgiaovien = db.GIAOVIENs.ToList();
             IList<LOP> listlop = db.LOPs.ToList();
             ViewBag.TotalStudent = liststudent.Count;
             ViewBag.TotalTeacher = listgiaovien.Count;

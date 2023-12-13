@@ -31,7 +31,8 @@
                                 <th scope="col">Số buổi nghỉ (KP)</th>
                                 <th scope="col">Bỏ Tiết</th>
                                 <th scope="col">Điểm trung bình môn cả năm</th>
-                                <th scope="col">Nhận xét, đánh giá của GVBM cả năm</th>
+                                <th scope="col">Nhận xét, đánh giá của GVBM trong HK1</th>
+                                <th scope="col">Nhận xét, đánh giá của GVBM trong HK2</th>
                                 <th scope="col">Nhận xét hạnh kiểm cả năm</th>
                             </tr>
                         </thead>
@@ -46,7 +47,18 @@
                                     <td>@item.HOCSINH.GioiTinh</td>
                                     @Html.Action("DiemDanhbyDanhGiaHanhKiem", "Lop", new { mahs = item.MaHS, manh = item.MaNH })
                                     <td style="text-align:center"><b>@String.Format("{0:N1}", item.TBMCN)</b></td>
-                                    
+                                    <td style="text-align:center">
+                                        <a data-toggle="modal" data-target="@("#XemNhanXet1-" + item.MaHS)" data-url="@Url.Action("XemNhanXetGVBMByDanhGiaHanhKiem1","Lop", new {mahs = item.MaHS, manh = item.MaNH})">
+                                            <i class="fas fa-bars"></i>
+                                        </a>
+                                    </td>
+                                    @Html.Action("XemNhanXetGVBMByDanhGiaHanhKiem1", "Lop", new { mahs = item.MaHS, manh = item.MaNH })
+                                    <td style="text-align:center">
+                                        <a data-toggle="modal" data-target="@("#XemNhanXet2-" + item.MaHS)" data-url="@Url.Action("XemNhanXetGVBMByDanhGiaHanhKiem2","Lop", new {mahs = item.MaHS, manh = item.MaNH})">
+                                            <i class="fas fa-bars"></i>
+                                        </a>
+                                    </td>
+                                    @Html.Action("XemNhanXetGVBMByDanhGiaHanhKiem2", "Lop", new { mahs = item.MaHS, manh = item.MaNH })
                                     @using (Html.BeginForm("NhanXetHanhKiemCaNam", "Lop", FormMethod.Post, new { @class = "diemForm", id = "diemForm" + i }))
                                     {
                                         @Html.AntiForgeryToken()

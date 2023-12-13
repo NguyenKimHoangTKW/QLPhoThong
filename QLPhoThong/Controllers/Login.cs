@@ -49,5 +49,7 @@ namespace QLPhoThong.Controllers
             Session.Clear();
             return RedirectToAction("Index", "Home");
         }
+
+
     }
 }

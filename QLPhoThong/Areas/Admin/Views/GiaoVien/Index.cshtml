@@ -3,8 +3,8 @@
     ViewBag.Title = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
     int i = 0;
-
 }
+
 <div class="card" style="margin-top:60px">
     <div class="card-body">
         <div class="row m-b-30">
@@ -76,97 +76,57 @@
                             </td>
                         </tr>
                     }
-
-
                 </tbody>
             </table>
-            <nav aria-label="Page navigation example">
-                <ul class="pagination justify-content-end" id="pagination">
-                </ul>
-            </nav>
         </div>
-
+        <div class="text-center">
+            <ul class="pagination" id="pagination"></ul>
+        </div>
     </div>
 </div>
+
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-
 <script>
-    var itemsPerPage = 10; // Số lượng mục trên mỗi trang
-    var currentPage = 1; // Trang hiện tại
-
-    function paginate() {
-        var visibleRows = $('.e-commerce-table tbody tr:visible');
-        var totalItems = visibleRows.length;
-        var totalPages = Math.ceil(totalItems / itemsPerPage);
-
-        $('#pagination').empty();
-
-        $('#pagination').append('<li class="page-item disabled"><a class="page-link" href="#" tabindex="-1">Previous</a></li>');
-
-        for (var i = 1; i <= totalPages; i++) {
-            $('#pagination').append('<li class="page-item"><a class="page-link" href="#" data-page="' + i + '">' + i + '</a></li>');
-        }
-
-        // Thêm nút Next
-        $('#pagination').append('<li class="page-item"><a class="page-link" href="#">Next</a></li>');
-
-        $('#pagination li').on('click', function () {
-            var clickedPage = $(this).find('a').data('page');
-
-            if (clickedPage === 'Previous' && currentPage > 1) {
-                currentPage--;
-            } else if (clickedPage === 'Next' && currentPage < totalPages) {
-                currentPage++;
-            } else if (typeof clickedPage === 'number') {
-                currentPage = clickedPage;
-            }
-
-            updatePagination();
-        });
-
-        updatePagination();
-    }
-
-    function updatePagination() {
-        var startIndex = (currentPage - 1) * itemsPerPage;
-        var endIndex = startIndex + itemsPerPage;
-
-        $('.e-commerce-table tbody tr:visible').hide().slice(startIndex, endIndex).show();
-
-        $('#pagination li').removeClass('active');
-        $('#pagination li').eq(currentPage).addClass('active');
-
-        if (currentPage === 1) {
-            $('#pagination li:first-child').addClass('disabled');
-        } else {
-            $('#pagination li:first-child').removeClass('disabled');
-        }
-
-        if (currentPage === Math.ceil($('.e-commerce-table tbody tr:visible').length / itemsPerPage)) {
-            $('#pagination li:last-child').addClass('disabled');
-        } else {
-            $('#pagination li:last-child').removeClass('disabled');
-        }
-    }
-
-    function searchAndFilter() {
-        var searchText = $('#searchInput').val().toLowerCase();
-
-        $('.e-commerce-table tbody tr').each(function () {
-            var rowData = $(this).text().toLowerCase();
-            var nameCondition = rowData.includes(searchText);
-            $(this).toggle(nameCondition);
-        });
-
-        currentPage = 1; 
-        paginate(); 
-    }
-
     $(document).ready(function () {
-        paginate();
-
         $('#searchInput').on('input', function () {
-            searchAndFilter();
+            var searchText = $(this).val().toLowerCase();
+
+            $('.e-commerce-table tbody tr').each(function () {
+                var teacherName = $(this).find('td:eq(1)').text().toLowerCase(); 
+                var isMatch = teacherName.includes(searchText);
+                $(this).toggle(isMatch);
+            });
         });
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        var itemsPerPage = 10;
+        var items = $('.e-commerce-table tbody tr');
+        var numberOfItems = items.length;
+        var numberOfPages = Math.ceil(numberOfItems / itemsPerPage);
+
+        for (var i = 1; i <= numberOfPages; i++) {
+            $('#pagination').append(`<li class="page-item"><a class="page-link" href="#" data-page="${i}">${i}</a></li>`);
+        }
+
+        showPage(1);
+
+        $('#pagination a').on('click', function (e) {
+            e.preventDefault();
+            var page = $(this).data('page');
+            showPage(page);
+        });
+
+        function showPage(pageNumber) {
+            var startIndex = (pageNumber - 1) * itemsPerPage;
+            var endIndex = startIndex + itemsPerPage;
+
+            items.hide();
+            items.slice(startIndex, endIndex).show();
+
+            $('#pagination li').removeClass('active');
+            $('#pagination li:eq(' + (pageNumber - 1) + ')').addClass('active');
+        }
     });
 </script>

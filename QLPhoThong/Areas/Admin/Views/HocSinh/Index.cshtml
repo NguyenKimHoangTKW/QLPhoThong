@@ -45,7 +45,7 @@
                         </div>
                     </div>
                 }
-                <a href="@Url.Action("DownloadFile", "HocSinh")">Tải xuống file</a>
+                <a href="@Url.Action("DownloadFile", "HocSinh")">Tải xuống file Biểu mẫu</a>
 
             </div>
         </div>
@@ -91,11 +91,11 @@
                                     <i class="anticon anticon-edit"></i>
                                 </button>
                                 @Html.Partial("Edit", item)
-                            <a href="@Url.Action("Delete","HocSinh", new {id = item.MaHS})">
-                                <button class="btn btn-icon btn-hover btn-sm btn-rounded">
-                                    <i class="anticon anticon-delete"></i>
-                                </button>
-                            </a>
+                                <a href="@Url.Action("Delete","HocSinh", new {id = item.MaHS})">
+                                    <button class="btn btn-icon btn-hover btn-sm btn-rounded">
+                                        <i class="anticon anticon-delete"></i>
+                                    </button>
+                                </a>
                             </td>
                         </tr>
                     }
@@ -103,11 +103,9 @@
 
                 </tbody>
             </table>
-            <nav aria-label="Page navigation example">
-                <ul class="pagination justify-content-end" id="pagination">
-                    
-                </ul>
-            </nav>
+            <div class="text-center">
+                <ul class="pagination" id="pagination"></ul>
+            </div>
         </div>
 
     </div>
@@ -115,65 +113,37 @@
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
 <script>
-    var itemsPerPage = 36; // Số lượng mục trên mỗi trang
-    var currentPage = 1; // Trang hiện tại
+    $(document).ready(function () {
+        var itemsPerPage = 36;
+        var items = $('.e-commerce-table tbody tr');
+        var numberOfItems = items.length;
+        var numberOfPages = Math.ceil(numberOfItems / itemsPerPage);
 
-    function paginate() {
-        var visibleRows = $('.e-commerce-table tbody tr:visible');
-        var totalItems = visibleRows.length;
-        var totalPages = Math.ceil(totalItems / itemsPerPage);
-
-        $('#pagination').empty();
-
-        // Thêm nút Previous
-        $('#pagination').append('<li class="page-item disabled"><a class="page-link" href="#" tabindex="-1">Previous</a></li>');
-
-        // Thêm các nút trang
-        for (var i = 1; i <= totalPages; i++) {
-            $('#pagination').append('<li class="page-item"><a class="page-link" href="#" data-page="' + i + '">' + i + '</a></li>');
+        for (var i = 1; i <= numberOfPages; i++) {
+            $('#pagination').append(`<li class="page-item"><a class="page-link" href="#" data-page="${i}">${i}</a></li>`);
         }
 
-        // Thêm nút Next
-        $('#pagination').append('<li class="page-item"><a class="page-link" href="#">Next</a></li>');
+        showPage(1);
 
-        $('#pagination li').on('click', function () {
-            var clickedPage = $(this).find('a').data('page');
-
-            if (clickedPage === 'Previous' && currentPage > 1) {
-                currentPage--;
-            } else if (clickedPage === 'Next' && currentPage < totalPages) {
-                currentPage++;
-            } else if (typeof clickedPage === 'number') {
-                currentPage = clickedPage;
-            }
-
-            updatePagination();
+        $('#pagination a').on('click', function (e) {
+            e.preventDefault();
+            var page = $(this).data('page');
+            showPage(page);
         });
 
-        updatePagination();
-    }
+        function showPage(pageNumber) {
+            var startIndex = (pageNumber - 1) * itemsPerPage;
+            var endIndex = startIndex + itemsPerPage;
 
-    function updatePagination() {
-        var startIndex = (currentPage - 1) * itemsPerPage;
-        var endIndex = startIndex + itemsPerPage;
+            items.hide();
+            items.slice(startIndex, endIndex).show();
 
-        $('.e-commerce-table tbody tr:visible').hide().slice(startIndex, endIndex).show();
-
-        $('#pagination li').removeClass('active');
-        $('#pagination li').eq(currentPage).addClass('active');
-
-        if (currentPage === 1) {
-            $('#pagination li:first-child').addClass('disabled');
-        } else {
-            $('#pagination li:first-child').removeClass('disabled');
+            $('#pagination li').removeClass('active');
+            $('#pagination li:eq(' + (pageNumber - 1) + ')').addClass('active');
         }
-
-        if (currentPage === Math.ceil($('.e-commerce-table tbody tr:visible').length / itemsPerPage)) {
-            $('#pagination li:last-child').addClass('disabled');
-        } else {
-            $('#pagination li:last-child').removeClass('disabled');
-        }
-    }
+    });
+</script>
+<script>
 
     function searchAndFilter() {
         var searchText = $('#searchInput').val().toLowerCase();
@@ -191,13 +161,9 @@
             $(this).toggle(isVisible);
         });
 
-        currentPage = 1; // Đặt lại trang về 1 sau khi thay đổi dữ liệu
-
-        paginate(); // Cập nhật phân trang sau khi tìm kiếm và lọc
     }
 
     $(document).ready(function () {
-        paginate(); // Thực hiện phân trang khi trang được tải
 
         $('#searchInput, #classFilter').on('input', function () {
             searchAndFilter();

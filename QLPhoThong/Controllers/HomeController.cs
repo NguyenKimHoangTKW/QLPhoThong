@@ -46,7 +46,7 @@ namespace QLPhoThong.Controllers
             var hocSinh = from hs in db.HOCSINHs
                           from d in db.DIEMs
                           where d.MaHS == hs.MaHS
-                          where hs.SDT == phoneNumber
+                          where hs.SDT == "0" + phoneNumber
                           where d.MaNH == namhoc
                           select d;
             if (string.IsNullOrEmpty(phoneNumber))

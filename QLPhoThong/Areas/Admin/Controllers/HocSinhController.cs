@@ -332,7 +332,7 @@ namespace QLPhoThong.Areas.Admin.Controllers
         }
         public ActionResult DownloadFile()
         {
-            string filePath = Server.MapPath("~/Areas/Admin/FileExcel/BieuMauThemHocSinh.xlsx");
+            string filePath = Server.MapPath("~/Areas/Admin/FileExcel/Biểu mẫu Thêm Học Sinh.xlsx");
             if (System.IO.File.Exists(filePath))
             {
                 byte[] fileBytes = System.IO.File.ReadAllBytes(filePath);
