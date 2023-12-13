@@ -7,13 +7,11 @@
 }
 
 <h2>Index</h2>
+<hr />
+<p>
+    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-warning btn-tone m-r-5" })
+</p>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<p>
-    <a href="/Admin/Lop/Create">Thêm</a>
-</p>
 <table class="table">
     <tr>
         <th>
@@ -42,9 +40,17 @@
                 @item.LopChuyen
             </td>
             <td>
-                <a href="/Admin/Lop/Details?id=@item.MaLop">Xem</a> |
-                <a href="/Admin/Lop/Edit?id=@item.MaLop">Sửa</a> |
-                <a href="/Admin/Lop/Delete?id=@item.MaLop">Xóa</a>
+                @Html.ActionLink("Sửa", "Edit",
+                routeValues: new { id = item.MaLop },
+                htmlAttributes: new { @class = "btn btn-primary btn-tone m-r-5" }) |
+
+                @Html.ActionLink("Xem", "Details",
+                routeValues: new { id = item.MaLop },
+                htmlAttributes: new { @class = "btn btn-info btn-tone m-r-5" }) |
+
+                @Html.ActionLink("Xóa", "Delete",
+                routeValues: new { id = item.MaLop },
+                htmlAttributes: new { @class = "btn btn-danger btn-tone m-r-5" })
             </td>
         </tr>
     }

@@ -11,7 +11,7 @@
                 <div class="card-body">
                     <div class="media align-items-center">
                         <div class="avatar avatar-icon avatar-lg avatar-blue">
-                            <i class="anticon anticon-dollar"></i>
+                            <i class="anticon anticon-user"></i>
                         </div>
                         <div class="m-l-15">
                             <h2 class="m-b-0">@ViewBag.TotalStudent</h2>
@@ -26,7 +26,7 @@
                 <div class="card-body">
                     <div class="media align-items-center">
                         <div class="avatar avatar-icon avatar-lg avatar-cyan">
-                            <i class="anticon anticon-line-chart"></i>
+                            <i class="anticon anticon-team"></i>
                         </div>
                         <div class="m-l-15">
                             <h2 class="m-b-0">@ViewBag.TotalTeacher</h2>
@@ -46,22 +46,7 @@
                         <div class="m-l-15">
                             <h2 class="m-b-0">@ViewBag.TotalClass</h2>
                             <p class="m-b-0 text-muted">Lớp</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6 col-lg-3">
-            <div class="card">
-                <div class="card-body">
-                    <div class="media align-items-center">
-                        <div class="avatar avatar-icon avatar-lg avatar-purple">
-                            <i class="anticon anticon-user"></i>
-                        </div>
-                        <div class="m-l-15">
-                            <h2 class="m-b-0">1,832</h2>
-                            <p class="m-b-0 text-muted">Customers</p>
-                        </div>
+                        </div>  
                     </div>
                 </div>
             </div>
@@ -71,3 +56,16 @@
 
 </div>
 
+<script>
+    @if (TempData["SweetAlertMessage"] != null)
+    {
+        <text>
+        Swal.fire({
+            title: '@TempData["SweetAlertMessage"]',
+            icon: '@TempData["SweetAlertType"]',
+            showConfirmButton: false,
+            timer: 2000
+        });
+        </text>
+    }
+</script>

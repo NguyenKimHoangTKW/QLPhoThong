@@ -34,6 +34,10 @@
     </div>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.MaTitleUser }) |
-    @Html.ActionLink("Back to List", "Index")
+    <button class="btn btn-warning btn-tone m-r-5">
+        @Html.ActionLink("Edit", "Edit", new { id = Model.MaTitleUser })
+    </button>
+    <button class="btn btn-warning btn-tone m-r-5">
+        @Html.ActionLink("Back to List", "Index")
+    </button>
 </p>

@@ -10,7 +10,7 @@
                     {
                         <th scope="col">Chưa xét</th>
                     }
-                 
+
                     else
                     {
                         <th scope="col"><b>@String.Format("{0:N1}", Model.TBMHK)</b></th>
@@ -18,16 +18,28 @@
                 </tr>
                 <tr>
                     <th scope="col">Học lực học kỳ 1</th>
-                    <th scope="col">@Model.HocLuc</th>
+                    @if (Model.HocLuc == null)
+                    {
+                        <th scope="col">Chưa xét</th>
+                    }
+                    else
+                    {
+                        <th scope="col">@Model.HocLuc</th>
+                    }
                 </tr>
                 <tr>
                     <th scope="col">Hạnh kiểm học kỳ 1</th>
-                    <th scope="col">@Model.HanhKiem</th>
+                    @if (Model.HanhKiem == null)
+                    {
+                        <th scope="col">Chưa xét</th>
+                    }
+                    else
+                    {
+                        <th scope="col">@Model.HanhKiem</th>
+                    }
+
                 </tr>
-                <tr>
-                    <th scope="col">Xếp loại học kỳ 1</th>
-                    <th scope="col">@Model.Xeploai</th>
-                </tr>
+
             </thead>
         </table>
     </div>

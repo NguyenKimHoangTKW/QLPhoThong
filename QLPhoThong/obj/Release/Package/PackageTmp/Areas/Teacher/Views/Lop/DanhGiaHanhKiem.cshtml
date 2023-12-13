@@ -50,8 +50,10 @@
                                 <th scope="col">Số buổi nghỉ (CP)</th>
                                 <th scope="col">Số buổi nghỉ (KP)</th>
                                 <th scope="col">Bỏ Tiết</th>
-                                <th scope="col">Nhận xét, đánh giá của GVBM</th>
-                                <th scope="col">Nhận xét hạnh kiểm</th>
+                                <th scope="col">Điểm trung bình môn @Model.FirstOrDefault().HOCKY.TenHky</th>
+                                <th scope="col">Học lực của @Model.FirstOrDefault().HOCKY.TenHky</th>
+                                <th scope="col">Nhận xét, đánh giá của GVBM @Model.FirstOrDefault().HOCKY.TenHky</th>
+                                <th scope="col">Nhận xét hạnh kiểm @Model.FirstOrDefault().HOCKY.TenHky</th>
                             </tr>
                         </thead>
 
@@ -64,13 +66,26 @@
                                     <td>@item.HOCSINH.HoVaTenDem @item.HOCSINH.TenHS</td>
                                     <td>@item.HOCSINH.GioiTinh</td>
                                     @Html.Action("DiemDanhbyDanhGiaHanhKiem", "Lop", new { mahs = item.MaHS, manh = item.MaNH })
-                                <td style="text-align:center">
-                                    <a data-toggle="modal" data-target="@("#XemNhanXet-" + item.MaHS)" data-url="@Url.Action("XemNhanXetGVBMByDanhGiaHanhKiem","Lop", new {mahs = item.MaHS, manh = item.MaNH, hocky = item.MaHK })">
-                                        <i class="fas fa-bars"></i>
-                                    </a>
-                                </td>
+                                    <td style="text-align:center"><b>@String.Format("{0:N1}", item.TBMHK)</b></td>
+                                    <td style="text-align:center"><b>@item.HocLuc</b></td>
+                                    <td style="text-align:center">
+                                        <a data-toggle="modal" data-target="@("#XemNhanXet-" + item.MaHS)" data-url="@Url.Action("XemNhanXetGVBMByDanhGiaHanhKiem","Lop", new {mahs = item.MaHS, manh = item.MaNH, hocky = item.MaHK })">
+                                            <i class="fas fa-bars"></i>
+                                        </a>
+                                    </td>
                                     @Html.Action("XemNhanXetGVBMByDanhGiaHanhKiem", "Lop", new { mahs = item.MaHS, manh = item.MaNH, hocky = item.MaHK })
-                                    @Html.Action("NhanXetHanhKiem", "Lop", new {mahs = item.MaHS, manh = item.MaNH, hocky = item.MaHK})
+                                    @using (Html.BeginForm("NhanXetHanhKiem", "Lop", FormMethod.Post, new { @class = "diemForm", id = "diemForm" + i }))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        <input type="hidden" name="MaHS" value="@item.MaHS" />
+                                        <input type="hidden" name="TBMHK" value="@item.TBMHK" />
+                                        <input type="hidden" name="MaHK" value="@item.MaHK" />
+                                        <input type="hidden" name="MaNH" value="@item.MaNH" />
+                                        <input type="hidden" name="HocLuc" value="@item.HocLuc" />
+                                        <td><input type="text" class="form-control" name="HanhKiem" value="@item.HanhKiem" placeholder="Nhập hạnh kiểm ..."></td>
+                                        <button type="submit" class="btn btn-primary" id="btnLuu" style="display: none;">Lưu</button>
+
+                                    }
                                 </tr>
                             }
                         </tbody>
@@ -102,20 +117,58 @@ else
         </div>
     </div>
 }
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+
 <script>
     $(document).ready(function () {
         $('#hocky').change(function () {
             var selectedValue = $(this).val();
-            var idlop = "@Request.QueryString["idlop"]";
-            var manh = "@Request.QueryString["manh"]"
-            var newUrl = '@Url.Action("DanhGiaHanhKiem", "Lop", new { hocky = "REPLACEME", idlop = "REPLACEME_IDLOP" , manh = "REPLACEME_MANH" })'
-                .replace("REPLACEME", selectedValue)
-                .replace("REPLACEME_IDLOP", idlop)
-                .replace("REPLACEME_MANH", manh)
+            var idlop = $("#myForm input[name='idlop']").val();
+            var manh = $("#myForm input[name='manh']").val();
+
+            var newUrl = '@Url.Action("DanhGiaHanhKiem", "Lop")' +
+                '?hocky=' + encodeURIComponent(selectedValue) +
+                '&idlop=' + encodeURIComponent(idlop) +
+                '&manh=' + encodeURIComponent(manh);
+
             window.location.href = newUrl;
+        });
+
+        $('.diemForm').on('keyup', function (e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                saveData(this);
+            }
+        });
+
+        $('.diemForm').on('click', function (e) {
+            e.stopPropagation(); 
+        });
+
+        $(document).on('click', function (e) {
+            var diemForms = $('.diemForm');
+            diemForms.each(function () {
+                if (!$(this).is(e.target) && !$(this).has(e.target).length) {
+                    saveData(this);
+                }
+            });
         });
     });
 
+    function saveData(form) {
+        $.ajax({
+            url: $(form).attr('action'),
+            type: 'POST',
+            data: $(form).serialize(),
+            success: function (data) {
+                console.log('Dữ liệu đã được lưu thành công');
+            },
+            error: function (error) {
+                console.error('Lỗi khi lưu dữ liệu:', error);
+            }
+        });
+    }
+
+
 </script>
-
-

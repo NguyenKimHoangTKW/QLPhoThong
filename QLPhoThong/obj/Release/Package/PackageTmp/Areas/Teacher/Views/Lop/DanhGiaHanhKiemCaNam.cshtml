@@ -1,0 +1,159 @@
+﻿@model IEnumerable<QLPhoThong.Models.KETQUACANAM>
+@{
+    ViewBag.Title = "DanhGiaHanhKiem";
+    Layout = "~/Areas/Teacher/Views/Shared/_TeacherLayout.cshtml";
+    int i = 0;
+}
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+@{ var user = Session["User"] as QLPhoThong.Models.User;
+}
+@if (Model.Any())
+{
+
+    <div class="card" style="margin-top: 75px;">
+        <div class="card-body">
+            <div style="text-align: center;">
+                <h4>Danh sách học sinh lớp : <b>@Model.FirstOrDefault().HOCSINH.LOP.TenLop</b></h4>
+            </div>
+            <h4>Lớp này có tổng : <b>@ViewBag.TongHocSinh</b> học sinh</h4>
+            <div class="m-t-25">
+
+          
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr style="text-align:center;">
+                                <th scope="col">STT</th>
+                                <th scope="col">Tên học sinh</th>
+                                <th scope="col">Giới tính</th>
+                                <th scope="col">Số buổi nghỉ (CP)</th>
+                                <th scope="col">Số buổi nghỉ (KP)</th>
+                                <th scope="col">Bỏ Tiết</th>
+                                <th scope="col">Điểm trung bình môn cả năm</th>
+                                <th scope="col">Nhận xét, đánh giá của GVBM trong HK1</th>
+                                <th scope="col">Nhận xét, đánh giá của GVBM trong HK2</th>
+                                <th scope="col">Nhận xét hạnh kiểm cả năm</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                i++;
+                                <tr>
+                                    <th scope="row">#@i</th>
+                                    <td>@item.HOCSINH.HoVaTenDem @item.HOCSINH.TenHS</td>
+                                    <td>@item.HOCSINH.GioiTinh</td>
+                                    @Html.Action("DiemDanhbyDanhGiaHanhKiem", "Lop", new { mahs = item.MaHS, manh = item.MaNH })
+                                    <td style="text-align:center"><b>@String.Format("{0:N1}", item.TBMCN)</b></td>
+                                    <td style="text-align:center">
+                                        <a data-toggle="modal" data-target="@("#XemNhanXet1-" + item.MaHS)" data-url="@Url.Action("XemNhanXetGVBMByDanhGiaHanhKiem1","Lop", new {mahs = item.MaHS, manh = item.MaNH})">
+                                            <i class="fas fa-bars"></i>
+                                        </a>
+                                    </td>
+                                    @Html.Action("XemNhanXetGVBMByDanhGiaHanhKiem1", "Lop", new { mahs = item.MaHS, manh = item.MaNH })
+                                    <td style="text-align:center">
+                                        <a data-toggle="modal" data-target="@("#XemNhanXet2-" + item.MaHS)" data-url="@Url.Action("XemNhanXetGVBMByDanhGiaHanhKiem2","Lop", new {mahs = item.MaHS, manh = item.MaNH})">
+                                            <i class="fas fa-bars"></i>
+                                        </a>
+                                    </td>
+                                    @Html.Action("XemNhanXetGVBMByDanhGiaHanhKiem2", "Lop", new { mahs = item.MaHS, manh = item.MaNH })
+                                    @using (Html.BeginForm("NhanXetHanhKiemCaNam", "Lop", FormMethod.Post, new { @class = "diemForm", id = "diemForm" + i }))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        <input type="hidden" name="MaHS" value="@item.MaHS" />
+                                        <input type="hidden" name="TBMCN" value="@item.TBMCN" />
+                                        <input type="hidden" name="MaNH" value="@item.MaNH" />
+                                        <input type="hidden" name="HocLuc" value="@item.HocLuc" />
+                                        <td><input type="text" class="form-control" name="HanhKiem" value="@item.HanhKiem" placeholder="Nhập hạnh kiểm ..."></td>
+                                        <button type="submit" class="btn btn-primary" id="btnLuu" style="display: none;">Lưu</button>
+
+                                    }
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <a href="@Url.Action("Index","Lop", new {id = user.MaGV})">Xem danh sách học sinh</a>
+            </div>
+        </div>
+    </div>
+
+
+}
+else
+{
+    <div class="card" style="margin-top: 75px;">
+        <div class="card-body">
+            <div style="text-align: center;">
+            </div>
+            <div class="m-t-25">
+                <div class="table-responsive">
+                    <table class="table table-hover e-commerce-table">
+                        <div class="alert alert-success" style="text-align:center">
+                            <b>LỚP NÀY HIỆN TẠI CHƯA CÓ HỌC SINH</b>
+                        </div>
+                    </table>
+                </div>
+                <a href="@Url.Action("Index","Lop", new {id = user.MaGV})">Quay lại danh sách học sinh</a>
+            </div>
+        </div>
+    </div>
+}
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+
+<script>
+    $(document).ready(function () {
+        $('#hocky').change(function () {
+            var selectedValue = $(this).val();
+            var idlop = $("#myForm input[name='idlop']").val();
+            var manh = $("#myForm input[name='manh']").val();
+
+            var newUrl = '@Url.Action("DanhGiaHanhKiem", "Lop")' +
+                '?hocky=' + encodeURIComponent(selectedValue) +
+                '&idlop=' + encodeURIComponent(idlop) +
+                '&manh=' + encodeURIComponent(manh);
+
+            window.location.href = newUrl;
+        });
+
+        $('.diemForm').on('keyup', function (e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                saveData(this);
+            }
+        });
+
+        // Chặn sự kiện click ngoài form để lưu dữ liệu
+        $('.diemForm').on('click', function (e) {
+            e.stopPropagation(); // Ngăn chặn sự kiện click lan ra ngoài form
+        });
+
+        $(document).on('click', function (e) {
+            var diemForms = $('.diemForm');
+            diemForms.each(function () {
+                if (!$(this).is(e.target) && !$(this).has(e.target).length) {
+                    saveData(this);
+                }
+            });
+        });
+    });
+
+    function saveData(form) {
+        $.ajax({
+            url: $(form).attr('action'),
+            type: 'POST',
+            data: $(form).serialize(),
+            success: function (data) {
+                console.log('Dữ liệu đã được lưu thành công');
+            },
+            error: function (error) {
+                console.error('Lỗi khi lưu dữ liệu:', error);
+            }
+        });
+    }
+
+
+</script>

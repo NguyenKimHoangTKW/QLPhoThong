@@ -1182,7 +1182,7 @@
     <Content Include="Areas\Teacher\Views\Lop\DanhGiaHanhKiemCaNam.cshtml" />
     <Content Include="Areas\Teacher\Views\Lop\XemNhanXetGVBMByDanhGiaHanhKiem1.cshtml" />
     <Content Include="Areas\Teacher\Views\Lop\XemNhanXetGVBMByDanhGiaHanhKiem2.cshtml" />
-    <Content Include="Areas\Admin\FileExcel\Biểu mẫu Thêm Học Sinh.xlsx" />
+    <Content Include="Areas\Admin\FileExcel\BieuMauThemHocSinh.xlsx" />
     <None Include="Scripts\jquery-3.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.1.js" />
     <Content Include="Scripts\jquery-3.7.1.min.js" />

@@ -332,7 +332,7 @@ namespace QLPhoThong.Areas.Admin.Controllers
         }
         public ActionResult DownloadFile()
         {
-            string filePath = Server.MapPath("~/Areas/Admin/FileExcel/Biểu mẫu Thêm Học Sinh.xlsx");
+            string filePath = Server.MapPath("~/Areas/Admin/FileExcel/BieuMauThemHocSinh.xlsx");
             if (System.IO.File.Exists(filePath))
             {
                 byte[] fileBytes = System.IO.File.ReadAllBytes(filePath);
@@ -519,7 +519,7 @@ namespace QLPhoThong.Areas.Admin.Controllers
                 }
                 db.Entry(hOCSINH).State = EntityState.Modified;
                 db.SaveChanges();
-                TempData["SweetAlertMessage"] = "Chuyển lớp thành công cho học sinh " + hOCSINH.TenHS;
+                TempData["SweetAlertMessage"] = "Chuyển lớp thành công cho học sinh " + hOCSINH.HoVaTenDem + hOCSINH.TenHS;
                 TempData["SweetAlertType"] = "success";
             }
 

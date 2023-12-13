@@ -82,8 +82,6 @@ namespace QLPhoThong.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "IDUser,UserName,PassWord,MaTitleUser,MaGV,NgayTao")] User user, FormCollection f)
         {
-            var password = GetMD5(f["Password"]);
-            var checkpassword = GetMD5(f[""]);
             if (ModelState.IsValid)
             {
                 user.NgayTao = DateTime.Now;

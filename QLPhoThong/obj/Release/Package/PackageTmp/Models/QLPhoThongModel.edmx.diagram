@@ -14,12 +14,6 @@
         <EntityTypeShape EntityType="diemhsModel.HOCKY" Width="1.5" PointX="6" PointY="7.5" />
         <EntityTypeShape EntityType="diemhsModel.NAMHOC" Width="1.5" PointX="6" PointY="19.375" />
         <EntityTypeShape EntityType="diemhsModel.MONHOC" Width="1.5" PointX="0.75" PointY="9.75" />
-        <EntityTypeShape EntityType="diemhsModel.DANHMUCHANHKIEM" Width="1.5" PointX="0.75" PointY="5.875" />
-        <EntityTypeShape EntityType="diemhsModel.HANHKIEM" Width="1.5" PointX="3" PointY="6.625" />
-        <AssociationConnector Association="diemhsModel.FK_HANHKIEM_DANHMUCHANHKIEM" />
-        <EntityTypeShape EntityType="diemhsModel.DANHGIAHANHKIEM" Width="1.5" PointX="11.25" PointY="13.625" />
-        <AssociationConnector Association="diemhsModel.FK_DANHGIAHANHKIEM_HANHKIEM" />
-        <AssociationConnector Association="diemhsModel.FK_DANHGIAHANHKIEM_NAMHOC" />
         <EntityTypeShape EntityType="diemhsModel.LOPCHUNHIEM" Width="1.5" PointX="8.25" PointY="8.375" />
         <AssociationConnector Association="diemhsModel.FK_LOPCHUNHIEM_LOP" />
         <AssociationConnector Association="diemhsModel.FK_LOPCHUNHIEM_NAMHOC" />
@@ -28,13 +22,8 @@
         <AssociationConnector Association="diemhsModel.FK_LOPCHUNHIEM_GIAOVIEN" />
         <AssociationConnector Association="diemhsModel.FK_User_GIAOVIEN" />
         <EntityTypeShape EntityType="diemhsModel.HOCSINH" Width="1.5" PointX="3.75" PointY="9.875" />
-        <AssociationConnector Association="diemhsModel.FK_DANHGIAHANHKIEM_HOCSINH" />
         <AssociationConnector Association="diemhsModel.FK_HOCSINH_DanToc" />
         <AssociationConnector Association="diemhsModel.FK_HOCSINH_LOP" />
-        <EntityTypeShape EntityType="diemhsModel.KETQUAHOCKY" Width="1.5" PointX="8.25" PointY="17" />
-        <AssociationConnector Association="diemhsModel.FK_KETQUAHOCKY_HOCKY" />
-        <AssociationConnector Association="diemhsModel.FK_KETQUAHOCKY_HOCSINH" />
-        <AssociationConnector Association="diemhsModel.FK_KETQUAHOCKY_NAMHOC" />
         <EntityTypeShape EntityType="diemhsModel.DIEMDANH" Width="1.5" PointX="11.25" PointY="17.375" />
         <AssociationConnector Association="diemhsModel.FK_DIEMDANH_HOCSINH" />
         <AssociationConnector Association="diemhsModel.FK_DIEMDANH_NAMHOC" />
@@ -55,6 +44,10 @@
         <AssociationConnector Association="diemhsModel.FK_DIEM_HOCSINH" />
         <AssociationConnector Association="diemhsModel.FK_DIEM_MONHOC" />
         <AssociationConnector Association="diemhsModel.FK_DIEM_NAMHOC" />
+        <EntityTypeShape EntityType="diemhsModel.KETQUAHOCKY" Width="1.5" PointX="8.25" PointY="17.5" />
+        <AssociationConnector Association="diemhsModel.FK_KETQUAHOCKY_HOCKY" />
+        <AssociationConnector Association="diemhsModel.FK_KETQUAHOCKY_HOCSINH" />
+        <AssociationConnector Association="diemhsModel.FK_KETQUAHOCKY_NAMHOC" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

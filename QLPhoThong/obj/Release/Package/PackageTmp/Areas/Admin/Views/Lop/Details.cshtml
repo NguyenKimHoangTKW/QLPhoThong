@@ -8,28 +8,40 @@
 <h2>Details</h2>
 
 <div>
-    <h4>LOP</h4>
+    <h4>XEM CHI TIẾT LỚP</h4>
     <hr />
     <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.TenLop)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TenLop)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.LopChuyen)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.LopChuyen)
-        </dd>
-
+        <div class="card" style=" margin-top: 75px;">
+            <div class="card-body">
+                <h4 class="card-title">XÓA LỚP</h4>
+                <h2 style="color:red">@ViewBag.ThongBao</h2>
+                <div class="table-responsive">
+                    <table class="product-info-table m-t-20">
+                        <tbody>
+                            <tr>
+                                <td>Tên lớp:</td>
+                                <td>
+                                    @Html.DisplayFor(model => model.TenLop)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Lớp chuyên:</td>
+                                <td>
+                                    @Html.DisplayFor(model => model.LopChuyen)
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.MaLop }) |
-    @Html.ActionLink("Back to List", "Index")
+    <button class="btn btn-danger btn-tone m-r-5">
+            @Html.ActionLink("Edit", "Edit", new { id = Model.MaLop })
+            </button>
+    <button class="btn btn-danger btn-tone m-r-5">
+        @Html.ActionLink("Back to List", "Index")
+    </button>
 </p>

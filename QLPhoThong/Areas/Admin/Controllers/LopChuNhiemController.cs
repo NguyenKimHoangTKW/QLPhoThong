@@ -114,7 +114,7 @@ namespace QLPhoThong.Areas.Admin.Controllers
         }
         private string GetNextId()
         {
-            var allIds = db.LOPCHUNHIEMs.Select(h => h.MaGV).ToList();
+            var allIds = db.LOPCHUNHIEMs.Select(h => h.MaLopChuNhiem).ToList();
 
             int nextId = 1;
 
@@ -122,14 +122,14 @@ namespace QLPhoThong.Areas.Admin.Controllers
             {
                 var maxId = allIds.Max();
 
-                if (maxId.StartsWith("CHUNHIEM00"))
+                if (maxId.StartsWith("CN"))
                 {
                     int.TryParse(maxId.Substring(2), out int numericPart);
                     nextId = numericPart + 1;
                 }
             }
 
-            string formattedId = "CHUNHIEM00" + nextId.ToString();
+            string formattedId = "CN" + nextId.ToString();
 
             return formattedId;
         }
