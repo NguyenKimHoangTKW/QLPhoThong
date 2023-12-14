@@ -5,7 +5,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
 <Project>
   <PropertyGroup>
     <_PublishTargetUrl>D:\LTWEB\Final-SoLienLac</_PublishTargetUrl>
-    <History>True|2023-12-13T08:39:48.4498749Z;</History>
+    <History>True|2023-12-13T11:32:13.1095428Z;</History>
     <LastFailureDetails />
   </PropertyGroup>
   <ItemGroup>
@@ -100,13 +100,13 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>12/13/2023 12:28:03</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Lop/Index.cshtml">
-      <publishTime>12/13/2023 12:28:03</publishTime>
+      <publishTime>12/13/2023 16:50:58</publishTime>
     </File>
     <File Include="Areas/Admin/Views/LopChuNhiem/Create.cshtml">
       <publishTime>12/13/2023 12:28:03</publishTime>
     </File>
     <File Include="Areas/Admin/Views/LopChuNhiem/Delete.cshtml">
-      <publishTime>12/13/2023 12:28:03</publishTime>
+      <publishTime>12/13/2023 16:47:17</publishTime>
     </File>
     <File Include="Areas/Admin/Views/LopChuNhiem/Details.cshtml">
       <publishTime>12/13/2023 12:28:03</publishTime>
@@ -2686,10 +2686,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>12/10/2023 16:22:28</publishTime>
     </File>
     <File Include="bin/QLPhoThong.dll">
-      <publishTime>12/13/2023 15:39:46</publishTime>
+      <publishTime>12/13/2023 18:32:10</publishTime>
     </File>
     <File Include="bin/QLPhoThong.pdb">
-      <publishTime>12/13/2023 15:39:46</publishTime>
+      <publishTime>12/13/2023 18:32:10</publishTime>
     </File>
     <File Include="bin/roslyn/csc.exe">
       <publishTime>12/10/2023 16:22:28</publishTime>

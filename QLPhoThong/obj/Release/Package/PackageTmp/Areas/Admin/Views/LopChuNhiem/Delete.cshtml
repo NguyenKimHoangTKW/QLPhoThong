@@ -22,23 +22,16 @@
                         <td>@Html.DisplayFor(model => model.MaLop)</td>
                     </tr>
                     <tr>
-                        <td>Mã giáo viên:</td>
-                        <td>@Html.DisplayFor(model => model.MaGV)</td>
+                        <td>Tên giáo viên:</td>
+                        <td>@Html.DisplayFor(model => model.GIAOVIEN.TenGV)</td>
                     </tr>
                     <tr>
                         <td>Tên giáo viên:</td>
                         <td>@Html.DisplayFor(model => model.GIAOVIEN.TenGV)</td>
                     </tr>
                     <tr>
-                        <td>Mã học kỳ:</td>
-                        <td>@Html.DisplayFor(model => model.MaNH)</td>
-                    </tr>
-                    <!--không đụng-->
-                    <tr>
-                        <td>Status:</td>
-                        <td>
-                            <span class="badge badge-pill badge-cyan">In Stock</span>
-                        </td>
+                        <td>Năm học:</td>
+                        <td>@Html.DisplayFor(model => model.NAMHOC.TenNH)</td>
                     </tr>
                 </tbody>
             </table>
